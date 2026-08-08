@@ -15,6 +15,7 @@ import { Route as CheatsheetRouteImport } from './routes/cheatsheet'
 import { Route as EcosystemRouteImport } from './routes/ecosystem'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as HubRouteImport } from './routes/hub'
+import { Route as DocsRouteImport } from './routes/docs'
 import { Route as KitRouteImport } from './routes/kit'
 import { Route as LabRouteImport } from './routes/lab'
 import { Route as MistakesRouteImport } from './routes/mistakes'
@@ -50,6 +51,11 @@ const GalleryRoute = GalleryRouteImport.update({
 const HubRoute = HubRouteImport.update({
   id: '/hub',
   path: '/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KitRoute = KitRouteImport.update({
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/ecosystem': typeof EcosystemRoute
   '/gallery': typeof GalleryRoute
   '/hub': typeof HubRoute
+  '/docs': typeof DocsRoute
   '/kit': typeof KitRoute
   '/lab': typeof LabRoute
   '/mistakes': typeof MistakesRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/ecosystem': typeof EcosystemRoute
   '/gallery': typeof GalleryRoute
   '/hub': typeof HubRoute
+  '/docs': typeof DocsRoute
   '/kit': typeof KitRoute
   '/lab': typeof LabRoute
   '/mistakes': typeof MistakesRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/ecosystem': typeof EcosystemRoute
   '/gallery': typeof GalleryRoute
   '/hub': typeof HubRoute
+  '/docs': typeof DocsRoute
   '/kit': typeof KitRoute
   '/lab': typeof LabRoute
   '/mistakes': typeof MistakesRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/ecosystem'
     | '/gallery'
     | '/hub'
+    | '/docs'
     | '/kit'
     | '/lab'
     | '/mistakes'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/ecosystem'
     | '/gallery'
     | '/hub'
+    | '/docs'
     | '/kit'
     | '/lab'
     | '/mistakes'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/ecosystem'
     | '/gallery'
     | '/hub'
+    | '/docs'
     | '/kit'
     | '/lab'
     | '/mistakes'
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   EcosystemRoute: typeof EcosystemRoute
   GalleryRoute: typeof GalleryRoute
   HubRoute: typeof HubRoute
+  DocsRoute: typeof DocsRoute
   KitRoute: typeof KitRoute
   LabRoute: typeof LabRoute
   MistakesRoute: typeof MistakesRoute
@@ -228,6 +241,13 @@ declare module '@tanstack/react-router' {
       path: '/hub'
       fullPath: '/hub'
       preLoaderRoute: typeof HubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kit': {
@@ -282,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   EcosystemRoute: EcosystemRoute,
   GalleryRoute: GalleryRoute,
   HubRoute: HubRoute,
+  DocsRoute: DocsRoute,
   KitRoute: KitRoute,
   LabRoute: LabRoute,
   MistakesRoute: MistakesRoute,

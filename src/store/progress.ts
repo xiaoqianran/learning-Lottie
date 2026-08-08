@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { LESSONS } from "@/data/lessons";
 
 export type WrongItem = {
   id: string;
@@ -13,16 +14,20 @@ export type WrongItem = {
 };
 
 type ProgressState = {
+  visited: string[];
   completed: string[];
+  mastered: string[];
   quizScores: Record<string, number>;
   bookmarks: string[];
   notes: Record<string, string>;
   wrongBook: WrongItem[];
-  /** YYYY-MM-DD check-in dates */
   checkIns: string[];
   streak: number;
   studioDone: string[];
+  markVisited: (slug: string) => void;
   markComplete: (slug: string) => void;
+  markMastered: (slug: string) => void;
+  markStudio: (id: string) => void;
   setQuizScore: (slug: string, score: number) => void;
   toggleBookmark: (slug: string) => void;
   setNote: (slug: string, text: string) => void;
@@ -30,31 +35,22 @@ type ProgressState = {
   clearWrong: (id: string) => void;
   clearAllWrong: () => void;
   checkInToday: () => void;
-  markStudio: (id: string) => void;
   reset: () => void;
 };
 
 function todayKey() {
   const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 function computeStreak(checkIns: string[]): number {
-  if (checkIns.length === 0) return 0;
+  if (!checkIns.length) return 0;
   const set = new Set(checkIns);
   let streak = 0;
   const cursor = new Date();
-  if (!set.has(todayKey())) {
-    cursor.setDate(cursor.getDate() - 1);
-  }
+  if (!set.has(todayKey())) cursor.setDate(cursor.getDate() - 1);
   for (;;) {
-    const y = cursor.getFullYear();
-    const m = String(cursor.getMonth() + 1).padStart(2, "0");
-    const day = String(cursor.getDate()).padStart(2, "0");
-    const key = `${y}-${m}-${day}`;
+    const key = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, "0")}-${String(cursor.getDate()).padStart(2, "0")}`;
     if (!set.has(key)) break;
     streak += 1;
     cursor.setDate(cursor.getDate() - 1);
@@ -62,10 +58,16 @@ function computeStreak(checkIns: string[]): number {
   return streak;
 }
 
+function uniqPush(list: string[], slug: string) {
+  return list.includes(slug) ? list : [...list, slug];
+}
+
 export const useProgress = create<ProgressState>()(
   persist(
     (set, get) => ({
+      visited: [],
       completed: [],
+      mastered: [],
       quizScores: {},
       bookmarks: [],
       notes: {},
@@ -73,37 +75,37 @@ export const useProgress = create<ProgressState>()(
       checkIns: [],
       streak: 0,
       studioDone: [],
+      markVisited: (slug) => set((s) => ({ visited: uniqPush(s.visited, slug) })),
       markComplete: (slug) =>
-        set((s) =>
-          s.completed.includes(slug)
-            ? s
-            : { completed: [...s.completed, slug] },
-        ),
-      setQuizScore: (slug, score) =>
         set((s) => ({
-          quizScores: { ...s.quizScores, [slug]: score },
+          visited: uniqPush(s.visited, slug),
+          completed: uniqPush(s.completed, slug),
         })),
+      markMastered: (slug) =>
+        set((s) => ({
+          visited: uniqPush(s.visited, slug),
+          completed: uniqPush(s.completed, slug),
+          mastered: uniqPush(s.mastered, slug),
+        })),
+      markStudio: (id) => set((s) => ({ studioDone: uniqPush(s.studioDone, id) })),
+      setQuizScore: (slug, score) =>
+        set((s) => ({ quizScores: { ...s.quizScores, [slug]: score } })),
       toggleBookmark: (slug) =>
         set((s) => ({
           bookmarks: s.bookmarks.includes(slug)
             ? s.bookmarks.filter((b) => b !== slug)
             : [...s.bookmarks, slug],
         })),
-      setNote: (slug, text) =>
-        set((s) => ({
-          notes: { ...s.notes, [slug]: text },
-        })),
+      setNote: (slug, text) => set((s) => ({ notes: { ...s.notes, [slug]: text } })),
       addWrong: (item) =>
-        set((s) => {
-          const filtered = s.wrongBook.filter((w) => w.id !== item.id);
-          return {
-            wrongBook: [{ ...item, at: Date.now() }, ...filtered].slice(0, 80),
-          };
-        }),
-      clearWrong: (id) =>
         set((s) => ({
-          wrongBook: s.wrongBook.filter((w) => w.id !== id),
+          wrongBook: [
+            { ...item, at: Date.now() },
+            ...s.wrongBook.filter((w) => w.id !== item.id),
+          ].slice(0, 80),
         })),
+      clearWrong: (id) =>
+        set((s) => ({ wrongBook: s.wrongBook.filter((w) => w.id !== id) })),
       clearAllWrong: () => set({ wrongBook: [] }),
       checkInToday: () => {
         const key = todayKey();
@@ -115,15 +117,11 @@ export const useProgress = create<ProgressState>()(
         const next = [...checkIns, key];
         set({ checkIns: next, streak: computeStreak(next) });
       },
-      markStudio: (id) =>
-        set((s) =>
-          s.studioDone.includes(id)
-            ? s
-            : { studioDone: [...s.studioDone, id] },
-        ),
       reset: () =>
         set({
+          visited: [],
           completed: [],
+          mastered: [],
           quizScores: {},
           bookmarks: [],
           notes: {},
@@ -134,12 +132,15 @@ export const useProgress = create<ProgressState>()(
         }),
     }),
     {
-      name: "lottie-learn-progress-v1",
-      version: 1,
+      name: "lottie-learn-progress-v2",
+      version: 2,
       migrate: (persisted) => {
         const p = (persisted ?? {}) as Partial<ProgressState>;
+        const completed = p.completed ?? [];
         return {
-          completed: p.completed ?? [],
+          visited: p.visited ?? completed,
+          completed,
+          mastered: p.mastered ?? [],
           quizScores: p.quizScores ?? {},
           bookmarks: p.bookmarks ?? [],
           notes: p.notes ?? {},
@@ -154,3 +155,11 @@ export const useProgress = create<ProgressState>()(
 );
 
 export { todayKey, computeStreak };
+
+export function isCertificateReady(mastered: string[], completed?: string[]) {
+  if (mastered.length > 0) {
+    return LESSONS.every((l) => mastered.includes(l.slug));
+  }
+  if (completed) return LESSONS.every((l) => completed.includes(l.slug));
+  return false;
+}
