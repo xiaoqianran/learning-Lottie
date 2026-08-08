@@ -1,258 +1,1914 @@
-# Lottie 实战学习 · 完整课程索引
+# learning-Lottie — full curriculum
 
-> 48 课 · 对齐官方六份 llms.txt
-> 站点：https://xiaoqianran.github.io/learning-Lottie/
+生成自本站 48 课。格式与播放器语义以 LottieFiles / LottieDocs 为准。
 
-## 全部课程
+---
 
-### 1. Lottie 是什么 (`intro`)
-- 路径: 基础 · 入门
-- 摘要: 矢量动画 JSON · 跨平台 · 为什么比 GIF/视频更适合 UI。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/intro
+# Lottie 是什么
 
-### 2. JSON 结构速览 (`json-structure`)
-- 路径: 基础 · 入门
-- 摘要: v / fr / ip / op / layers · 读懂一份动画文件。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/json-structure
+- slug: `intro`
+- track: 基础
+- level: 入门
+- minutes: 6
 
-### 3. 播放控制 (`playback`)
-- 路径: 基础 · 入门
-- 摘要: play / pause / stop / goToAndPlay · 掌握基础控制。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/playback
+### 一句话
 
-### 4. 速度与循环 (`speed-loop`)
-- 路径: 基础 · 入门
-- 摘要: setSpeed · loop · 产品节奏。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/speed-loop
-
-### 5. 段落播放 (`segments`)
-- 路径: 基础 · 入门
-- 摘要: playSegments · 同一文件多段 UI 状态。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/segments
-
-### 6. 事件回调 (`events`)
-- 路径: 基础 · 入门
-- 摘要: complete / loopComplete / enterFrame · 串联逻辑。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/events
-
-### 7. 悬停交互 (`hover-interact`)
-- 路径: 交互 · 进阶
-- 摘要: hover 播 · 触屏兜底 · 微反馈。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/hover-interact
-
-### 8. 点击切换 (`click-toggle`)
-- 路径: 交互 · 进阶
-- 摘要: 点赞 / 收藏 · 两态或段落。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/click-toggle
-
-### 9. 进度拖拽 (`scrub`)
-- 路径: 交互 · 进阶
-- 摘要: scrub · goToAndStop · 与滑块同步。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/scrub
-
-### 10. 多状态槽 (`multi-state`)
-- 路径: 交互 · 进阶
-- 摘要: idle / loading / success / error · 产品四态。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/multi-state
-
-### 11. 主题与色板 (`theme`)
-- 路径: 进阶 · 进阶
-- 摘要: 深浅色 · 品牌色 · 与 UI 一致。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/theme
-
-### 12. Markers 命名段 (`markers`)
-- 路径: 进阶 · 进阶
-- 摘要: tm + cm · 告别魔法帧号。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/markers
-
-### 13. 倒放与方向 (`direction`)
-- 路径: 进阶 · 进阶
-- 摘要: setDirection · bounce 模式对照。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/direction
-
-### 14. 串联编排 (`sequence`)
-- 路径: 进阶 · 进阶
-- 摘要: complete 链式 · 多段叙事。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/sequence
-
-### 15. 滚动与可见性 (`scroll-drive`)
-- 路径: 交互 · 进阶
-- 摘要: IntersectionObserver · 离屏 pause。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/scroll-drive
-
-### 16. 渲染器选择 (`renderer`)
-- 路径: 工程 · 实战
-- 摘要: svg vs canvas · 取舍。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/renderer
-
-### 17. 体积与优化 (`optimize`)
-- 路径: 工程 · 实战
-- 摘要: 清图层 · 少位图 · 官方 Optimizer。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/optimize
-
-### 18. 无障碍 (`a11y`)
-- 路径: 工程 · 实战
-- 摘要: reduced-motion · 语义 · 焦点。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/a11y
-
-### 19. 性能工程 (`performance`)
-- 路径: 工程 · 实战
-- 摘要: 离屏 · destroy · Worker · 列表。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/performance
-
-### 20. React 接入 (`react-integration`)
-- 路径: 工程 · 实战
-- 摘要: lottie-react · SSR · 封装。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/react-integration
-
-### 21. 设计协作流 (`workflow`)
-- 路径: 工程 · 实战
-- 摘要: AE → 插件 → 评审 → 接入 → 回归。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/workflow
-
-### 22. 加载 UX (`loading-ux`)
-- 路径: 实战 · 实战
-- 摘要: 骨架 · 超时 · 失败态。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/loading-ux
-
-### 23. 微交互 (`micro-interactions`)
-- 路径: 实战 · 实战
-- 摘要: 按钮 · 点赞 · 轻反馈时长。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/micro-interactions
-
-### 24. 常见坑 (`pitfalls`)
-- 路径: 实战 · 实战
-- 摘要: 字体 · 蒙版 · destroy · CORS · 表达式。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/pitfalls
-
-### 25. 上线清单 (`checklist`)
-- 路径: 实战 · 实战
-- 摘要: 发布前 12 项自检。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/checklist
-
-### 26. 运行时改色 (`recolor-runtime`)
-- 路径: 进阶 · 进阶
-- 摘要: 遍历 fill/stroke · 工程 recolor。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/recolor-runtime
-
-### 27. 组件：点赞开关 (`kit-like`)
-- 路径: 组件 · 实战
-- 摘要: 可复用 LikeToggle。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/kit-like
-
-### 28. 组件：异步四态槽 (`kit-async`)
-- 路径: 组件 · 实战
-- 摘要: AsyncSlot · 请求态映射。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/kit-async
-
-### 29. 面试要点 (`interview-lottie`)
-- 路径: 实战 · 实战
-- 摘要: 原理 · 取舍 · 性能 · 生态。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/interview-lottie
-
-### 30. 图层类型深潜 (`layer-types`)
-- 路径: 进阶 · 进阶
-- 摘要: ty 0–5 · 预合成 / 形状 / 图片 / 文本 · schema。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/layer-types
-
-### 31. JSON vs dotLottie (`lottie-vs-dotlottie`)
-- 路径: 生态 · 入门
-- 摘要: 单文件 JSON 与 .lottie 压缩包 · 何时升级。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/lottie-vs-dotlottie
-
-### 32. dotLottie 导读 (`dotlottie-intro`)
-- 路径: 生态 · 进阶
-- 摘要: 多动画 · 主题 · 状态机 · 生产格式。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-intro
-
-### 33. 官方 Web 播放器 (`dotlottie-player`)
-- 路径: 工程 · 实战
-- 摘要: DotLottie API · 事件 · layout · Worker。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-player
-
-### 34. Layout 与适配 (`layout-fit`)
-- 路径: 工程 · 进阶
-- 摘要: fit · align · backgroundColor · 画布。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/layout-fit
-
-### 35. 多动画清单 (`multi-animation`)
-- 路径: 生态 · 进阶
-- 摘要: manifest.animations · loadAnimation。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/multi-animation
-
-### 36. 官方主题与 slots (`theming-slots`)
-- 路径: 生态 · 进阶
-- 摘要: token 主题 · setTheme · 对比 recolor。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/theming-slots
-
-### 37. 状态机概念 (`state-machines`)
-- 路径: 交互 · 进阶
-- 摘要: states · transitions · inputs · 与手写对照。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/state-machines
-
-### 38. dotLottie-JS 打包 (`dotlottie-js`)
-- 路径: 工程 · 实战
-- 摘要: 程序化创建 .lottie · 主题 · 状态机。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-js
-
-### 39. reLottie 与 LAST (`relottie`)
-- 路径: 工程 · 实战
-- 摘要: AST 管线 · 元数据 · 安全表达式标记。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/relottie
-
-### 40. 表达式与安全 (`expressions-security`)
-- 路径: 工程 · 实战
-- 摘要: expressions · 兼容 · 不可信资源。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/expressions-security
-
-### 41. 跨端玩家地图 (`platform-map`)
-- 路径: 生态 · 实战
-- 摘要: Web / iOS / Android / RN · 选型。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/platform-map
-
-### 42. 框架封装与 CDN (`framework-players`)
-- 路径: 工程 · 实战
-- 摘要: React/Vue/Svelte/WC · 属性对照。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/framework-players
-
-### 43. 特性支持与取舍 (`feature-support`)
-- 路径: 工程 · 实战
-- 摘要: 表达式 · 遮罩 · 字体 · 兼容性检查。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/feature-support
-
-### 44. 官方工具与转换 (`tools-converters`)
-- 路径: 生态 · 入门
-- 摘要: Creator · Editor · Optimizer · 转换器。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/tools-converters
-
-### 45. 集成与插件 (`integrations`)
-- 路径: 生态 · 入门
-- 摘要: Figma · Webflow · Framer · Canva · AE。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/integrations
-
-### 46. MCP 与 AI 代理 (`mcp-ai`)
-- 路径: 生态 · 实战
-- 摘要: LottieFiles MCP · Creator MCP · llms.txt。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/mcp-ai
-
-### 47. 许可与商用 (`licensing`)
-- 路径: 实战 · 实战
-- 摘要: Lottie Simple License · 套餐 · 合规。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/licensing
-
-### 48. 官方生态与 llms.txt (`ecosystem`)
-- 路径: 生态 · 入门
-- 摘要: 六份官方 llms · 本站索引 · 不落后官网。
-- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/ecosystem
+Lottie 是 Airbnb 开源的动画运行时：把 After Effects（经 Bodymovin / LottieFiles for AE）导出的 JSON，在 Web / iOS / Android / Flutter 上以矢量方式播放。
 
 
-## 官方权威
-- https://lottiefiles.com/llms.txt
-- https://developers.lottiefiles.com/llms.txt
-- https://developers.lottiefiles.com/dotlottie-players-web-llms.txt
-- https://developers.lottiefiles.com/dotlottie-players-mobile-llms.txt
-- https://developers.lottiefiles.com/dotlottiejs-llms.txt
-- https://developers.lottiefiles.com/relottie-llms.txt
-- https://lottiefiles.github.io/lottie-docs/
-- https://dotlottie.io/spec/2.0/
-- https://docs.lottiefiles.com/en/platform/mcp
+### 对比
+
+GIF：体积大、不可交互、分辨率差。
+MP4：需要解码器、难做透明与状态控制。
+CSS/SVG 手写：适合简单过渡，复杂时间轴成本高。
+Lottie：设计师出稿，工程师控制 play / pause / 速度 / 段落 / 事件。
+dotLottie（官方首选下一代）：压缩包内可含多动画、主题、状态机。
+
+
+**交互 Demo：** 动手：第一段 Lottie — 这是一段本地 JSON 动画。右侧可暂停 / 重播。（kind: `hello`）
+
+
+### React 最小示例
+
+```tsx
+import Lottie from "lottie-react";
+import pulse from "./pulse.json";
+
+export function Hello() {
+  return <Lottie animationData={pulse} loop autoplay style={{ width: 160 }} />;
+}
+```
+
+
+> **提示：** 官方 FAQ：Lottie 比 GIF 约 10× 更小且可缩放；离线可播。生产优先考虑 .lottie + 官方 players。
+
+
+**测验：**
+- Q: Lottie 动画的载体格式通常是？
+  - [ ] MP4
+  - [✓] JSON
+  - [ ] GIF only
+  - [ ] PNG 序列必须
+  - 解析: Bodymovin 导出 JSON，运行时解析绘制。
+- Q: 相对 GIF，Lottie 的核心优势？
+  - [ ] 只能播放一次
+  - [✓] 可交互控制 + 矢量缩放
+  - [ ] 只能静态
+  - [ ] 必须联网
+  - 解析: 可缩放、可控制进度与事件，体积通常更小。
+
+
+---
+
+# JSON 结构速览
+
+- slug: `json-structure`
+- track: 基础
+- level: 入门
+- minutes: 8
+
+### 顶层字段
+
+v：Bodymovin 版本
+fr：帧率
+ip / op：入点 / 出点（帧）
+w / h：画布宽高
+layers：图层数组（形状、图片、预合成等）
+assets：图片与预合成资源
+markers / slots：命名标记与主题插槽（进阶）
+
+
+**交互 Demo：** 动手：查看关键字段 — 切换动画，观察帧率、时长与图层数。（kind: `inspect-json`）
+
+
+### 读取元数据
+
+```ts
+function meta(data: { fr: number; ip: number; op: number; layers: unknown[] }) {
+  const frames = data.op - data.ip;
+  const seconds = frames / data.fr;
+  return { frames, seconds, layers: data.layers.length };
+}
+```
+
+
+> **提示：** 完整 schema：lottiefiles.github.io/lottie-docs/schema/。LAC Spec 是跨实现兼容的最小化子集。
+
+
+**测验：**
+- Q: op - ip 表示？
+  - [ ] 颜色数
+  - [✓] 总帧数（大致）
+  - [ ] 文件大小
+  - [ ] 图层深度
+  - 解析: 出点减入点 ≈ 动画帧长度。
+- Q: 图层数据主要在？
+  - [✓] layers
+  - [ ] fonts only
+  - [ ] css
+  - [ ] html
+  - 解析: layers 数组描述时间轴与形状。
+
+
+---
+
+# 播放控制
+
+- slug: `playback`
+- track: 基础
+- level: 入门
+- minutes: 8
+
+### 控制面
+
+产品里几乎总是要：加载完自动播、用户点一下再播、成功态播完停在最后一帧。这些都靠实例方法完成。
+
+
+**交互 Demo：** 动手：播放控制台 — 试 play / pause / stop / 跳到开头。（kind: `playback`）
+
+
+### lottie-react ref
+
+```tsx
+const ref = useRef<LottieRefCurrentProps>(null);
+
+<Lottie lottieRef={ref} animationData={data} loop={false} />
+ref.current?.play();
+ref.current?.pause();
+ref.current?.stop();
+ref.current?.goToAndPlay(0, true);
+```
+
+
+**测验：**
+- Q: goToAndPlay 第二参 true 表示？
+  - [ ] 循环
+  - [✓] 按帧定位
+  - [ ] 倒放
+  - [ ] 销毁
+  - 解析: isFrame=true 按帧跳转。
+- Q: 播完停在末帧常见做法？
+  - [ ] loop=true
+  - [✓] loop=false + 不 stop
+  - [ ] 删 JSON
+  - [ ] 必须视频
+  - 解析: 非循环播完停在最后一帧。
+
+
+---
+
+# 速度与循环
+
+- slug: `speed-loop`
+- track: 基础
+- level: 入门
+- minutes: 7
+
+### 节奏
+
+加载圈可稍快（1.2–1.5×）；成功勾可选播一次；微交互别过快导致「闪一下看不清」。
+
+
+**交互 Demo：** 动手：速度 / 循环 — 拖速度、切换循环，体感差异。（kind: `speed-loop`）
+
+
+### API
+
+```ts
+anim.setSpeed(1.5);
+anim.loop = true; // 或 load 时 loop: true
+```
+
+
+**测验：**
+- Q: setSpeed(2) 含义？
+  - [✓] 两倍速
+  - [ ] 两帧
+  - [ ] 循环两次
+  - [ ] 倒放
+  - 解析: 相对默认 1 的倍率。
+- Q: 成功勾动画通常？
+  - [ ] 无限循环
+  - [✓] 播一次
+  - [ ] 必须 10×
+  - [ ] 禁止 pause
+  - 解析: 完成反馈常 loop=false。
+
+
+---
+
+# 段落播放
+
+- slug: `segments`
+- track: 基础
+- level: 入门
+- minutes: 9
+
+### 为何段落
+
+一个 JSON 可含 intro / loop / outro。用 playSegments([in,out], force) 切段，比拆成多个文件更省请求。
+
+
+**交互 Demo：** 动手：切段 — 点不同段落按钮。（kind: `segments`）
+
+
+### 段落
+
+```ts
+// force=true 打断当前播放
+anim.playSegments([0, 30], true);
+anim.playSegments([30, 60], true);
+```
+
+
+> **提示：** 帧号难维护时改用 markers（见 markers 课）。
+
+
+**测验：**
+- Q: playSegments 第二参 force？
+  - [✓] 强制打断当前
+  - [ ] 强制循环
+  - [ ] 强制 canvas
+  - [ ] 无意义
+  - 解析: true 立刻切到新段。
+- Q: 段落帧号从哪来？
+  - [ ] 随便写
+  - [✓] AE 时间轴 / markers
+  - [ ] CSS
+  - [ ] 随机
+  - 解析: 与设计师对齐时间轴。
+
+
+---
+
+# 事件回调
+
+- slug: `events`
+- track: 基础
+- level: 入门
+- minutes: 8
+
+### 关键事件
+
+DOMLoaded / data_ready：可开始控制。
+complete：非循环播完（串联下一步）。
+loopComplete：每圈一次。
+enterFrame：每帧，逻辑必须极轻。
+
+
+**交互 Demo：** 动手：看事件日志 — 观察 complete / loop 等输出。（kind: `events`）
+
+
+### 订阅
+
+```ts
+anim.addEventListener("complete", () => goNext());
+anim.addEventListener("loopComplete", () => count++);
+// 卸载时 removeEventListener
+```
+
+
+**测验：**
+- Q: 串联「播完再请求」用？
+  - [ ] enterFrame 狂轮询
+  - [✓] complete
+  - [ ] setSpeed
+  - [ ] fr 字段
+  - 解析: complete 表示一轮结束。
+- Q: enterFrame 里应避免？
+  - [ ] 轻量读 currentFrame
+  - [✓] 重 DOM 操作
+  - [ ] 什么都不做
+  - [ ] 日志节流
+  - 解析: 每帧重活会掉帧。
+
+
+---
+
+# 悬停交互
+
+- slug: `hover-interact`
+- track: 交互
+- level: 进阶
+- minutes: 8
+
+### 模式
+
+桌面：mouseenter play / mouseleave stop 或反向。
+触屏无 hover：提供 click / focus 等价路径。
+
+
+**交互 Demo：** 动手：悬停播放 — 移入播放，移出复位；点按亦可。（kind: `hover`）
+
+
+**测验：**
+- Q: 触屏设备 hover ？
+  - [ ] 永远可靠
+  - [✓] 需 click/focus 兜底
+  - [ ] 禁止 Lottie
+  - [ ] 只能 GIF
+  - 解析: 无持续 hover 状态。
+- Q: 离开时常见？
+  - [✓] goToAndStop(0)
+  - [ ] 删除节点
+  - [ ] setSpeed(99)
+  - [ ] location.reload
+  - 解析: 复位到起始帧。
+
+
+---
+
+# 点击切换
+
+- slug: `click-toggle`
+- track: 交互
+- level: 进阶
+- minutes: 8
+
+### 两态
+
+liked 用不同段落或不同 JSON；切换时 goToAndPlay 对应段。
+
+
+**交互 Demo：** 动手：点击切换 — 点动画在两态间切换。（kind: `click-toggle`）
+
+
+**测验：**
+- Q: 收藏态建议？
+  - [ ] 无限循环闪烁
+  - [✓] 切到 liked 段并停/微循环
+  - [ ] 必须视频
+  - [ ] 禁止动画
+  - 解析: 状态清晰可辨。
+- Q: 乐观 UI？
+  - [ ] 等服务器才动
+  - [✓] 先切态再请求，失败回滚
+  - [ ] 只能同步阻塞
+  - [ ] 无
+  - 解析: 微交互常见乐观更新。
+
+
+---
+
+# 进度拖拽
+
+- slug: `scrub`
+- track: 交互
+- level: 进阶
+- minutes: 9
+
+### 映射
+
+progress ∈ [0,1] → frame = ip + progress * (op-ip)；用 goToAndStop(frame, true)。
+
+
+**交互 Demo：** 动手：拖进度 — 拖滑块看帧同步。（kind: `progress-scrub`）
+
+
+**测验：**
+- Q: scrub 主 API？
+  - [✓] goToAndStop
+  - [ ] setSpeed only
+  - [ ] destroy
+  - [ ] alert
+  - 解析: 停在指定帧。
+- Q: 拖动中是否持续 play？
+  - [✓] 通常 pause/stop 在帧上
+  - [ ] 必须满速 play
+  - [ ] 必须 Worker
+  - [ ] 禁止
+  - 解析: 用户拖进度时停在帧上。
+
+
+---
+
+# 多状态槽
+
+- slug: `multi-state`
+- track: 交互
+- level: 进阶
+- minutes: 10
+
+### 模式
+
+A. 多 JSON 换源
+B. 单 JSON 多段落
+C. 官方 State Machine（见状态机课）
+空态也要有（empty）。
+
+
+**交互 Demo：** 动手：四态切换 — 模拟请求成功/失败。（kind: `multi-state`）
+
+
+**测验：**
+- Q: loading 态常见？
+  - [✓] loop 加载动画
+  - [ ] 必须 error
+  - [ ] 无动画
+  - [ ] 只静态图永远
+  - 解析: 等待反馈。
+- Q: error 态应？
+  - [ ] 无反馈
+  - [✓] 明确错误动画 + 可重试
+  - [ ] 无限 loading
+  - [ ] 白屏
+  - 解析: 可恢复路径。
+
+
+---
+
+# 主题与色板
+
+- slug: `theme`
+- track: 进阶
+- level: 进阶
+- minutes: 9
+
+### 策略
+
+1）导出两套 JSON
+2）运行时 recolor（本站 recolor 课）
+3）官方 theming/slots（.lottie 内主题）
+选 3 做设计系统；选 2 做简单图标。
+
+
+**交互 Demo：** 动手：切换主题容器 — 背景/色板变化时动画是否仍和谐。（kind: `theme`）
+
+
+**测验：**
+- Q: 设计系统多主题优先？
+  - [ ] 手改十份无关联 JSON
+  - [✓] dotLottie theming
+  - [ ] 只 CSS filter 糊弄
+  - [ ] 放弃动画
+  - 解析: 官方主题链路。
+- Q: 简单单色图标？
+  - [ ] 必须 SM
+  - [✓] 运行时 recolor 可
+  - [ ] 必须 iOS
+  - [ ] 必须 MCP
+  - 解析: 小场景够用。
+
+
+---
+
+# Markers 命名段
+
+- slug: `markers`
+- track: 进阶
+- level: 进阶
+- minutes: 9
+
+### 为什么
+
+playSegments([12,48]) 难维护。AE 导出 markers（tm 帧 + cm 名称），运行时按名定位。
+
+
+**交互 Demo：** 动手：按 marker 跳转 — 点命名标记。（kind: `markers`）
+
+
+### 查找
+
+```ts
+const m = data.markers?.find((x) => x.cm === "loop");
+if (m) anim.goToAndPlay(m.tm, true);
+```
+
+
+**测验：**
+- Q: cm 字段是？
+  - [ ] 颜色
+  - [✓] 标记名称
+  - [ ] 压缩率
+  - [ ] 相机
+  - 解析: comment/name。
+- Q: markers 优势？
+  - [✓] 设计与工程同名
+  - [ ] 更大文件必然
+  - [ ] 禁止循环
+  - [ ] 只 Android
+  - 解析: 协作契约。
+
+
+---
+
+# 倒放与方向
+
+- slug: `direction`
+- track: 进阶
+- level: 进阶
+- minutes: 7
+
+### 方向
+
+lottie-web：setDirection(1|-1)。
+dotLottie：mode 可为 forward / reverse / bounce。
+bounce = 来回播，适合呼吸/弹性微动效。
+
+
+**交互 Demo：** 动手：正放 / 倒放 — 切换方向观察。（kind: `direction`）
+
+
+### dotLottie mode
+
+```ts
+new DotLottie({ canvas, src, mode: "bounce", loop: true });
+// 或 setMode("reverse")
+```
+
+
+**测验：**
+- Q: setDirection(-1)？
+  - [✓] 倒放
+  - [ ] 双倍速
+  - [ ] 销毁
+  - [ ] 改主题
+  - 解析: 反向时间轴。
+- Q: bounce 模式？
+  - [ ] 只播一帧
+  - [✓] 来回播放
+  - [ ] 必须 Worker
+  - [ ] 仅 iOS
+  - 解析: forward+reverse 循环。
+
+
+---
+
+# 串联编排
+
+- slug: `sequence`
+- track: 进阶
+- level: 进阶
+- minutes: 8
+
+### 编排
+
+A 播完 → B → C。用 complete 回调或 async 队列；注意卸载取消。
+
+
+**交互 Demo：** 动手：三段串联 — 看自动进入下一段。（kind: `sequence`）
+
+
+**测验：**
+- Q: 串联关键事件？
+  - [✓] complete
+  - [ ] fr
+  - [ ] w/h
+  - [ ] v
+  - 解析: 非循环结束。
+- Q: 卸载时？
+  - [ ] 继续队列
+  - [✓] 取消监听与队列
+  - [ ] setSpeed(0)
+  - [ ] 无
+  - 解析: 防泄漏与 setState。
+
+
+---
+
+# 滚动与可见性
+
+- slug: `scroll-drive`
+- track: 交互
+- level: 进阶
+- minutes: 9
+
+### 策略
+
+进入视口 play，离开 pause。
+dotLottie 默认 renderConfig.freezeOnOffscreen 可冻结离屏渲染。
+
+
+**交互 Demo：** 动手：滚动驱动 — 滚出视口应暂停。（kind: `scroll-drive`）
+
+
+**测验：**
+- Q: 离屏仍 play 的问题？
+  - [ ] 更省电
+  - [✓] 耗 CPU/电
+  - [ ] 自动主题
+  - [ ] 无
+  - 解析: 浪费资源。
+- Q: Web API？
+  - [✓] IntersectionObserver
+  - [ ] alert
+  - [ ] eval
+  - [ ] document.write
+  - 解析: 可见性检测。
+
+
+---
+
+# 渲染器选择
+
+- slug: `renderer`
+- track: 工程
+- level: 实战
+- minutes: 8
+
+### 取舍
+
+SVG：DOM、易 CSS/无障碍命中、复杂图层可能慢。
+Canvas：像素、粒子多更稳；dotlottie-web 走 canvas 核心。
+先 SVG，重场景再 canvas / Worker。
+
+
+**交互 Demo：** 动手：对比渲染路径 — 本站双运行时对照。（kind: `renderer`）
+
+
+**测验：**
+- Q: UI 图标默认？
+  - [✓] svg 优先
+  - [ ] 必须 WebGL
+  - [ ] 必须 GIF
+  - [ ] 禁止 canvas
+  - 解析: 清晰可交互。
+- Q: dotlottie-web 主渲染？
+  - [✓] canvas 核心
+  - [ ] 仅 table
+  - [ ] 仅 iframe
+  - [ ] 仅 Flash
+  - 解析: 高性能 canvas 管线。
+
+
+---
+
+# 体积与优化
+
+- slug: `optimize`
+- track: 工程
+- level: 实战
+- minutes: 9
+
+### 清单
+
+· 导出前清隐藏图层
+· 慎用位图，优先矢量
+· 表达式 bake
+· 列表勿每项巨型 Lottie
+· 官方 Lottie Optimizer / 转 .lottie 压缩
+· 哈希文件名缓存
+
+
+**交互 Demo：** 动手：体积意识 — 对比「元数据」与优化方向。（kind: `optimize`）
+
+
+> **提示：** 工具：lottiefiles.com/tools/lottie-json-to-optimized-lottie-json · lottie-to-dotlottie。
+
+
+**测验：**
+- Q: 体积杀手常见？
+  - [ ] markers 名
+  - [✓] 大图 assets
+  - [ ] fr=30
+  - [ ] loop 布尔
+  - 解析: 位图撑大。
+- Q: 生产压缩优先？
+  - [ ] 改成 4K PNG 序列
+  - [✓] Optimizer / .lottie
+  - [ ] 嵌 10 份字体
+  - [ ] 开表达式
+  - 解析: 官方工具链。
+
+
+---
+
+# 无障碍
+
+- slug: `a11y`
+- track: 工程
+- level: 实战
+- minutes: 8
+
+### 要点
+
+prefers-reduced-motion：静态帧或静态图。
+装饰动画 aria-hidden；信息性动画要文本等价。
+可点击区域足够大。
+
+
+**交互 Demo：** 动手：减弱动态 — 模拟 reduced-motion。（kind: `reduced-motion`）
+
+
+**测验：**
+- Q: reduced-motion 时？
+  - [ ] 强制 10× 速
+  - [✓] 静态/极简
+  - [ ] 更大位图
+  - [ ] 自动 MCP
+  - 解析: 尊重系统偏好。
+- Q: 纯装饰 Lottie？
+  - [✓] aria-hidden=true
+  - [ ] 必须 live region 每帧
+  - [ ] title=全部 JSON
+  - [ ] 无
+  - 解析: 避免噪音。
+
+
+---
+
+# 性能工程
+
+- slug: `performance`
+- track: 工程
+- level: 实战
+- minutes: 10
+
+### 法则
+
+不可见 pause/destroy。
+列表虚拟化，勿 N 个重动画。
+DotLottieWorker 卸主线程。
+useFrameInterpolation=false 可换性能。
+移动端进后台 pause。
+
+
+**交互 Demo：** 动手：性能开关对照 — 理解 Worker / 插值 / 离屏冻结。（kind: `worker-perf`）
+
+
+### Worker
+
+```ts
+import { DotLottieWorker } from "@lottiefiles/dotlottie-web";
+
+const a = new DotLottieWorker({
+  canvas, src, autoplay: true, workerId: "w1",
+});
+await a.play(); // Worker API 多为 async
+```
+
+
+**测验：**
+- Q: 卸载必须？
+  - [✓] destroy
+  - [ ] 只 display:none
+  - [ ] 忽略
+  - [ ] location.reload
+  - 解析: 释放循环与 canvas。
+- Q: 多动画卡顿优先试？
+  - [✓] DotLottieWorker
+  - [ ] 删掉所有 pause
+  - [ ] eval
+  - [ ] 同步 XHR
+  - 解析: 卸主线程。
+
+
+---
+
+# React 接入
+
+- slug: `react-integration`
+- track: 工程
+- level: 实战
+- minutes: 10
+
+### 路径
+
+经典：lottie-react + lottie-web。
+官方：@lottiefiles/dotlottie-react。
+SSR：客户端挂载；dynamic ssr:false。
+封装：统一 size / reduced-motion / destroy。
+
+
+**交互 Demo：** 动手：框架 / CDN 选型 — React / Vue / Svelte / WC 对照。（kind: `framework-wc`）
+
+
+### 官方 React
+
+```tsx
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
+<DotLottieReact src="/a.lottie" autoplay loop
+  dotLottieRefCallback={(inst) => { ref.current = inst; }}
+/>
+```
+
+
+**测验：**
+- Q: 官方 React 包？
+  - [✓] @lottiefiles/dotlottie-react
+  - [ ] left-pad
+  - [ ] jquery
+  - [ ] 无
+  - 解析: 官方封装。
+- Q: Next SSR？
+  - [ ] 任意 window 顶层 new
+  - [✓] 客户端挂载
+  - [ ] 必须 PHP
+  - [ ] 禁止
+  - 解析: 避免服务端 DOM。
+
+
+---
+
+# 设计协作流
+
+- slug: `workflow`
+- track: 工程
+- level: 实战
+- minutes: 9
+
+### 流水线
+
+1. AE / Creator 出稿
+2. LottieFiles for AE（基于 Bodymovin）或 Creator 导出
+3. Previewer 验状态机/主题
+4. Optimizer / 转 .lottie
+5. 工程接入 + Feature Support
+6. 真机与 reduced-motion 回归
+
+
+**交互 Demo：** 动手：工具链地图 — 点选各阶段官方工具。（kind: `tool-chain`）
+
+
+> **提示：** Bodymovin 是导出技术底层；LottieFiles for AE 是官方插件（预览/分享/分析更完整）。
+
+
+**测验：**
+- Q: AE 官方导出插件？
+  - [✓] LottieFiles for After Effects
+  - [ ] Photoshop only
+  - [ ] Excel
+  - [ ] 无
+  - 解析: 官方 AE 插件。
+- Q: 接入前建议？
+  - [ ] 跳过测试
+  - [✓] Previewer + 特性检查
+  - [ ] 只看文件名
+  - [ ] 随机
+  - 解析: 减少线上翻车。
+
+
+---
+
+# 加载 UX
+
+- slug: `loading-ux`
+- track: 实战
+- level: 实战
+- minutes: 8
+
+### 体验
+
+首屏：小 loading Lottie 或骨架。
+超时：切 error + 重试。
+loadError 事件要接。
+
+
+**交互 Demo：** 动手：加载体验 — 模拟慢网与失败。（kind: `loading-ux`）
+
+
+**测验：**
+- Q: 动画 404 时？
+  - [ ] 白屏无提示
+  - [✓] loadError + 降级 UI
+  - [ ] 死循环请求
+  - [ ] 忽略
+  - 解析: 优雅降级。
+- Q: 首屏大 Lottie？
+  - [ ] 永远内联 5MB
+  - [✓] 懒加载 / 压缩 / 延后
+  - [ ] 禁止 pause
+  - [ ] 必须 60 个
+  - 解析: 性能预算。
+
+
+---
+
+# 微交互
+
+- slug: `micro-interactions`
+- track: 实战
+- level: 实战
+- minutes: 8
+
+### 原则
+
+短（200–600ms 体感）、可打断、不挡主路径、可 reduced-motion 关闭。
+
+
+**交互 Demo：** 动手：微交互 — 快速点按反馈。（kind: `micro`）
+
+
+**测验：**
+- Q: 微交互时长？
+  - [ ] 越长越好
+  - [✓] 短而清晰
+  - [ ] 必须 30s
+  - [ ] 禁止
+  - 解析: 不拖沓。
+- Q: 连点？
+  - [ ] 队列播 20 次
+  - [✓] 可打断/合并
+  - [ ] 崩溃
+  - [ ] 忽略全部
+  - 解析: 防堆积。
+
+
+---
+
+# 常见坑
+
+- slug: `pitfalls`
+- track: 实战
+- level: 实战
+- minutes: 10
+
+### 坑列表
+
+· 字体未嵌入 → 错位/方框
+· 蒙版/效果导出丢失
+· 大图 assets
+· 未 destroy 泄漏
+· CDN 缓存旧 JSON
+· CORS 拦跨域
+· 表达式部分运行时不支持
+· 主线程掉帧
+
+
+**交互 Demo：** 动手：排错清单 — 当作发布门禁。（kind: `challenge`）
+
+
+**测验：**
+- Q: 跨域 JSON 失败先查？
+  - [✓] CORS / 路径
+  - [ ] 改 React 版本
+  - [ ] 关 HTTPS
+  - [ ] 删 markers
+  - 解析: 网络与权限。
+- Q: 组件卸载？
+  - [✓] destroy
+  - [ ] 不管
+  - [ ] double play
+  - [ ] setSpeed(99)
+  - 解析: 防泄漏。
+
+
+---
+
+# 上线清单
+
+- slug: `checklist`
+- track: 实战
+- level: 实战
+- minutes: 8
+
+### 清单
+
+1 体积预算
+2 真机抽检
+3 reduced-motion
+4 失败降级
+5 destroy
+6 离屏 pause
+7 哈希缓存
+8 Feature Support
+9 深色主题
+10 触屏路径
+11 许可合规
+12 无障碍文案
+
+
+**交互 Demo：** 动手：勾选门禁 — 全部过再合并。（kind: `challenge`）
+
+
+**测验：**
+- Q: 上线前许可？
+  - [ ] 可忽略
+  - [✓] 核对 Lottie Simple / 套餐商用
+  - [ ] 必须开源全部
+  - [ ] 无
+  - 解析: 商用合规。
+- Q: 特性矩阵？
+  - [✓] Feature Support Checker
+  - [ ] 抛硬币
+  - [ ] 只看颜色
+  - [ ] 忽略 iOS
+  - 解析: 官方检查器。
+
+
+---
+
+# 运行时改色
+
+- slug: `recolor-runtime`
+- track: 进阶
+- level: 进阶
+- minutes: 10
+
+### 适用
+
+几何图标、单色品牌。深度遍历 layers 改 fc/sc。渐变/复杂插图优先官方 theming。
+
+
+**交互 Demo：** 动手：改色预览 — 换 hex 看实时结果。（kind: `recolor`）
+
+
+**测验：**
+- Q: recolor 改的是？
+  - [✓] 运行时 JSON 颜色
+  - [ ] 服务器 OS
+  - [ ] DNS
+  - [ ] TLS
+  - 解析: 内存中的动画数据。
+- Q: 复杂品牌主题更推荐？
+  - [ ] 只手写 filter
+  - [✓] 官方 slots/theming
+  - [ ] 禁止
+  - [ ] 十份 GIF
+  - 解析: 设计系统级。
+
+
+---
+
+# 组件：点赞开关
+
+- slug: `kit-like`
+- track: 组件
+- level: 实战
+- minutes: 8
+
+### 封装点
+
+状态、动画、无障碍标签、onChange 回调一次封装。
+
+
+**交互 Demo：** 动手：点赞组件 — 来自 /kit。（kind: `kit-like`）
+
+
+**测验：**
+- Q: 组件库价值？
+  - [ ] 重复造轮子
+  - [✓] 统一交互与 a11y
+  - [ ] 更大包必然坏
+  - [ ] 无
+  - 解析: 一致性。
+- Q: 业务回调？
+  - [✓] onChange
+  - [ ] eval
+  - [ ] document.write
+  - [ ] alert only
+  - 解析: 标准受控/非受控扩展。
+
+
+---
+
+# 组件：异步四态槽
+
+- slug: `kit-async`
+- track: 组件
+- level: 实战
+- minutes: 9
+
+### 映射
+
+idle→loading→success|error。超时与重试是产品逻辑，动画只是皮肤。
+
+
+**交互 Demo：** 动手：异步槽 — 模拟请求。（kind: `kit-async`）
+
+
+**测验：**
+- Q: 四态最少包括？
+  - [✓] idle/load/ok/err
+  - [ ] 只有 play
+  - [ ] 只有 pause
+  - [ ] 只有 fr
+  - 解析: 完整异步体验。
+- Q: 超时？
+  - [ ] 永远 loading
+  - [✓] 切 error 可重试
+  - [ ] 崩溃
+  - [ ] 忽略
+  - 解析: 可恢复。
+
+
+---
+
+# 面试要点
+
+- slug: `interview-lottie`
+- track: 实战
+- level: 实战
+- minutes: 10
+
+### 高频
+
+JSON 矢量时间轴 vs GIF/视频；播放控制；段落/markers；a11y；性能 destroy/离屏；dotLottie 主题与状态机；特性支持差异。
+
+
+**交互 Demo：** 动手：自检题 — 能否讲清取舍。（kind: `challenge`）
+
+
+**测验：**
+- Q: Lottie 本质？
+  - [ ] 视频编解码
+  - [✓] 矢量动画 JSON + 运行时
+  - [ ] 仅 CSS
+  - [ ] 仅 GIF
+  - 解析: 描述 + 原生绘制。
+- Q: dotLottie 相对 JSON？
+  - [ ] 不能压缩
+  - [✓] 可打包多动画/主题/SM
+  - [ ] 只能 Android
+  - [ ] 禁止 Web
+  - 解析: 生产格式。
+
+
+---
+
+# 图层类型深潜
+
+- slug: `layer-types`
+- track: 进阶
+- level: 进阶
+- minutes: 12
+
+### ty 枚举
+
+顶层 Animation：v/fr/ip/op/w/h/assets/layers/markers/slots…
+ty：0 预合成 · 1 纯色 · 2 图片 · 3 空 · 4 形状 · 5 文本 · 6 音频 · 13 相机…
+详见 LottieDocs Schema。
+
+
+**交互 Demo：** 动手：读 layers — 切换动画看 ty。（kind: `layer-map`）
+
+
+> **提示：** 人类可读：lottiefiles.github.io/lottie-docs/（贝塞尔、预合成、渲染提示）。
+
+
+**测验：**
+- Q: ty=4 通常是？
+  - [✓] 形状层
+  - [ ] 音频
+  - [ ] 相机
+  - [ ] 字体文件
+  - 解析: shape layer。
+- Q: 预合成 ty？
+  - [✓] 0
+  - [ ] 99
+  - [ ] 7
+  - [ ] -1
+  - 解析: precomp。
+
+
+---
+
+# JSON vs dotLottie
+
+- slug: `lottie-vs-dotlottie`
+- track: 生态
+- level: 入门
+- minutes: 9
+
+### 对照
+
+JSON：明文、易 diff、单动画为主。
+.lottie：ZIP+Deflate，可多动画、主题、状态机、资源内嵌；官方首选生产格式。
+玩家均可播两者。
+
+
+**交互 Demo：** 动手：双运行时 — 同一 JSON 用两条管线。（kind: `dotlottie`）
+
+
+**测验：**
+- Q: .lottie 实质？
+  - [ ] MP4
+  - [✓] 压缩归档
+  - [ ] EXE
+  - [ ] CSV
+  - 解析: ZIP 系归档。
+- Q: 需要主题+SM 时？
+  - [ ] 坚持裸 JSON 复制 N 份
+  - [✓] 升级 .lottie
+  - [ ] 改 GIF
+  - [ ] 关动画
+  - 解析: 生产能力。
+
+
+---
+
+# dotLottie 导读
+
+- slug: `dotlottie-intro`
+- track: 生态
+- level: 进阶
+- minutes: 10
+
+### 核心能力
+
+1）Multi-animations：一个文件多个动画，按需解压。
+2）Theming：slots/主题切换颜色与属性。
+3）State Machines：无代码/低代码交互图。
+规范：dotlottie.io/spec/2.0/（推荐 v2）。
+
+
+**交互 Demo：** 动手：DotLottie canvas — 本站用官方包渲染。（kind: `dotlottie`）
+
+
+> **提示：** 设计侧 Creator 做 SM 与主题；工程侧 setTheme / loadStateMachine / loadAnimation。
+
+
+**测验：**
+- Q: 状态机主要解决？
+  - [ ] 压缩算法
+  - [✓] 交互状态与过渡
+  - [ ] 只改 fr
+  - [ ] 替换 React
+  - 解析: 交互状态图。
+- Q: 主题切换更推荐？
+  - [ ] 复制 10 份 JSON 手改
+  - [✓] dotLottie theming / slots
+  - [ ] 每次重导 GIF
+  - [ ] 忽略深色模式
+  - 解析: 单文件多主题。
+
+
+---
+
+# 官方 Web 播放器
+
+- slug: `dotlottie-player`
+- track: 工程
+- level: 实战
+- minutes: 12
+
+### 安装与核心
+
+npm i @lottiefiles/dotlottie-web
+new DotLottie({ canvas, src|data, loop, autoplay, mode, themeId, layout, renderConfig })
+方法：play/pause/stop/setSpeed/setLoop/setMode/setFrame/setSegment/setTheme/loadAnimation…
+事件：load/play/complete/loop/frame/loadError/stateEntered…
+卸载：destroy()。
+
+
+**交互 Demo：** 动手：官方玩家 — 对比 LottiePlayer 与 DotLottiePlayer。（kind: `dotlottie`）
+
+
+### 最小示例
+
+```ts
+import { DotLottie } from "@lottiefiles/dotlottie-web";
+
+const dotLottie = new DotLottie({
+  canvas: document.querySelector("#c")!,
+  src: "/anim.json", // or .lottie
+  autoplay: true,
+  loop: true,
+  layout: { fit: "contain", align: [0.5, 0.5] },
+});
+dotLottie.addEventListener("loadError", (e) => console.error(e));
+// unmount: dotLottie.destroy()
+```
+
+
+> **提示：** 框架封装自动 destroy；手动实例必须自己清。CDN：jsDelivr ESM 亦可。
+
+
+**测验：**
+- Q: 卸载时必须？
+  - [ ] 忽略
+  - [✓] destroy()
+  - [ ] 只 hide canvas
+  - [ ] location.reload
+  - 解析: 释放 canvas 与循环。
+- Q: play 应在？
+  - [ ] 任意时刻乱调
+  - [✓] load 之后
+  - [ ] 仅 SSR
+  - [ ] 仅 Node
+  - 解析: 资源就绪后。
+
+
+---
+
+# Layout 与适配
+
+- slug: `layout-fit`
+- track: 工程
+- level: 进阶
+- minutes: 9
+
+### layout
+
+fit：contain（默认）| cover | fill | fit-width | fit-height | none
+align：[x,y]，[0,0] 左上，[0.5,0.5] 居中
+backgroundColor：画布底色
+CSS 负责外框尺寸，layout 负责动画如何落入 canvas。
+
+
+**交互 Demo：** 动手：fit 模式对照 — 切换 contain/cover/fill 理解裁切。（kind: `layout-fit`）
+
+
+### 配置
+
+```ts
+new DotLottie({
+  canvas, src,
+  layout: { fit: "cover", align: [0.5, 1] },
+  backgroundColor: "#0b0b0f",
+});
+```
+
+
+**测验：**
+- Q: 完整显示不裁切优先？
+  - [✓] contain
+  - [ ] cover 必裁
+  - [ ] fill 必变形
+  - [ ] none 拉伸随意
+  - 解析: letterbox。
+- Q: align [0.5,0.5]？
+  - [✓] 居中
+  - [ ] 左上
+  - [ ] 右下
+  - [ ] 无效
+  - 解析: 中心对齐。
+
+
+---
+
+# 多动画清单
+
+- slug: `multi-animation`
+- track: 生态
+- level: 进阶
+- minutes: 9
+
+### 能力
+
+一个 .lottie 可含多个动画 id。load 后读 manifest.animations，用 loadAnimation(id) 切换，按需解压省 CPU。
+
+
+**交互 Demo：** 动手：多动画概念台 — 模拟清单切换（教学用本地多 JSON 类比）。（kind: `multi-anim`）
+
+
+### 切换
+
+```ts
+dotLottie.addEventListener("load", () => {
+  const list = dotLottie.manifest?.animations ?? [];
+  if (list[0]) dotLottie.loadAnimation(list[0].id);
+});
+```
+
+
+**测验：**
+- Q: 切换包内动画 API？
+  - [✓] loadAnimation(id)
+  - [ ] alert
+  - [ ] eval
+  - [ ] setTimeout only
+  - 解析: 官方 API。
+- Q: 为何打包多动画？
+  - [ ] 故意更大
+  - [✓] 一次分发/按需解压
+  - [ ] 禁止主题
+  - [ ] 只 GIF
+  - 解析: 交付与性能。
+
+
+---
+
+# 官方主题与 slots
+
+- slug: `theming-slots`
+- track: 生态
+- level: 进阶
+- minutes: 10
+
+### 两条路
+
+A. 工程 recolor：遍历 fill/stroke。
+B. 官方 Theming：设计时 slots/主题，运行时 setTheme('dark') / themeId，支持更多属性，打进 .lottie。
+
+
+**交互 Demo：** 动手：工程改色（本站） — 官方主题需内置 themes 的 .lottie；此处建立直觉。（kind: `recolor`）
+
+
+### 官方 API
+
+```ts
+new DotLottie({ canvas, src: "brand.lottie", themeId: "dark" });
+dotLottie.setTheme("light");
+dotLottie.resetTheme();
+```
+
+
+**测验：**
+- Q: 设计系统多主题优先？
+  - [ ] 每次导出 N 份无关联 JSON
+  - [✓] dotLottie theming / slots
+  - [ ] 只用 CSS filter
+  - [ ] 禁止动画
+  - 解析: 官方主题链路。
+- Q: 简单单色图标？
+  - [ ] 只能 Creator
+  - [✓] 运行时 recolor 也可
+  - [ ] 必须状态机
+  - [ ] 必须 Worker
+  - 解析: 小场景够用。
+
+
+---
+
+# 状态机概念
+
+- slug: `state-machines`
+- track: 交互
+- level: 进阶
+- minutes: 11
+
+### 官方模型
+
+State Machines：状态、迁移、触发（click/hover/数据）。
+玩家：loadStateMachine(id) → startStateMachine() → postEvent(...)。
+事件：stateEntered / transition。
+Creator 可视化编辑，跨端同一逻辑。
+
+
+**交互 Demo：** 动手：概念对照 — 左侧手写 React 状态；右侧官方 SM 职责。（kind: `state-machine`）
+
+
+### 玩家侧
+
+```ts
+dotLottie.addEventListener("load", () => {
+  if (dotLottie.loadStateMachine("my-fsm")) {
+    dotLottie.startStateMachine();
+  }
+});
+dotLottie.postEvent("String: click");
+```
+
+
+> **提示：** 无 .lottie SM 时，React 状态 + playSegments 仍是正确工程实践。
+
+
+**测验：**
+- Q: postEvent 用于？
+  - [ ] 压缩 JSON
+  - [✓] 驱动状态机迁移
+  - [ ] 改 basepath
+  - [ ] 生成 GIF
+  - 解析: 向 SM 投递输入/事件。
+- Q: 无官方 SM 文件时？
+  - [ ] 无法做交互
+  - [✓] 应用层状态机 + 段落/多源仍可
+  - [ ] 必须原生 App
+  - [ ] 只能 hover
+  - 解析: 本站多课即此模式。
+
+
+---
+
+# dotLottie-JS 打包
+
+- slug: `dotlottie-js`
+- track: 工程
+- level: 实战
+- minutes: 12
+
+### 定位
+
+@dotlottie/dotlottie-js：在 Node/浏览器创建与修改 .lottie（v2）。
+addAnimation / addTheme / addStateMachine → build() → toBlob/download。
+CI 可把多 JSON 打成生产包。
+
+
+**交互 Demo：** 动手：打包流水线示意 — 步骤卡：加动画 → 主题 → SM → build。（kind: `dotlottie-js`）
+
+
+### 创建包
+
+```ts
+import { DotLottie } from "@dotlottie/dotlottie-js";
+
+const dl = new DotLottie();
+dl.addAnimation({ id: "main", data: lottieJson, loop: true });
+dl.addTheme({ id: "dark", data: themeDark });
+dl.addStateMachine({ id: "btn", data: smJson });
+await dl.build();
+const blob = await dl.toBlob();
+```
+
+
+> **提示：** fromURL / fromArrayBuffer 可加载既有包；merge 合并多实例（id 冲突会抛错）。V1 类无主题/SM。
+
+
+**测验：**
+- Q: 导出前必须？
+  - [✓] build()
+  - [ ] 只 console.log
+  - [ ] 删 animations
+  - [ ] 关网络
+  - 解析: finalize 归档。
+- Q: 包内加主题？
+  - [✓] addTheme
+  - [ ] setInterval
+  - [ ] alert
+  - [ ] CSS only 永久
+  - 解析: 程序化主题。
+
+
+---
+
+# reLottie 与 LAST
+
+- slug: `relottie`
+- track: 工程
+- level: 实战
+- minutes: 12
+
+### 是什么
+
+reLottie 基于 unified：parse → transform → stringify。
+LAST = Lottie AST（unist）。
+插件：metadata、extract-features、自定义改 fr/颜色。
+Root.hasExpressions 提示表达式安全风险。
+
+
+**交互 Demo：** 动手：管线示意 — parse → plugin → stringify。（kind: `relottie-pipe`）
+
+
+### 元数据
+
+```ts
+import { relottie } from "@lottiefiles/relottie";
+import relottieMetadata from "@lottiefiles/relottie-metadata";
+
+const file = await relottie()
+  .use(relottieMetadata)
+  .process(lottieJsonString);
+console.log(file.data.metadata);
+```
+
+
+> **提示：** CLI：@lottiefiles/relottie-cli。表达式不会被 reLottie 执行，但播放器若执行则危险——用 hasExpressions 门禁。
+
+
+**测验：**
+- Q: LAST 是？
+  - [ ] 视频格式
+  - [✓] Lottie 抽象语法树
+  - [ ] 仅 CSS
+  - [ ] DNS 记录
+  - 解析: AST。
+- Q: hasExpressions 用途？
+  - [ ] 加速 GIF
+  - [✓] 安全/兼容门禁
+  - [ ] 改域名
+  - [ ] 无
+  - 解析: 识别表达式风险。
+
+
+---
+
+# 表达式与安全
+
+- slug: `expressions-security`
+- track: 工程
+- level: 实战
+- minutes: 9
+
+### 风险
+
+AE 表达式导出后，部分运行时不支持或性能差。
+若运行时执行表达式，不可信 Lottie 可能带来安全问题。
+策略：设计侧 bake；CI 用 reLottie 检测；Feature Support 核对。
+
+
+**交互 Demo：** 动手：风险清单 — 发布前勾选。（kind: `expr-security`）
+
+
+**测验：**
+- Q: 不可信动画来源？
+  - [ ] 盲目执行一切
+  - [✓] 检测表达式 + 沙箱/拒绝
+  - [ ] eval 包一层
+  - [ ] 关 HTTPS
+  - 解析: 纵深防御。
+- Q: 兼容优先？
+  - [ ] 全依赖表达式
+  - [✓] bake 关键动画
+  - [ ] 只 iOS 表达式
+  - [ ] 忽略矩阵
+  - 解析: 跨端稳定。
+
+
+---
+
+# 跨端玩家地图
+
+- slug: `platform-map`
+- track: 生态
+- level: 实战
+- minutes: 9
+
+### 官方矩阵
+
+Web: dotlottie-web / react / vue / svelte / wc
+Mobile: dotlottie-ios / android / react-native
+历史：lottie-ios / lottie-android / lottie-web 仍广泛
+Flutter 等见 Developer Portal。
+RN 需 metro 识别 .lottie；iOS 用 SPM；Android JitPack。
+
+
+**交互 Demo：** 动手：选型表 — 按平台点选推荐包名。（kind: `platform-matrix`）
+
+
+**测验：**
+- Q: React Web 官方新玩家？
+  - [✓] @lottiefiles/dotlottie-react
+  - [ ] left-pad
+  - [ ] 只允许 CDN jQuery
+  - [ ] 无
+  - 解析: 官方 React 封装。
+- Q: 特性是否各端一致？
+  - [ ] 永远 100% 一致
+  - [✓] 要用 Feature Support 核对
+  - [ ] 只有 GIF 一致
+  - [ ] iOS 不支持 Lottie
+  - 解析: 表达式/效果等有差异。
+
+
+---
+
+# 框架封装与 CDN
+
+- slug: `framework-players`
+- track: 工程
+- level: 实战
+- minutes: 10
+
+### 共性 props
+
+src / data / autoplay / loop / speed / mode / segment / backgroundColor / themeId / useFrameInterpolation / renderConfig
+React：dotLottieRefCallback
+Vue：getDotLottieInstance()
+Svelte：dotLottieRefCallback
+WC：<dotlottie-player> + el.dotLottie
+
+
+**交互 Demo：** 动手：封装对照 — 选框架看接入片段。（kind: `framework-wc`）
+
+
+### Web Component
+
+```html
+<script type="module"
+  src="https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-web@latest/dist/dotlottie-web.js">
+</script>
+<dotlottie-player src="a.lottie" autoplay loop
+  style="width:200px;height:200px"></dotlottie-player>
+```
+
+
+**测验：**
+- Q: 无框架页面可用？
+  - [✓] dotlottie-wc / CDN
+  - [ ] 必须 React
+  - [ ] 必须 Swift
+  - [ ] 必须 Excel
+  - 解析: Web Component。
+- Q: 封装卸载？
+  - [✓] 框架自动 destroy
+  - [ ] 永不清理
+  - [ ] 必须手动 eval
+  - [ ] 无 API
+  - 解析: 官方封装处理。
+
+
+---
+
+# 特性支持与取舍
+
+- slug: `feature-support`
+- track: 工程
+- level: 实战
+- minutes: 10
+
+### 工程清单
+
+导出前：避免不支持效果；字体嵌入或降级；位图压缩。
+接入前：Feature Support Checker + 真机。
+运行时：reduced-motion、离屏 pause、失败态。
+LAC Spec = 跨实现最小兼容集；完整能力看 LottieDocs schema。
+
+
+**交互 Demo：** 动手：兼容自检 — 当发布门禁。（kind: `challenge`）
+
+
+> **提示：** help.lottiefiles.com · Feature Support Checker。
+
+
+**测验：**
+- Q: 复杂表达式风险？
+  - [ ] 无风险
+  - [✓] 部分运行时不支持或性能差
+  - [ ] 自动变 GIF
+  - [ ] 只影响文件名
+  - 解析: 需核对支持矩阵。
+- Q: 字体问题表现？
+  - [ ] 更清晰
+  - [✓] 错位/方框/回退字体
+  - [ ] 自动加 markers
+  - [ ] 强制 canvas
+  - 解析: 需嵌入或改设计。
+
+
+---
+
+# 官方工具与转换
+
+- slug: `tools-converters`
+- track: 生态
+- level: 入门
+- minutes: 10
+
+### 工具箱
+
+Creator：时间轴 + AI Motion Copilot + 可视化 SM/主题
+Editor：在线改色/优化
+Previewer：状态机与主题预览
+转换：SVG→Lottie · Lottie→dotLottie · Optimizer · Lottie→GIF
+AI：Prompt→Vector、栅格转矢量
+
+
+**交互 Demo：** 动手：工具链导航 — 每个节点对应官网能力。（kind: `tool-chain`）
+
+
+**测验：**
+- Q: JSON 瘦身官方工具？
+  - [✓] Lottie Optimizer
+  - [ ] 删掉 play
+  - [ ] 关 WiFi
+  - [ ] 改扩展名 .mp4
+  - 解析: 官方优化器。
+- Q: 要 .lottie 生产包？
+  - [✓] Lottie to dotLottie 转换 / JS 打包
+  - [ ] 只能手写 ZIP 魔改
+  - [ ] 禁止
+  - [ ] 改 MIME 即可
+  - 解析: 官方转换或 dotlottie-js。
+
+
+---
+
+# 集成与插件
+
+- slug: `integrations`
+- track: 生态
+- level: 入门
+- minutes: 8
+
+### 插件目录
+
+Figma：设计稿内导入导出管理
+Webflow / Framer：站点无代码嵌入
+Canva：平面设计使用
+AE：导出主路径
+完整目录：lottiefiles.com/integrations
+
+
+**交互 Demo：** 动手：集成地图 — 按角色选工具。（kind: `integrations`）
+
+
+**测验：**
+- Q: 设计师在 Figma？
+  - [✓] LottieFiles Figma 插件
+  - [ ] 必须写 C++
+  - [ ] 禁止
+  - [ ] 只用 Excel
+  - 解析: 官方 Figma 插件。
+- Q: 无代码建站？
+  - [✓] Webflow/Framer 插件
+  - [ ] 必须汇编
+  - [ ] 只能邮件
+  - [ ] 无
+  - 解析: 官方集成。
+
+
+---
+
+# MCP 与 AI 代理
+
+- slug: `mcp-ai`
+- track: 生态
+- level: 实战
+- minutes: 10
+
+### 官方 AI 入口
+
+1）站点 llms.txt：给 LLM 的结构化索引（平台 / 开发者 / players / js / relottie）
+2）远程 MCP：https://mcp.lottiefiles.com/mcp · OAuth 2.1+PKCE · 工具 operations_list / schema_search / schema_details / graphql_execute
+3）Creator MCP：本地创作层（图层/关键帧）
+4）本站 llms.txt：课程索引，规范仍以官方为准
+
+
+**交互 Demo：** 动手：MCP 工具卡 — 理解四个远程工具职责。（kind: `mcp-tools`）
+
+
+### 官方 llms 入口
+
+```txt
+https://lottiefiles.com/llms.txt
+https://developers.lottiefiles.com/llms.txt
+https://developers.lottiefiles.com/dotlottie-players-web-llms.txt
+https://developers.lottiefiles.com/dotlottie-players-mobile-llms.txt
+https://developers.lottiefiles.com/dotlottiejs-llms.txt
+https://developers.lottiefiles.com/relottie-llms.txt
+https://docs.lottiefiles.com/en/platform/mcp
+```
+
+
+> **提示：** 爬取动画做竞品库被 ToS / Simple License 禁止。尊重 rate limit。
+
+
+**测验：**
+- Q: 远程 MCP 作用？
+  - [✓] 让 AI 用自然语言查工作区/GraphQL
+  - [ ] 替代 HTTPS
+  - [ ] 压缩视频
+  - [ ] 屏蔽一切爬虫
+  - 解析: 官方 MCP 服务器。
+- Q: llms.txt？
+  - [✓] 给 LLM 的站点索引
+  - [ ] TLS 证书
+  - [ ] 仅人类 PDF
+  - [ ] 病毒
+  - 解析: llmstxt.org 约定。
+
+
+---
+
+# 许可与商用
+
+- slug: `licensing`
+- track: 实战
+- level: 实战
+- minutes: 8
+
+### 要点
+
+Lottie Simple License：免费动画通常可商用、修改、分发，无需署名；不可用于打造竞争动画库/同类服务。
+Marketplace / 套餐：Team/Org/Enterprise 含完整商用授权；Individual 偏个人/非商用——以官网定价页为准。
+上线前记录资源来源与许可。
+
+
+**交互 Demo：** 动手：许可检查卡 — 发布前自问三件事。（kind: `license-card`）
+
+
+**测验：**
+- Q: Simple License 禁止？
+  - [ ] 合理商用 UI
+  - [✓] 做竞争动画库服务
+  - [ ] 修改颜色
+  - [ ] 内部分发
+  - 解析: 竞品库/同类服务受限。
+- Q: 商用套餐以？
+  - [ ] 聊天记录
+  - [✓] 官网 Pricing / 资产许可页
+  - [ ] 猜
+  - [ ] 忽略
+  - 解析: 官方条款为准。
+
+
+---
+
+# 官方生态与 llms.txt
+
+- slug: `ecosystem`
+- track: 生态
+- level: 入门
+- minutes: 10
+
+### 发现官方知识
+
+LottieFiles 平台 llms.txt：产品/格式/状态机/主题/玩家/MCP/集成/许可
+Developer Portal llms.txt：格式 · reLottie · players · dotlottie-js
+拆分 llms：web players / mobile players / dotlottiejs / relottie
+格式：LottieDocs + LAC Spec + JSON Schema + dotLottie v2
+本站：/learning-Lottie/llms.txt
+
+
+**交互 Demo：** 动手：官方索引地图 — 点开各类权威源。（kind: `official-map`）
+
+
+> **提示：** 学习站覆盖「概念 + 可交互 + 工程决策」；规范细节永远链官方 schema/spec。冲突时以官方为准。
+
+
+**测验：**
+- Q: llms.txt 作用？
+  - [ ] 屏蔽爬虫
+  - [✓] 给 LLM 结构化站点索引
+  - [ ] 替代 HTTPS
+  - [ ] 压缩视频
+  - 解析: AI 友好站点地图。
+- Q: 格式细节冲突时？
+  - [ ] 以博客为准
+  - [✓] 以官方 schema/spec 为准
+  - [ ] 以聊天记录为准
+  - [ ] 随机
+  - 解析: 权威源优先。
+

@@ -1,86 +1,97 @@
-# Lottie 实战学习
+# learning-Lottie
 
-> 中文交互式 Lottie / dotLottie 教程站：课程 + 测验 + Playground + 工坊 + 图鉴 + 组件库 + 官方生态地图。
-> 内容对齐 LottieFiles 官方 **六份 llms.txt** 与 LottieDocs / dotLottie Spec，强调「能动手、能落地」。
+> 交互式中文 Lottie / dotLottie 教程：课程 + Demo + 测验 + Playground + 工坊 + 图鉴 + 组件库。
+> 权威以 [developers.lottiefiles.com/llms.txt](https://developers.lottiefiles.com/llms.txt) 与 LottieDocs / dotLottie Spec 为准。
 
-本文件遵循 [llms.txt](https://llmstxt.org/) 约定。完整课文摘要见 [llms-full.txt](./llms-full.txt)。
+完整上下文（全文）：[https://xiaoqianran.github.io/learning-Lottie/llms-full.txt](https://xiaoqianran.github.io/learning-Lottie/llms-full.txt)
 
-## 在线入口
+## 官方权威（务必优先）
 
-- [首页 / 课程大纲](https://xiaoqianran.github.io/learning-Lottie/)
-- [仓库](https://github.com/xiaoqianran/learning-Lottie)
-- [参考：learning-vue3](https://xiaoqianran.github.io/learning-vue3/)
+- [Developer Portal llms.txt](https://developers.lottiefiles.com/llms.txt)
+- [dotLottie Web Players llms](https://developers.lottiefiles.com/dotlottie-players-web-llms.txt)
+- [dotLottie Mobile Players llms](https://developers.lottiefiles.com/dotlottie-players-mobile-llms.txt)
+- [dotLottie-JS llms](https://developers.lottiefiles.com/dotlottiejs-llms.txt)
+- [LottieDocs](https://lottiefiles.github.io/lottie-docs/)
+- [dotLottie Spec v2](https://dotlottie.io/spec/2.0/)
 
-## 学习模块
+## 站点入口
 
-- [Playground](https://xiaoqianran.github.io/learning-Lottie/playground)：预设 / 本地 JSON / URL、速度、方向、段落、renderer、scrub、markers
-- [动画工坊](https://xiaoqianran.github.io/learning-Lottie/studio)：闯关（播放、点赞、四态、scrub、倒放、markers、串联、改色）
-- [模式图鉴](https://xiaoqianran.github.io/learning-Lottie/gallery)：产品用法模式
-- [组件库 Kit](https://xiaoqianran.github.io/learning-Lottie/kit)：可复制 React 组件
-- [官方生态地图](https://xiaoqianran.github.io/learning-Lottie/ecosystem)：六份官方 llms · 规范 · 工具 · MCP · 许可
+- [首页大纲](https://xiaoqianran.github.io/learning-Lottie/)
+- [文档地图](https://xiaoqianran.github.io/learning-Lottie/docs)
+- [Playground](https://xiaoqianran.github.io/learning-Lottie/playground)
+- [动画工坊](https://xiaoqianran.github.io/learning-Lottie/studio)
+- [图鉴](https://xiaoqianran.github.io/learning-Lottie/gallery)
+- [组件库](https://xiaoqianran.github.io/learning-Lottie/kit)
+- [生态地图](https://xiaoqianran.github.io/learning-Lottie/ecosystem)
 - [速查表](https://xiaoqianran.github.io/learning-Lottie/cheatsheet)
-- [学习中心](https://xiaoqianran.github.io/learning-Lottie/hub) · [练习场](https://xiaoqianran.github.io/learning-Lottie/lab) · [错题本](https://xiaoqianran.github.io/learning-Lottie/mistakes) · [结业](https://xiaoqianran.github.io/learning-Lottie/certificate)
+- [学习中心](https://xiaoqianran.github.io/learning-Lottie/hub)
+- [结业证明](https://xiaoqianran.github.io/learning-Lottie/certificate)
 
-## 课程路径（v5 · 48 课）
+## 课程 · 基础
 
-- **基础**：Lottie 是什么、JSON 结构、播放、速度循环、段落、事件
-- **进阶**：主题、markers、倒放、串联、运行时改色、图层类型、Layout、多动画
-- **交互**：hover、点击状态、scrub、多状态、滚动可见性、状态机
-- **工程**：a11y、性能/Worker、React/框架封装、工作流、renderer、优化、dotLottie-JS、reLottie、表达式安全
-- **实战**：加载 UX、微交互、坑、上线清单、许可、面试
-- **组件**：点赞开关、异步四态槽
-- **生态**：官方 llms、dotLottie、主题 slots、跨端、工具转换、集成插件、MCP/AI
+- [Lottie 是什么](https://xiaoqianran.github.io/learning-Lottie/lesson/intro): 矢量动画 JSON · 跨平台 · 为什么比 GIF/视频更适合 UI。（入门 · 6 分钟）
+- [JSON 结构速览](https://xiaoqianran.github.io/learning-Lottie/lesson/json-structure): v / fr / ip / op / layers · 读懂一份动画文件。（入门 · 8 分钟）
+- [播放控制](https://xiaoqianran.github.io/learning-Lottie/lesson/playback): play / pause / stop / goToAndPlay · 掌握基础控制。（入门 · 8 分钟）
+- [速度与循环](https://xiaoqianran.github.io/learning-Lottie/lesson/speed-loop): setSpeed · loop · 产品节奏。（入门 · 7 分钟）
+- [段落播放](https://xiaoqianran.github.io/learning-Lottie/lesson/segments): playSegments · 同一文件多段 UI 状态。（入门 · 9 分钟）
+- [事件回调](https://xiaoqianran.github.io/learning-Lottie/lesson/events): complete / loopComplete / enterFrame · 串联逻辑。（入门 · 8 分钟）
 
-## 关键课程（深链）
+## 课程 · 进阶
 
-- [Lottie 是什么](https://xiaoqianran.github.io/learning-Lottie/lesson/intro)
-- [JSON 结构速览](https://xiaoqianran.github.io/learning-Lottie/lesson/json-structure)
-- [图层类型深潜](https://xiaoqianran.github.io/learning-Lottie/lesson/layer-types)
-- [dotLottie 导读](https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-intro)
-- [官方 Web 播放器](https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-player)
-- [Layout 与适配](https://xiaoqianran.github.io/learning-Lottie/lesson/layout-fit)
-- [多动画清单](https://xiaoqianran.github.io/learning-Lottie/lesson/multi-animation)
-- [状态机概念](https://xiaoqianran.github.io/learning-Lottie/lesson/state-machines)
-- [官方主题与 slots](https://xiaoqianran.github.io/learning-Lottie/lesson/theming-slots)
-- [dotLottie-JS 打包](https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-js)
-- [reLottie 与 LAST](https://xiaoqianran.github.io/learning-Lottie/lesson/relottie)
-- [表达式与安全](https://xiaoqianran.github.io/learning-Lottie/lesson/expressions-security)
-- [MCP 与 AI 代理](https://xiaoqianran.github.io/learning-Lottie/lesson/mcp-ai)
-- [官方工具与转换](https://xiaoqianran.github.io/learning-Lottie/lesson/tools-converters)
-- [集成与插件](https://xiaoqianran.github.io/learning-Lottie/lesson/integrations)
-- [许可与商用](https://xiaoqianran.github.io/learning-Lottie/lesson/licensing)
-- [跨端玩家地图](https://xiaoqianran.github.io/learning-Lottie/lesson/platform-map)
-- [框架封装与 CDN](https://xiaoqianran.github.io/learning-Lottie/lesson/framework-players)
-- [特性支持与取舍](https://xiaoqianran.github.io/learning-Lottie/lesson/feature-support)
-- [官方生态与 llms.txt](https://xiaoqianran.github.io/learning-Lottie/lesson/ecosystem)
+- [主题与色板](https://xiaoqianran.github.io/learning-Lottie/lesson/theme): 深浅色 · 品牌色 · 与 UI 一致。（进阶 · 9 分钟）
+- [Markers 命名段](https://xiaoqianran.github.io/learning-Lottie/lesson/markers): tm + cm · 告别魔法帧号。（进阶 · 9 分钟）
+- [倒放与方向](https://xiaoqianran.github.io/learning-Lottie/lesson/direction): setDirection · bounce 模式对照。（进阶 · 7 分钟）
+- [串联编排](https://xiaoqianran.github.io/learning-Lottie/lesson/sequence): complete 链式 · 多段叙事。（进阶 · 8 分钟）
+- [运行时改色](https://xiaoqianran.github.io/learning-Lottie/lesson/recolor-runtime): 遍历 fill/stroke · 工程 recolor。（进阶 · 10 分钟）
+- [图层类型深潜](https://xiaoqianran.github.io/learning-Lottie/lesson/layer-types): ty 0–5 · 预合成 / 形状 / 图片 / 文本 · schema。（进阶 · 12 分钟）
 
-## 技术栈（本站）
+## 课程 · 交互
 
-- React 19 · TanStack Start · Vite · Tailwind v4 · Zustand
-- 运行时教学：`lottie-web`（SVG）+ `@lottiefiles/dotlottie-web`（官方 canvas）
-- 部署：GitHub Actions → GitHub Pages（`base=/learning-Lottie/`）
+- [悬停交互](https://xiaoqianran.github.io/learning-Lottie/lesson/hover-interact): hover 播 · 触屏兜底 · 微反馈。（进阶 · 8 分钟）
+- [点击切换](https://xiaoqianran.github.io/learning-Lottie/lesson/click-toggle): 点赞 / 收藏 · 两态或段落。（进阶 · 8 分钟）
+- [进度拖拽](https://xiaoqianran.github.io/learning-Lottie/lesson/scrub): scrub · goToAndStop · 与滑块同步。（进阶 · 9 分钟）
+- [多状态槽](https://xiaoqianran.github.io/learning-Lottie/lesson/multi-state): idle / loading / success / error · 产品四态。（进阶 · 10 分钟）
+- [滚动与可见性](https://xiaoqianran.github.io/learning-Lottie/lesson/scroll-drive): IntersectionObserver · 离屏 pause。（进阶 · 9 分钟）
+- [状态机概念](https://xiaoqianran.github.io/learning-Lottie/lesson/state-machines): states · transitions · inputs · 与手写对照。（进阶 · 11 分钟）
 
-## 官方权威来源（请优先引用）
+## 课程 · 工程
 
-### llms.txt 全家桶
-- [LottieFiles 平台](https://lottiefiles.com/llms.txt)
-- [Developer Portal](https://developers.lottiefiles.com/llms.txt)
-- [Web Players](https://developers.lottiefiles.com/dotlottie-players-web-llms.txt)
-- [Mobile Players](https://developers.lottiefiles.com/dotlottie-players-mobile-llms.txt)
-- [dotLottie-JS](https://developers.lottiefiles.com/dotlottiejs-llms.txt)
-- [reLottie](https://developers.lottiefiles.com/relottie-llms.txt)
+- [渲染器选择](https://xiaoqianran.github.io/learning-Lottie/lesson/renderer): svg vs canvas · 取舍。（实战 · 8 分钟）
+- [体积与优化](https://xiaoqianran.github.io/learning-Lottie/lesson/optimize): 清图层 · 少位图 · 官方 Optimizer。（实战 · 9 分钟）
+- [无障碍](https://xiaoqianran.github.io/learning-Lottie/lesson/a11y): reduced-motion · 语义 · 焦点。（实战 · 8 分钟）
+- [性能工程](https://xiaoqianran.github.io/learning-Lottie/lesson/performance): 离屏 · destroy · Worker · 列表。（实战 · 10 分钟）
+- [React 接入](https://xiaoqianran.github.io/learning-Lottie/lesson/react-integration): lottie-react · SSR · 封装。（实战 · 10 分钟）
+- [设计协作流](https://xiaoqianran.github.io/learning-Lottie/lesson/workflow): AE → 插件 → 评审 → 接入 → 回归。（实战 · 9 分钟）
+- [官方 Web 播放器](https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-player): DotLottie API · 事件 · layout · Worker。（实战 · 12 分钟）
+- [Layout 与适配](https://xiaoqianran.github.io/learning-Lottie/lesson/layout-fit): fit · align · backgroundColor · 画布。（进阶 · 9 分钟）
+- [dotLottie-JS 打包](https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-js): 程序化创建 .lottie · 主题 · 状态机。（实战 · 12 分钟）
+- [reLottie 与 LAST](https://xiaoqianran.github.io/learning-Lottie/lesson/relottie): AST 管线 · 元数据 · 安全表达式标记。（实战 · 12 分钟）
+- [表达式与安全](https://xiaoqianran.github.io/learning-Lottie/lesson/expressions-security): expressions · 兼容 · 不可信资源。（实战 · 9 分钟）
+- [框架封装与 CDN](https://xiaoqianran.github.io/learning-Lottie/lesson/framework-players): React/Vue/Svelte/WC · 属性对照。（实战 · 10 分钟）
+- [特性支持与取舍](https://xiaoqianran.github.io/learning-Lottie/lesson/feature-support): 表达式 · 遮罩 · 字体 · 兼容性检查。（实战 · 10 分钟）
 
-### 规范与产品
-- [Lottie Docs](https://lottiefiles.github.io/lottie-docs/) · [JSON Schema](https://lottiefiles.github.io/lottie-docs/schema/)
-- [LAC Spec](https://lottie.github.io/lottie-spec/latest/)
-- [dotLottie v2](https://dotlottie.io/spec/2.0/)
-- [MCP](https://docs.lottiefiles.com/en/platform/mcp) · [mcp.lottiefiles.com/mcp](https://mcp.lottiefiles.com/mcp)
-- [Feature Support](https://help.lottiefiles.com/hc/en-us/articles/15171713588761)
-- [Simple License](https://lottiefiles.com/page/license)
-- [airbnb/lottie-web](https://github.com/airbnb/lottie-web) · [Airbnb Lottie](https://lottie.airbnb.tech/)
+## 课程 · 实战
 
-## 可选
+- [加载 UX](https://xiaoqianran.github.io/learning-Lottie/lesson/loading-ux): 骨架 · 超时 · 失败态。（实战 · 8 分钟）
+- [微交互](https://xiaoqianran.github.io/learning-Lottie/lesson/micro-interactions): 按钮 · 点赞 · 轻反馈时长。（实战 · 8 分钟）
+- [常见坑](https://xiaoqianran.github.io/learning-Lottie/lesson/pitfalls): 字体 · 蒙版 · destroy · CORS · 表达式。（实战 · 10 分钟）
+- [上线清单](https://xiaoqianran.github.io/learning-Lottie/lesson/checklist): 发布前 12 项自检。（实战 · 8 分钟）
+- [面试要点](https://xiaoqianran.github.io/learning-Lottie/lesson/interview-lottie): 原理 · 取舍 · 性能 · 生态。（实战 · 10 分钟）
+- [许可与商用](https://xiaoqianran.github.io/learning-Lottie/lesson/licensing): Lottie Simple License · 套餐 · 合规。（实战 · 8 分钟）
 
-- 完整课文索引与摘要：[llms-full.txt](./llms-full.txt)
-- 本站不是 LottieFiles 官方产品；动画资源仅供教学演示。
-- 爬取动画做竞争库违反 ToS / Simple License；请尊重官方爬取策略。
+## 课程 · 组件
+
+- [组件：点赞开关](https://xiaoqianran.github.io/learning-Lottie/lesson/kit-like): 可复用 LikeToggle。（实战 · 8 分钟）
+- [组件：异步四态槽](https://xiaoqianran.github.io/learning-Lottie/lesson/kit-async): AsyncSlot · 请求态映射。（实战 · 9 分钟）
+
+## 课程 · 生态
+
+- [JSON vs dotLottie](https://xiaoqianran.github.io/learning-Lottie/lesson/lottie-vs-dotlottie): 单文件 JSON 与 .lottie 压缩包 · 何时升级。（入门 · 9 分钟）
+- [dotLottie 导读](https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-intro): 多动画 · 主题 · 状态机 · 生产格式。（进阶 · 10 分钟）
+- [多动画清单](https://xiaoqianran.github.io/learning-Lottie/lesson/multi-animation): manifest.animations · loadAnimation。（进阶 · 9 分钟）
+- [官方主题与 slots](https://xiaoqianran.github.io/learning-Lottie/lesson/theming-slots): token 主题 · setTheme · 对比 recolor。（进阶 · 10 分钟）
+- [跨端玩家地图](https://xiaoqianran.github.io/learning-Lottie/lesson/platform-map): Web / iOS / Android / RN · 选型。（实战 · 9 分钟）
+- [官方工具与转换](https://xiaoqianran.github.io/learning-Lottie/lesson/tools-converters): Creator · Editor · Optimizer · 转换器。（入门 · 10 分钟）
+- [集成与插件](https://xiaoqianran.github.io/learning-Lottie/lesson/integrations): Figma · Webflow · Framer · Canva · AE。（入门 · 8 分钟）
+- [MCP 与 AI 代理](https://xiaoqianran.github.io/learning-Lottie/lesson/mcp-ai): LottieFiles MCP · Creator MCP · llms.txt。（实战 · 10 分钟）
+- [官方生态与 llms.txt](https://xiaoqianran.github.io/learning-Lottie/lesson/ecosystem): 六份官方 llms · 本站索引 · 不落后官网。（入门 · 10 分钟）

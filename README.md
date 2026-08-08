@@ -1,3 +1,12 @@
+# learning-Lottie
+
+交互式中文 **Lottie / dotLottie** 教程（TanStack Start + Vite）。
+
+- 对齐 [developers.lottiefiles.com/llms.txt](https://developers.lottiefiles.com/llms.txt)（官方有完整索引）
+- 本站发布：[`/llms.txt`](https://xiaoqianran.github.io/learning-Lottie/llms.txt) · [`/llms-full.txt`](https://xiaoqianran.github.io/learning-Lottie/llms-full.txt)
+- UI：Catppuccin + 学/查/练/我 导航（与 learning-vue3 同构）
+- 部署：GitHub Actions → GitHub Pages
+
 # Lottie 实战学习
 
 交互式中文 Lottie / **dotLottie** 教程：课程 + 测验 + Playground + 工坊 + 图鉴 + 组件库 + **官方生态地图**。
