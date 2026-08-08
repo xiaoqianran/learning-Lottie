@@ -14,6 +14,7 @@ import { Route as CertificateRouteImport } from './routes/certificate'
 import { Route as CheatsheetRouteImport } from './routes/cheatsheet'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as HubRouteImport } from './routes/hub'
+import { Route as KitRouteImport } from './routes/kit'
 import { Route as LabRouteImport } from './routes/lab'
 import { Route as MistakesRouteImport } from './routes/mistakes'
 import { Route as PlaygroundRouteImport } from './routes/playground'
@@ -43,6 +44,11 @@ const GalleryRoute = GalleryRouteImport.update({
 const HubRoute = HubRouteImport.update({
   id: '/hub',
   path: '/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KitRoute = KitRouteImport.update({
+  id: '/kit',
+  path: '/kit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LabRoute = LabRouteImport.update({
@@ -77,6 +83,7 @@ export interface FileRoutesByFullPath {
   '/cheatsheet': typeof CheatsheetRoute
   '/gallery': typeof GalleryRoute
   '/hub': typeof HubRoute
+  '/kit': typeof KitRoute
   '/lab': typeof LabRoute
   '/mistakes': typeof MistakesRoute
   '/playground': typeof PlaygroundRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/cheatsheet': typeof CheatsheetRoute
   '/gallery': typeof GalleryRoute
   '/hub': typeof HubRoute
+  '/kit': typeof KitRoute
   '/lab': typeof LabRoute
   '/mistakes': typeof MistakesRoute
   '/playground': typeof PlaygroundRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/cheatsheet': typeof CheatsheetRoute
   '/gallery': typeof GalleryRoute
   '/hub': typeof HubRoute
+  '/kit': typeof KitRoute
   '/lab': typeof LabRoute
   '/mistakes': typeof MistakesRoute
   '/playground': typeof PlaygroundRoute
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/cheatsheet'
     | '/gallery'
     | '/hub'
+    | '/kit'
     | '/lab'
     | '/mistakes'
     | '/playground'
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/cheatsheet'
     | '/gallery'
     | '/hub'
+    | '/kit'
     | '/lab'
     | '/mistakes'
     | '/playground'
@@ -140,6 +151,7 @@ export interface FileRouteTypes {
     | '/cheatsheet'
     | '/gallery'
     | '/hub'
+    | '/kit'
     | '/lab'
     | '/mistakes'
     | '/playground'
@@ -153,6 +165,7 @@ export interface RootRouteChildren {
   CheatsheetRoute: typeof CheatsheetRoute
   GalleryRoute: typeof GalleryRoute
   HubRoute: typeof HubRoute
+  KitRoute: typeof KitRoute
   LabRoute: typeof LabRoute
   MistakesRoute: typeof MistakesRoute
   PlaygroundRoute: typeof PlaygroundRoute
@@ -195,6 +208,13 @@ declare module '@tanstack/react-router' {
       path: '/hub'
       fullPath: '/hub'
       preLoaderRoute: typeof HubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kit': {
+      id: '/kit'
+      path: '/kit'
+      fullPath: '/kit'
+      preLoaderRoute: typeof KitRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lab': {
@@ -241,6 +261,7 @@ const rootRouteChildren: RootRouteChildren = {
   CheatsheetRoute: CheatsheetRoute,
   GalleryRoute: GalleryRoute,
   HubRoute: HubRoute,
+  KitRoute: KitRoute,
   LabRoute: LabRoute,
   MistakesRoute: MistakesRoute,
   PlaygroundRoute: PlaygroundRoute,

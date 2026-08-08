@@ -158,6 +158,10 @@ const lessonSlugs = [
   "micro-interactions",
   "pitfalls",
   "checklist",
+  "recolor-runtime",
+  "kit-like",
+  "kit-async",
+  "interview-lottie",
 ];
 
 const lessonPaths = lessonSlugs.map((slug) => ({ path: `/lesson/${slug}` }));
@@ -172,8 +176,10 @@ const staticPages = [
   { path: "/studio" },
   { path: "/cheatsheet" },
   { path: "/gallery" },
+  { path: "/kit" },
   ...lessonPaths,
 ];
+
 
 
 // `0.0.0.0:8080` is the live-preview contract — don't change host/port.

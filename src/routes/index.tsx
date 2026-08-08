@@ -14,7 +14,9 @@ import {
   LayoutDashboard,
   Clapperboard,
   Images,
+  Boxes,
 } from "lucide-react";
+
 
 import { cn } from "@/lib/utils";
 import { useMemo, useState } from "react";
@@ -23,7 +25,8 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-type TrackFilter = "全部" | "基础" | "进阶" | "交互" | "工程" | "实战";
+type TrackFilter = "全部" | "基础" | "进阶" | "交互" | "工程" | "实战" | "组件";
+
 
 function HomePage() {
   const completed = useProgress((s) => s.completed);
@@ -66,7 +69,8 @@ function HomePage() {
           <div className="flex flex-wrap items-center gap-2">
             <p className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg/60 px-2.5 py-1 text-xs font-medium text-primary">
               <Sparkles className="h-3.5 w-3.5" />
-              v2 · markers / 图鉴 / Playground
+              v3 · 代码即组件 / Kit
+
 
 
             </p>
@@ -80,7 +84,8 @@ function HomePage() {
             带你系统学 Lottie
           </h1>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-muted">
-            中文交互式教程 v2：markers、倒放、串联、renderer、模式图鉴，以及增强版 Playground 与七项工坊闯关。
+            中文交互式教程 v3：每个 Demo 可对照源码；运行时改色；点赞 / 四态 / 改色等可复用组件库。
+
 
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -110,6 +115,12 @@ function HomePage() {
               <Button size="lg" variant="secondary">
                 <Images className="h-4 w-4" />
                 模式图鉴
+              </Button>
+            </Link>
+            <Link to="/kit" className="no-underline">
+              <Button size="lg" variant="secondary">
+                <Boxes className="h-4 w-4" />
+                组件库
               </Button>
             </Link>
             <Link to="/lab" className="no-underline">
@@ -185,8 +196,9 @@ function HomePage() {
           </div>
           <div className="flex flex-wrap gap-2">
             {(
-              ["全部", "基础", "进阶", "交互", "工程", "实战"] as const
+              ["全部", "基础", "进阶", "交互", "工程", "实战", "组件"] as const
             ).map((t) => (
+
               <button
                 key={t}
                 type="button"

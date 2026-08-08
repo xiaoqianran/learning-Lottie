@@ -15,7 +15,10 @@ import {
   ArrowLeftRight,
   Flag,
   Layers,
+  Palette,
 } from "lucide-react";
+import { LottieRecolorPreview } from "@/components/kit/LottieRecolorPreview";
+
 
 export const Route = createFileRoute("/studio")({
   component: StudioPage,
@@ -57,7 +60,13 @@ const QUESTS = [
     title: "跑完串联三步",
     desc: "load → ok → party 走通。",
   },
+  {
+    id: "q-recolor",
+    title: "完成一次运行时改色",
+    desc: "切换主题色至少一次。",
+  },
 ] as const;
+
 
 function StudioPage() {
   const studioDone = useProgress((s) => s.studioDone);
@@ -76,7 +85,8 @@ function StudioPage() {
           动画工坊
         </h1>
         <p className="mt-1 text-sm text-muted">
-          七项闯关：控制、微交互、状态机、scrub、倒放、markers、串联
+          八项闯关：控制、微交互、状态机、scrub、倒放、markers、串联、改色
+
         </p>
         <div className="mt-4 flex items-center gap-3">
           <div className="h-2 min-w-[8rem] flex-1 overflow-hidden rounded-full bg-surface-3 sm:max-w-xs">
@@ -172,6 +182,13 @@ function StudioPage() {
           done={studioDone.includes("q-sequence")}
           onDone={() => {
             markStudio("q-sequence");
+            checkInToday();
+          }}
+        />
+        <RecolorQuest
+          done={studioDone.includes("q-recolor")}
+          onDone={() => {
+            markStudio("q-recolor");
             checkInToday();
           }}
         />
@@ -538,6 +555,24 @@ function SequenceQuest({
       </div>
       <p className="mt-2 text-xs text-muted">
         {done ? "串联完成" : "跑完 load → ok → party"}
+      </p>
+    </Panel>
+  );
+}
+
+function RecolorQuest({ done, onDone }: { done: boolean; onDone: () => void }) {
+  return (
+    <Panel
+      title="8. 运行时改色"
+      icon={<Palette className="h-4 w-4 text-primary" />}
+    >
+      <LottieRecolorPreview
+        onHexChange={() => {
+          if (!done) onDone();
+        }}
+      />
+      <p className="mt-2 text-xs text-muted">
+        {done ? "已体验改色" : "点击色板切换一次即可完成"}
       </p>
     </Panel>
   );

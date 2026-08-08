@@ -4,6 +4,11 @@ import type { DemoKind } from "@/data/lessons";
 import { ANIMATIONS, PLAYGROUND_PRESETS, type AnimationKey } from "@/data/animations";
 import { LottiePlayer } from "@/components/LottiePlayer";
 import { Button } from "@/components/ui/button";
+import { CodeBlock } from "@/components/CodeBlock";
+import { getDemoSource } from "@/data/demo-sources";
+import { LottieLikeToggle } from "@/components/kit/LottieLikeToggle";
+import { LottieAsyncSlot } from "@/components/kit/LottieAsyncSlot";
+import { LottieRecolorPreview } from "@/components/kit/LottieRecolorPreview";
 import { cn } from "@/lib/utils";
 import {
   Pause,
@@ -14,6 +19,9 @@ import {
   Loader2,
   CheckCircle2,
   XCircle,
+  Code2,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 export function InteractiveDemo({
@@ -25,24 +33,67 @@ export function InteractiveDemo({
   title: string;
   hint?: string;
 }) {
+  const [showSource, setShowSource] = useState(true);
+  const source = getDemoSource(kind);
+
   return (
     <section className="overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
       <div className="flex flex-wrap items-start justify-between gap-2 border-b border-border px-4 py-3">
         <div>
           <p className="text-xs font-medium uppercase tracking-wider text-primary">
-            交互 Demo
+            交互 Demo · 代码即组件
           </p>
           <h3 className="mt-0.5 font-display text-base font-semibold text-fg">
             {title}
           </h3>
         </div>
-        <span className="rounded-full bg-primary-soft px-2.5 py-1 font-mono text-[10px] text-primary">
-          live
-        </span>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setShowSource((v) => !v)}
+            className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-2 px-2.5 py-1 text-[11px] text-muted transition-colors hover:text-fg"
+          >
+            <Code2 className="h-3.5 w-3.5" />
+            对应源码
+            {showSource ? (
+              <ChevronUp className="h-3.5 w-3.5" />
+            ) : (
+              <ChevronDown className="h-3.5 w-3.5" />
+            )}
+          </button>
+          <span className="rounded-full bg-primary-soft px-2.5 py-1 font-mono text-[10px] text-primary">
+            live
+          </span>
+        </div>
       </div>
       <div className="p-4 sm:p-5">
         {hint ? <p className="mb-4 text-sm text-muted">{hint}</p> : null}
+        <div className="mb-2 flex items-center gap-2">
+          <span className="rounded-sm bg-primary-soft px-1.5 py-0.5 font-mono text-[10px] text-primary">
+            A · 运行结果
+          </span>
+          <span className="text-xs text-muted">
+            下方源码等价实现后的可交互界面
+          </span>
+        </div>
         <DemoBody kind={kind} />
+        {showSource ? (
+          <div className="mt-5 border-t border-border pt-4">
+            <div className="mb-2 flex items-center gap-2">
+              <span className="rounded-sm bg-surface-3 px-1.5 py-0.5 font-mono text-[10px] text-muted">
+                B · 对应源码
+              </span>
+              <span className="text-xs text-muted">
+                与上方 Demo 同一套逻辑 — 读 B，操作 A
+              </span>
+            </div>
+            <CodeBlock
+              code={source.code}
+              title={source.title}
+              lang={source.lang}
+            />
+          </div>
+        ) : null}
       </div>
     </section>
   );
@@ -92,11 +143,16 @@ function DemoBody({ kind }: { kind: DemoKind }) {
       return <RendererDemo />;
     case "optimize":
       return <OptimizeDemo />;
+    case "recolor":
+      return <LottieRecolorPreview />;
+    case "kit-like":
+      return <LottieLikeToggle />;
+    case "kit-async":
+      return <LottieAsyncSlot />;
     default:
       return null;
   }
 }
-
 
 function Stage({
   children,
@@ -264,40 +320,30 @@ function SegmentsDemo() {
           size="sm"
           onClick={() => {
             ref.current?.playSegments([0, 30], true);
-            setInfo("段落 [0, 30]");
+            setInfo("segments [0, 30]");
           }}
         >
-          前段 0–30
+          0–30
         </Button>
         <Button
           size="sm"
           variant="secondary"
           onClick={() => {
             ref.current?.playSegments([30, 60], true);
-            setInfo("段落 [30, 60]");
+            setInfo("segments [30, 60]");
           }}
         >
-          中段 30–60
+          30–60
         </Button>
         <Button
           size="sm"
           variant="secondary"
           onClick={() => {
             ref.current?.playSegments([60, 90], true);
-            setInfo("段落 [60, 90]");
+            setInfo("segments [60, 90]");
           }}
         >
-          后段 60–90
-        </Button>
-        <Button
-          size="sm"
-          variant="ghost"
-          onClick={() => {
-            ref.current?.goToAndStop(0, true);
-            setInfo("复位");
-          }}
-        >
-          复位
+          60–90
         </Button>
       </div>
     </div>
@@ -305,39 +351,27 @@ function SegmentsDemo() {
 }
 
 function EventsDemo() {
-  const [logs, setLogs] = useState<string[]>([]);
-  const push = (m: string) =>
-    setLogs((prev) => [`${new Date().toLocaleTimeString()} ${m}`, ...prev].slice(0, 8));
-
+  const [log, setLog] = useState<string[]>([]);
+  function push(msg: string) {
+    setLog((L) => [msg, ...L].slice(0, 6));
+  }
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div>
       <Stage>
         <LottiePlayer
           src={ANIMATIONS.success}
           loop={false}
           onComplete={() => push("complete")}
           onLoopComplete={() => push("loopComplete")}
-          style={{ width: 200, height: 140 }}
+          style={{ width: 180, height: 140 }}
         />
       </Stage>
-      <div className="rounded-lg border border-border bg-code-bg p-3">
-        <p className="text-xs font-medium text-muted">事件日志</p>
-        <ul className="mt-2 space-y-1 font-mono text-[11px] text-code-fg">
-          {logs.length === 0 ? (
-            <li className="text-subtle">等待事件…（非循环播完会 complete）</li>
-          ) : (
-            logs.map((l, i) => <li key={i}>{l}</li>)
-          )}
-        </ul>
-        <Button
-          size="sm"
-          className="mt-3"
-          variant="secondary"
-          onClick={() => setLogs([])}
-        >
-          清空
-        </Button>
-      </div>
+      <ul className="mt-3 space-y-1 font-mono text-xs text-muted">
+        {log.length === 0 ? <li>等待事件…</li> : null}
+        {log.map((l, i) => (
+          <li key={i}>→ {l}</li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -347,77 +381,53 @@ function HoverDemo() {
   return (
     <Stage>
       <div
-        className="flex cursor-pointer flex-col items-center gap-2 rounded-lg p-4 transition-colors hover:bg-surface-3"
-        onMouseEnter={() => ref.current?.play()}
-        onMouseLeave={() => {
-          ref.current?.pause();
-          ref.current?.goToAndStop(0, true);
-        }}
-        onClick={() => {
-          ref.current?.stop();
-          ref.current?.play();
-        }}
-        role="button"
+        className="rounded-lg p-2 outline-none focus-visible:ring-2 focus-visible:ring-primary"
         tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            ref.current?.play();
-          }
-        }}
-      >
-        <LottiePlayer
-          src={ANIMATIONS.heart}
-          lottieRef={ref}
-          loop
-          autoplay={false}
-          style={{ width: 140, height: 140 }}
-        />
-        <span className="text-xs text-muted">悬停或点击</span>
-      </div>
-    </Stage>
-  );
-}
-
-function ClickToggleDemo() {
-  const ref = useRef<LottieRefCurrentProps>(null);
-  const [liked, setLiked] = useState(false);
-
-  useEffect(() => {
-    if (liked) {
-      ref.current?.goToAndPlay(0, true);
-    } else {
-      ref.current?.goToAndStop(0, true);
-    }
-  }, [liked]);
-
-  return (
-    <div className="flex flex-col items-center gap-4">
-      <button
-        type="button"
-        onClick={() => setLiked((v) => !v)}
-        className={cn(
-          "flex h-28 w-28 items-center justify-center rounded-xl border transition-colors",
-          liked
-            ? "border-primary/40 bg-primary-soft"
-            : "border-border bg-surface-2",
-        )}
-        aria-pressed={liked}
+        onMouseEnter={() => ref.current?.play()}
+        onMouseLeave={() => ref.current?.goToAndStop(0, true)}
+        onFocus={() => ref.current?.play()}
+        onBlur={() => ref.current?.goToAndStop(0, true)}
       >
         <LottiePlayer
           src={ANIMATIONS.heart}
           lottieRef={ref}
           loop={false}
           autoplay={false}
-          style={{ width: 96, height: 96 }}
+          style={{ width: 140, height: 140 }}
         />
+        <p className="text-center text-xs text-muted">hover / focus</p>
+      </div>
+    </Stage>
+  );
+}
+
+function ClickToggleDemo() {
+  const [on, setOn] = useState(false);
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <button
+        type="button"
+        onClick={() => setOn((v) => !v)}
+        className={cn(
+          "inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm",
+          on
+            ? "border-primary/40 bg-primary-soft text-primary"
+            : "border-border bg-surface-2",
+        )}
+      >
+        <Heart className={cn("h-4 w-4", on && "fill-primary")} />
+        {on ? "已喜欢" : "点赞"}
       </button>
-      <p className="inline-flex items-center gap-2 text-sm text-muted">
-        <Heart
-          className={cn("h-4 w-4", liked ? "fill-primary text-primary" : "")}
+      {on ? (
+        <LottiePlayer
+          key="on"
+          src={ANIMATIONS.heart}
+          loop={false}
+          style={{ width: 120, height: 120 }}
         />
-        状态：{liked ? "已喜欢" : "未喜欢"}（由 React state 驱动）
-      </p>
+      ) : (
+        <p className="text-xs text-subtle">点击切换状态</p>
+      )}
     </div>
   );
 }
@@ -425,13 +435,9 @@ function ClickToggleDemo() {
 function ScrubDemo() {
   const ref = useRef<LottieRefCurrentProps>(null);
   const [p, setP] = useState(0);
-  const total = 90;
-
   useEffect(() => {
-    const frame = Math.round(p * (total - 1));
-    ref.current?.goToAndStop(frame, true);
+    ref.current?.goToAndStop(Math.round(p * 89), true);
   }, [p]);
-
   return (
     <div>
       <Stage>
@@ -440,11 +446,11 @@ function ScrubDemo() {
           lottieRef={ref}
           loop={false}
           autoplay={false}
-          style={{ width: 280, height: 80 }}
+          style={{ width: "100%", maxWidth: 320, height: 64 }}
         />
       </Stage>
-      <label className="mt-4 block text-sm text-muted">
-        进度 {(p * 100).toFixed(0)}%
+      <label className="mt-3 block text-sm text-muted">
+        {(p * 100).toFixed(0)}%
         <input
           type="range"
           min={0}
@@ -460,37 +466,13 @@ function ScrubDemo() {
 }
 
 function ThemeDemo() {
-  const themes = [
-    { id: "teal", label: "青绿", ring: "ring-primary", bg: "bg-primary-soft" },
-    { id: "slate", label: "冷灰", ring: "ring-muted", bg: "bg-surface-3" },
-    { id: "warm", label: "暖沙", ring: "ring-warn", bg: "bg-warn/15" },
-  ] as const;
-  const [theme, setTheme] = useState<(typeof themes)[number]["id"]>("teal");
-  const t = themes.find((x) => x.id === theme)!;
-
   return (
     <div>
-      <Stage className={cn("ring-2 ring-inset transition-colors", t.ring, t.bg)}>
-        <LottiePlayer
-          src={ANIMATIONS.pulse}
-          style={{ width: 140, height: 140 }}
-        />
-      </Stage>
-      <div className="mt-3 flex flex-wrap gap-2">
-        {themes.map((x) => (
-          <Button
-            key={x.id}
-            size="sm"
-            variant={theme === x.id ? "default" : "secondary"}
-            onClick={() => setTheme(x.id)}
-          >
-            {x.label}
-          </Button>
-        ))}
-      </div>
-      <p className="mt-2 text-xs text-muted">
-        产品中可用改色库遍历 fill，或导出多主题资源。
+      <p className="mb-3 text-xs text-muted">
+        v3：下方为<strong className="text-fg">真改 JSON fill</strong>
+        （recolorLottieHex）。旧版仅改容器色。
       </p>
+      <LottieRecolorPreview src={ANIMATIONS.pulse} />
     </div>
   );
 }
@@ -742,11 +724,9 @@ function InspectDemo() {
           </div>
           <div className="rounded-md bg-surface-2 p-2">
             <dt className="text-subtle">size</dt>
-            <dd>
-              {meta.w && meta.h ? `${meta.w}×${meta.h}` : "—"}
-            </dd>
+            <dd>{meta.w && meta.h ? `${meta.w}×${meta.h}` : "—"}</dd>
           </div>
-          <div className="rounded-md bg-surface-2 p-2 col-span-2">
+          <div className="col-span-2 rounded-md bg-surface-2 p-2">
             <dt className="text-subtle">markers</dt>
             <dd>{meta.markers ?? "—"}</dd>
           </div>
@@ -755,7 +735,6 @@ function InspectDemo() {
     </div>
   );
 }
-
 
 function ChallengeDemo() {
   const items = [
@@ -817,7 +796,9 @@ function MarkersDemo() {
           lottieRef={ref}
           loop={false}
           autoplay={false}
-          onDataReady={(m) => setMarkers(m.markers.map((x) => ({ tm: x.tm, cm: x.cm })))}
+          onDataReady={(m) =>
+            setMarkers(m.markers.map((x) => ({ tm: x.tm, cm: x.cm })))
+          }
           style={{ width: "100%", maxWidth: 320, height: 72 }}
         />
       </Stage>
@@ -833,17 +814,12 @@ function MarkersDemo() {
             }}
           >
             {m.cm}
-            <span className="ml-1 font-mono text-[10px] opacity-70">@{m.tm}</span>
+            <span className="ml-1 font-mono text-[10px] opacity-70">
+              @{m.tm}
+            </span>
           </Button>
         ))}
       </div>
-      {markers.length === 0 ? (
-        <p className="mt-2 text-xs text-muted">未读到 markers</p>
-      ) : (
-        <p className="mt-2 text-xs text-muted">
-          当前：{active || "未选择"} · 共 {markers.length} 个标记
-        </p>
-      )}
     </div>
   );
 }
@@ -883,7 +859,6 @@ function DirectionDemo() {
           倒放 (-1)
         </Button>
       </div>
-      <p className="mt-2 font-mono text-xs text-muted">direction = {dir}</p>
     </div>
   );
 }
@@ -900,10 +875,6 @@ function SequenceDemo() {
         : step === "party"
           ? ANIMATIONS.confetti
           : ANIMATIONS.pulse;
-
-  function start() {
-    setStep("load");
-  }
 
   return (
     <div>
@@ -925,7 +896,7 @@ function SequenceDemo() {
         <Button
           size="sm"
           onClick={() => {
-            start();
+            setStep("load");
             window.setTimeout(() => setStep("ok"), 1400);
           }}
           disabled={step === "load"}
@@ -936,9 +907,6 @@ function SequenceDemo() {
           复位
         </Button>
       </div>
-      <p className="mt-2 text-xs text-muted">
-        load（定时）→ ok（complete）→ party（complete）→ idle
-      </p>
     </div>
   );
 }
@@ -978,9 +946,6 @@ function ScrollDriveDemo() {
           离开视口 → pause
         </Button>
       </div>
-      <p className="mt-2 text-xs text-muted">
-        生产用 IntersectionObserver；此处按钮模拟可见性。
-      </p>
     </div>
   );
 }
@@ -1014,14 +979,19 @@ function RendererDemo() {
           Canvas
         </Button>
       </div>
-      <p className="mt-2 font-mono text-xs text-muted">renderer = {renderer}</p>
     </div>
   );
 }
 
 function OptimizeDemo() {
   const [rows, setRows] = useState<
-    { id: AnimationKey; label: string; kb: string; layers: number; frames: number }[]
+    {
+      id: AnimationKey;
+      label: string;
+      kb: string;
+      layers: number;
+      frames: number;
+    }[]
   >([]);
 
   useEffect(() => {
@@ -1078,13 +1048,6 @@ function OptimizeDemo() {
           ))}
         </tbody>
       </table>
-      {rows.length === 0 ? (
-        <p className="text-xs text-muted">加载体积数据…</p>
-      ) : (
-        <p className="mt-2 text-xs text-muted">
-          体积为未 gzip 的 JSON 文本近似；上线还有压缩与 HTTP 缓存。
-        </p>
-      )}
     </div>
   );
 }

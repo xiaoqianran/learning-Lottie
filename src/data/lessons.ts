@@ -27,7 +27,11 @@ export type DemoKind =
   | "sequence"
   | "scroll-drive"
   | "renderer"
-  | "optimize";
+  | "optimize"
+  | "recolor"
+  | "kit-like"
+  | "kit-async";
+
 
 
 export type LessonBlock =
@@ -42,10 +46,11 @@ export type Lesson = {
   title: string;
   summary: string;
   level: "入门" | "进阶" | "实战";
-  track: "基础" | "进阶" | "交互" | "工程" | "实战";
+  track: "基础" | "进阶" | "交互" | "工程" | "实战" | "组件";
   minutes: number;
   blocks: LessonBlock[];
 };
+
 
 export const LESSONS: Lesson[] = [
   {
@@ -1293,9 +1298,208 @@ useEffect(() => {
       },
     ],
   },
+  {
+    slug: "recolor-runtime",
+    title: "运行时改色",
+    summary: "遍历 fill/stroke · 主题色 · 深浅适配思路。",
+    level: "进阶",
+    track: "进阶",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "何时运行时改色",
+        body: "图标类几何动画、品牌色多主题、不想导出 N 份 JSON 时。复杂插画/渐变/图片层请回 AE 或双资源。",
+      },
+      {
+        type: "demo",
+        kind: "recolor",
+        title: "动手：真改 JSON 色",
+        hint: "切换色板，fills/strokes 会被 recolorLottieHex 重写。",
+      },
+      {
+        type: "code",
+        title: "本站工具",
+        lang: "ts",
+        code: `import { recolorLottieHex } from "@/lib/lottie-recolor";
+
+const themed = recolorLottieHex(raw, "#6366f1");
+// <LottiePlayer animationData={themed} />`,
+      },
+      {
+        type: "tip",
+        body: "改色前 structuredClone；缓存「原 JSON + hex → 结果」避免每帧深拷贝。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "rc1",
+            question: "recolor 主要改？",
+            options: ["fr 帧率", "fl/st 的颜色通道", "文件名", "basepath"],
+            answer: 1,
+            explain: "遍历形状填充/描边颜色。",
+          },
+          {
+            id: "rc2",
+            question: "复杂插画更推荐？",
+            options: ["暴力改所有层", "设计约定或双资源", "必须 canvas", "忽略对比度"],
+            answer: 1,
+            explain: "运行时改色适合可控几何图标。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "kit-like",
+    title: "组件：点赞开关",
+    summary: "状态在 React · Lottie 只表现 · 可复用。",
+    level: "实战",
+    track: "组件",
+    minutes: 8,
+    blocks: [
+      {
+        type: "text",
+        title: "封装原则",
+        body: "对外暴露 liked / onChange；内部决定何时 play 心形。业务只关心布尔状态。",
+      },
+      {
+        type: "demo",
+        kind: "kit-like",
+        title: "动手：LottieLikeToggle",
+        hint: "这是 kit 里的即用组件。",
+      },
+      {
+        type: "code",
+        title: "使用",
+        lang: "tsx",
+        code: `import { LottieLikeToggle } from "@/components/kit/LottieLikeToggle";
+
+<LottieLikeToggle onChange={(liked) => save(liked)} />`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "kl1",
+            question: "liked 真相应存在？",
+            options: ["只在 Lottie 内部", "应用 state", "JSON markers", "CSS only"],
+            answer: 1,
+            explain: "动画是表现层。",
+          },
+          {
+            id: "kl2",
+            question: "封装组件的好处？",
+            options: ["无法测试", "多页面复用同一交互", "必须 SSR 失败", "体积必然翻倍"],
+            answer: 1,
+            explain: "交互一致性与复用。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "kit-async",
+    title: "组件：异步四态槽",
+    summary: "idle/loading/success/error 模板组件。",
+    level: "实战",
+    track: "组件",
+    minutes: 9,
+    blocks: [
+      {
+        type: "text",
+        title: "异步反馈模板",
+        body: "表单提交、支付、保存都可套四态槽。切换时用 key 换实例，避免 loop loading 残留。",
+      },
+      {
+        type: "demo",
+        kind: "kit-async",
+        title: "动手：LottieAsyncSlot",
+        hint: "跑通成功 / 失败路径。",
+      },
+      {
+        type: "code",
+        title: "使用",
+        lang: "tsx",
+        code: `import { LottieAsyncSlot } from "@/components/kit/LottieAsyncSlot";
+
+<LottieAsyncSlot delayMs={1200} />`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ka1",
+            question: "状态切换时？",
+            options: ["叠加多个 loading", "替换并停掉上一实例", "忽略 error", "强制 10x"],
+            answer: 1,
+            explain: "单槽位切换。",
+          },
+          {
+            id: "ka2",
+            question: "成功态通常？",
+            options: ["永久 loop", "播一次 + complete 回调", "必须 hover", "不能有文案"],
+            answer: 1,
+            explain: "一次性反馈。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "interview-lottie",
+    title: "面试串讲",
+    summary: "原理 · 取舍 · 性能 · 落地经验。",
+    level: "实战",
+    track: "实战",
+    minutes: 12,
+    blocks: [
+      {
+        type: "text",
+        title: "一分钟版",
+        body: "Lottie = AE 时间轴导出的 JSON + 运行时矢量绘制。比 GIF 可控、比纯手写 SVG 动画更适合复杂时间轴。代价是包体、主线程与设计/工程协作成本。",
+      },
+      {
+        type: "text",
+        title: "常被追问",
+        body: "· SVG vs Canvas 怎么选？\n· 如何做 reduced-motion？\n· 如何避免离屏耗电？\n· 主题色如何适配？\n· 和 Rive / CSS 如何取舍？\n· 如何做缓存与版本更新？",
+      },
+      {
+        type: "tip",
+        body: "用本站工坊与图鉴举 1 个真实场景（四态请求 / 点赞）比背 API 更有说服力。",
+      },
+      {
+        type: "demo",
+        kind: "challenge",
+        title: "动手：面试前自检",
+        hint: "把清单当成面试检查表过一遍。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "iv1",
+            question: "Lottie 相对 GIF 的核心优势？",
+            options: ["不能交互", "可控制进度/事件 + 矢量缩放", "必须更大", "只能 Android"],
+            answer: 1,
+            explain: "可控与清晰度。",
+          },
+          {
+            id: "iv2",
+            question: "性能答法应提到？",
+            options: ["只谈设计美观", "离屏 pause、实例数、体积、renderer", "永远 canvas", "禁止 JSON"],
+            answer: 1,
+            explain: "工程向的完整答案。",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
-export const TRACKS = ["基础", "进阶", "交互", "工程", "实战"] as const;
+export const TRACKS = ["基础", "进阶", "交互", "工程", "实战", "组件"] as const;
+
 
 export function getLesson(slug: string): Lesson | undefined {
   return LESSONS.find((l) => l.slug === slug);
