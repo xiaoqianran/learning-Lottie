@@ -1,15 +1,21 @@
-/** Local animation assets under /public/animations */
+/** Public assets under /public/animations — honor Vite base (GitHub Pages). */
+const assetBase = (import.meta.env.BASE_URL || "/").replace(/\/?$/, "/");
+
+function anim(name: string) {
+  return `${assetBase}animations/${name}.json`;
+}
+
 export const ANIMATIONS = {
-  pulse: "/animations/pulse.json",
-  progress: "/animations/progress.json",
-  loading: "/animations/loading.json",
-  success: "/animations/success.json",
-  empty: "/animations/empty.json",
-  confetti: "/animations/confetti.json",
-  error: "/animations/error.json",
-  rocket: "/animations/rocket.json",
-  heart: "/animations/heart.json",
-  like: "/animations/like.json",
+  pulse: anim("pulse"),
+  progress: anim("progress"),
+  loading: anim("loading"),
+  success: anim("success"),
+  empty: anim("empty"),
+  confetti: anim("confetti"),
+  error: anim("error"),
+  rocket: anim("rocket"),
+  heart: anim("heart"),
+  like: anim("like"),
 } as const;
 
 export type AnimationKey = keyof typeof ANIMATIONS;
@@ -28,4 +34,5 @@ export const PLAYGROUND_PRESETS: {
   { id: "confetti", label: "彩带", desc: "庆祝时刻" },
   { id: "error", label: "错误", desc: "失败态反馈" },
   { id: "rocket", label: "火箭", desc: "开屏 / 引导" },
+  { id: "like", label: "点赞按钮", desc: "状态切换素材" },
 ];

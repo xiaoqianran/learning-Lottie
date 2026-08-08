@@ -63,10 +63,14 @@ function authPopupPlugin(): Plugin {
             return;
           }
 
-          const host = String(req.headers["x-forwarded-host"] ?? req.headers.host ?? "localhost:8080");
+          const host = String(
+            req.headers["x-forwarded-host"] ?? req.headers.host ?? "localhost:8080",
+          );
           const proto = String(
             req.headers["x-forwarded-proto"] ??
-              ((req.socket as { encrypted?: boolean } | undefined)?.encrypted ? "https" : "http"),
+              ((req.socket as { encrypted?: boolean } | undefined)?.encrypted
+                ? "https"
+                : "http"),
           );
           const requestHeaders = new Headers();
           for (const [key, value] of Object.entries(req.headers)) {
@@ -86,7 +90,9 @@ function authPopupPlugin(): Plugin {
             headers: requestHeaders,
           });
 
-          const mod = (await server.ssrLoadModule("/src/lib/auth/popup.server.ts")) as {
+          const mod = (await server.ssrLoadModule(
+            "/src/lib/auth/popup.server.ts",
+          )) as {
             handleAuthPopupRequest: (req: Request) => Promise<Response>;
           };
           const response = await mod.handleAuthPopupRequest(request);
@@ -119,18 +125,53 @@ function authPopupPlugin(): Plugin {
   };
 }
 
-// `0.0.0.0:8080` is the live-preview contract — don't change host/port.
-// Keep `nitro` gated to `build` (the Vercel deploy target): enabled in dev it
-// opens a second dev-server port, which breaks the single-port preview.
-// The dev server starts once `src/router.tsx` and `src/routes/` exist — see
-// AGENTS.md § "First scaffold".
-
 const isGitHubPages =
   process.env.GITHUB_PAGES === "true" ||
   process.env.NITRO_PRESET === "github_pages";
 
 /** Project Pages site: https://xiaoqianran.github.io/learning-Lottie/ */
 const base = isGitHubPages ? "/learning-Lottie/" : "/";
+
+const lessonSlugs = [
+  "intro",
+  "json-structure",
+  "playback",
+  "speed-loop",
+  "segments",
+  "events",
+  "hover-interact",
+  "click-toggle",
+  "scrub",
+  "multi-state",
+  "theme",
+  "a11y",
+  "performance",
+  "react-integration",
+  "workflow",
+  "loading-ux",
+  "micro-interactions",
+  "pitfalls",
+  "checklist",
+];
+
+const lessonPaths = lessonSlugs.map((slug) => ({ path: `/lesson/${slug}` }));
+
+const staticPages = [
+  { path: "/" },
+  { path: "/hub" },
+  { path: "/lab" },
+  { path: "/mistakes" },
+  { path: "/certificate" },
+  { path: "/playground" },
+  { path: "/studio" },
+  { path: "/cheatsheet" },
+  ...lessonPaths,
+];
+
+// `0.0.0.0:8080` is the live-preview contract — don't change host/port.
+// Keep `nitro` gated to `build` (the Vercel deploy target): enabled in dev it
+// opens a second dev-server port, which breaks the single-port preview.
+// GitHub Pages uses SPA + prerender (no nitro).
 
 export default defineConfig(({ command }) => ({
   base,
@@ -145,8 +186,23 @@ export default defineConfig(({ command }) => ({
     // Before tanstackStart so /auth/popup never falls through to the SPA.
     authPopupPlugin(),
     tailwindcss(),
-    tanstackStart(),
-    ...(command === "build" ? [nitro({ preset: "vercel" })] : []),
+    tanstackStart(
+      isGitHubPages
+        ? {
+            spa: { enabled: true },
+            prerender: {
+              enabled: true,
+              crawlLinks: true,
+              autoStaticPathsDiscovery: true,
+              failOnError: false,
+            },
+            pages: staticPages,
+          }
+        : undefined,
+    ),
+    ...(command === "build" && !isGitHubPages
+      ? [nitro({ preset: "vercel" })]
+      : []),
     viteReact(),
   ],
 }));

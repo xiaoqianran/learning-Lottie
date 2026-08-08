@@ -120,7 +120,8 @@ function AppShell({ children }: { children: ReactNode }) {
               Lottie 实战学习
             </span>
             <span className="hidden rounded-full bg-surface-3 px-1.5 py-0.5 font-mono text-[10px] text-primary sm:inline">
-              v1
+              v1.1
+
             </span>
           </Link>
 
