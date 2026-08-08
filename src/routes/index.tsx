@@ -13,7 +13,9 @@ import {
   FlaskConical,
   LayoutDashboard,
   Clapperboard,
+  Images,
 } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import { useMemo, useState } from "react";
 
@@ -64,7 +66,8 @@ function HomePage() {
           <div className="flex flex-wrap items-center gap-2">
             <p className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg/60 px-2.5 py-1 text-xs font-medium text-primary">
               <Sparkles className="h-3.5 w-3.5" />
-              v1.1 · GitHub Pages
+              v2 · markers / 图鉴 / Playground
+
 
             </p>
             {streak > 0 ? (
@@ -77,7 +80,8 @@ function HomePage() {
             带你系统学 Lottie
           </h1>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-muted">
-            中文交互式教程：讲解 + 实时 Demo + 测验。从 JSON 结构到播放控制、交互状态机、性能与上线清单。
+            中文交互式教程 v2：markers、倒放、串联、renderer、模式图鉴，以及增强版 Playground 与七项工坊闯关。
+
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
@@ -100,6 +104,12 @@ function HomePage() {
               <Button size="lg" variant="secondary">
                 <Clapperboard className="h-4 w-4" />
                 动画工坊
+              </Button>
+            </Link>
+            <Link to="/gallery" className="no-underline">
+              <Button size="lg" variant="secondary">
+                <Images className="h-4 w-4" />
+                模式图鉴
               </Button>
             </Link>
             <Link to="/lab" className="no-underline">

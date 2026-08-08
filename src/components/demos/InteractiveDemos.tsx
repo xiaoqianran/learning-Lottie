@@ -80,10 +80,23 @@ function DemoBody({ kind }: { kind: DemoKind }) {
       return <InspectDemo />;
     case "challenge":
       return <ChallengeDemo />;
+    case "markers":
+      return <MarkersDemo />;
+    case "direction":
+      return <DirectionDemo />;
+    case "sequence":
+      return <SequenceDemo />;
+    case "scroll-drive":
+      return <ScrollDriveDemo />;
+    case "renderer":
+      return <RendererDemo />;
+    case "optimize":
+      return <OptimizeDemo />;
     default:
       return null;
   }
 }
+
 
 function Stage({
   children,
@@ -674,6 +687,7 @@ function InspectDemo() {
     layers?: number;
     w?: number;
     h?: number;
+    markers?: number;
   }>({});
 
   return (
@@ -682,21 +696,14 @@ function InspectDemo() {
         <LottiePlayer
           key={key}
           src={ANIMATIONS[key]}
-          onDataReady={(raw) => {
-            const d = raw as {
-              fr: number;
-              ip: number;
-              op: number;
-              w: number;
-              h: number;
-              layers: unknown[];
-            };
+          onDataReady={(m) => {
             setMeta({
-              fr: d.fr,
-              frames: Math.round(d.op - d.ip),
-              layers: d.layers?.length ?? 0,
-              w: d.w,
-              h: d.h,
+              fr: m.fr,
+              frames: m.frames,
+              layers: m.layers,
+              w: m.w,
+              h: m.h,
+              markers: m.markers.length,
             });
           }}
           style={{ width: 160, height: 160 }}
@@ -739,11 +746,16 @@ function InspectDemo() {
               {meta.w && meta.h ? `${meta.w}×${meta.h}` : "—"}
             </dd>
           </div>
+          <div className="rounded-md bg-surface-2 p-2 col-span-2">
+            <dt className="text-subtle">markers</dt>
+            <dd>{meta.markers ?? "—"}</dd>
+          </div>
         </dl>
       </div>
     </div>
   );
 }
+
 
 function ChallengeDemo() {
   const items = [
@@ -788,6 +800,291 @@ function ChallengeDemo() {
           </>
         )}
       </p>
+    </div>
+  );
+}
+
+function MarkersDemo() {
+  const ref = useRef<LottieRefCurrentProps>(null);
+  const [markers, setMarkers] = useState<{ tm: number; cm: string }[]>([]);
+  const [active, setActive] = useState<string>("");
+
+  return (
+    <div>
+      <Stage>
+        <LottiePlayer
+          src={ANIMATIONS.progress}
+          lottieRef={ref}
+          loop={false}
+          autoplay={false}
+          onDataReady={(m) => setMarkers(m.markers.map((x) => ({ tm: x.tm, cm: x.cm })))}
+          style={{ width: "100%", maxWidth: 320, height: 72 }}
+        />
+      </Stage>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {markers.map((m) => (
+          <Button
+            key={m.cm}
+            size="sm"
+            variant={active === m.cm ? "default" : "secondary"}
+            onClick={() => {
+              setActive(m.cm);
+              ref.current?.goToAndStop(m.tm, true);
+            }}
+          >
+            {m.cm}
+            <span className="ml-1 font-mono text-[10px] opacity-70">@{m.tm}</span>
+          </Button>
+        ))}
+      </div>
+      {markers.length === 0 ? (
+        <p className="mt-2 text-xs text-muted">未读到 markers</p>
+      ) : (
+        <p className="mt-2 text-xs text-muted">
+          当前：{active || "未选择"} · 共 {markers.length} 个标记
+        </p>
+      )}
+    </div>
+  );
+}
+
+function DirectionDemo() {
+  const ref = useRef<LottieRefCurrentProps>(null);
+  const [dir, setDir] = useState<1 | -1>(1);
+
+  useEffect(() => {
+    ref.current?.setDirection(dir);
+    ref.current?.play();
+  }, [dir]);
+
+  return (
+    <div>
+      <Stage>
+        <LottiePlayer
+          src={ANIMATIONS.loading}
+          lottieRef={ref}
+          loop
+          style={{ width: 140, height: 140 }}
+        />
+      </Stage>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <Button
+          size="sm"
+          variant={dir === 1 ? "default" : "secondary"}
+          onClick={() => setDir(1)}
+        >
+          正放 (+1)
+        </Button>
+        <Button
+          size="sm"
+          variant={dir === -1 ? "default" : "secondary"}
+          onClick={() => setDir(-1)}
+        >
+          倒放 (-1)
+        </Button>
+      </div>
+      <p className="mt-2 font-mono text-xs text-muted">direction = {dir}</p>
+    </div>
+  );
+}
+
+function SequenceDemo() {
+  type Step = "idle" | "load" | "ok" | "party";
+  const [step, setStep] = useState<Step>("idle");
+
+  const src =
+    step === "load"
+      ? ANIMATIONS.loading
+      : step === "ok"
+        ? ANIMATIONS.success
+        : step === "party"
+          ? ANIMATIONS.confetti
+          : ANIMATIONS.pulse;
+
+  function start() {
+    setStep("load");
+  }
+
+  return (
+    <div>
+      <Stage className="min-h-[200px] flex-col gap-2">
+        <LottiePlayer
+          key={step}
+          src={src}
+          loop={step === "load" || step === "idle"}
+          autoplay={step !== "idle"}
+          onComplete={() => {
+            if (step === "ok") setStep("party");
+            else if (step === "party") setStep("idle");
+          }}
+          style={{ width: 160, height: 120 }}
+        />
+        <span className="font-mono text-xs text-muted">step = {step}</span>
+      </Stage>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <Button
+          size="sm"
+          onClick={() => {
+            start();
+            window.setTimeout(() => setStep("ok"), 1400);
+          }}
+          disabled={step === "load"}
+        >
+          开始串联
+        </Button>
+        <Button size="sm" variant="ghost" onClick={() => setStep("idle")}>
+          复位
+        </Button>
+      </div>
+      <p className="mt-2 text-xs text-muted">
+        load（定时）→ ok（complete）→ party（complete）→ idle
+      </p>
+    </div>
+  );
+}
+
+function ScrollDriveDemo() {
+  const ref = useRef<LottieRefCurrentProps>(null);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    if (visible) ref.current?.play();
+    else ref.current?.pause();
+  }, [visible]);
+
+  return (
+    <div>
+      <Stage className={cn(!visible && "opacity-50")}>
+        <LottiePlayer
+          src={ANIMATIONS.rocket}
+          lottieRef={ref}
+          loop
+          style={{ width: 160, height: 160 }}
+        />
+      </Stage>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <Button
+          size="sm"
+          variant={visible ? "default" : "secondary"}
+          onClick={() => setVisible(true)}
+        >
+          进入视口 → play
+        </Button>
+        <Button
+          size="sm"
+          variant={!visible ? "default" : "secondary"}
+          onClick={() => setVisible(false)}
+        >
+          离开视口 → pause
+        </Button>
+      </div>
+      <p className="mt-2 text-xs text-muted">
+        生产用 IntersectionObserver；此处按钮模拟可见性。
+      </p>
+    </div>
+  );
+}
+
+function RendererDemo() {
+  const [renderer, setRenderer] = useState<"svg" | "canvas">("svg");
+
+  return (
+    <div>
+      <Stage>
+        <LottiePlayer
+          key={renderer}
+          src={ANIMATIONS.heart}
+          renderer={renderer}
+          style={{ width: 160, height: 160 }}
+        />
+      </Stage>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <Button
+          size="sm"
+          variant={renderer === "svg" ? "default" : "secondary"}
+          onClick={() => setRenderer("svg")}
+        >
+          SVG
+        </Button>
+        <Button
+          size="sm"
+          variant={renderer === "canvas" ? "default" : "secondary"}
+          onClick={() => setRenderer("canvas")}
+        >
+          Canvas
+        </Button>
+      </div>
+      <p className="mt-2 font-mono text-xs text-muted">renderer = {renderer}</p>
+    </div>
+  );
+}
+
+function OptimizeDemo() {
+  const [rows, setRows] = useState<
+    { id: AnimationKey; label: string; kb: string; layers: number; frames: number }[]
+  >([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function run() {
+      const out: typeof rows = [];
+      for (const p of PLAYGROUND_PRESETS) {
+        try {
+          const res = await fetch(ANIMATIONS[p.id]);
+          const text = await res.text();
+          const data = JSON.parse(text) as {
+            layers?: unknown[];
+            ip?: number;
+            op?: number;
+          };
+          out.push({
+            id: p.id,
+            label: p.label,
+            kb: (text.length / 1024).toFixed(1),
+            layers: data.layers?.length ?? 0,
+            frames: Math.round((data.op ?? 0) - (data.ip ?? 0)),
+          });
+        } catch {
+          /* skip */
+        }
+      }
+      if (!cancelled) setRows(out);
+    }
+    void run();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[20rem] text-left text-xs">
+        <thead>
+          <tr className="border-b border-border text-muted">
+            <th className="py-2 pr-2 font-medium">预设</th>
+            <th className="py-2 pr-2 font-medium">≈KB</th>
+            <th className="py-2 pr-2 font-medium">layers</th>
+            <th className="py-2 font-medium">frames</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.id} className="border-b border-border/60">
+              <td className="py-2 pr-2 text-fg">{r.label}</td>
+              <td className="py-2 pr-2 font-mono">{r.kb}</td>
+              <td className="py-2 pr-2 font-mono">{r.layers}</td>
+              <td className="py-2 font-mono">{r.frames}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {rows.length === 0 ? (
+        <p className="text-xs text-muted">加载体积数据…</p>
+      ) : (
+        <p className="mt-2 text-xs text-muted">
+          体积为未 gzip 的 JSON 文本近似；上线还有压缩与 HTTP 缓存。
+        </p>
+      )}
     </div>
   );
 }

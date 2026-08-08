@@ -14,6 +14,7 @@ const SECTIONS: { title: string; items: { k: string; v: string }[] }[] = [
       { k: "w / h", v: "画布尺寸" },
       { k: "layers", v: "图层时间轴与形状" },
       { k: "assets", v: "图片与预合成" },
+      { k: "markers", v: "命名标记 { tm, cm }" },
     ],
   },
   {
@@ -39,10 +40,11 @@ const SECTIONS: { title: string; items: { k: string; v: string }[] }[] = [
   {
     title: "React",
     items: [
-      { k: "lottie-react", v: "封装 lottie-web" },
+      { k: "lottie-web", v: "运行时核心" },
       { k: "lottieRef", v: "拿到实例方法" },
       { k: "SSR", v: "客户端挂载 / dynamic ssr:false" },
       { k: "animationData", v: "对象；也可 path/fetch" },
+      { k: "renderer", v: "svg（默认）| canvas" },
     ],
   },
   {
@@ -52,6 +54,9 @@ const SECTIONS: { title: string; items: { k: string; v: string }[] }[] = [
       { k: "state → segments", v: "应用 state 驱动段落" },
       { k: "scrub", v: "进度映射帧" },
       { k: "multi-state slot", v: "idle/load/ok/err 换源或段落" },
+      { k: "markers by name", v: "tm 定位，告别魔法数字" },
+      { k: "sequence", v: "complete 链式编排" },
+      { k: "IO visibility", v: "离屏 pause" },
     ],
   },
   {
@@ -62,9 +67,11 @@ const SECTIONS: { title: string; items: { k: string; v: string }[] }[] = [
       { k: "体积", v: "清图层 · 少位图 · 压缩 JSON" },
       { k: "缓存", v: "文件名带哈希" },
       { k: "卸载", v: "destroy / 停动画" },
+      { k: "svg vs canvas", v: "先 SVG，重粒子再 canvas" },
     ],
   },
 ];
+
 
 function CheatsheetPage() {
   return (

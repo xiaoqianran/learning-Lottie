@@ -144,6 +144,12 @@ const lessonSlugs = [
   "scrub",
   "multi-state",
   "theme",
+  "markers",
+  "direction",
+  "sequence",
+  "scroll-drive",
+  "renderer",
+  "optimize",
   "a11y",
   "performance",
   "react-integration",
@@ -165,8 +171,10 @@ const staticPages = [
   { path: "/playground" },
   { path: "/studio" },
   { path: "/cheatsheet" },
+  { path: "/gallery" },
   ...lessonPaths,
 ];
+
 
 // `0.0.0.0:8080` is the live-preview contract — don't change host/port.
 // Keep `nitro` gated to `build` (the Vercel deploy target): enabled in dev it

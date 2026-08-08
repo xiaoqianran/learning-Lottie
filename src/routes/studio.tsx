@@ -12,6 +12,9 @@ import {
   Heart,
   Loader2,
   Target,
+  ArrowLeftRight,
+  Flag,
+  Layers,
 } from "lucide-react";
 
 export const Route = createFileRoute("/studio")({
@@ -39,6 +42,21 @@ const QUESTS = [
     title: "用滑杆 scrub 到 50%+",
     desc: "把进度拖到一半以上。",
   },
+  {
+    id: "q-reverse",
+    title: "完成一次倒放",
+    desc: "切换到倒放并播放。",
+  },
+  {
+    id: "q-marker",
+    title: "跳到命名标记",
+    desc: "点击任意 marker 定位。",
+  },
+  {
+    id: "q-sequence",
+    title: "跑完串联三步",
+    desc: "load → ok → party 走通。",
+  },
 ] as const;
 
 function StudioPage() {
@@ -52,13 +70,13 @@ function StudioPage() {
       <header className="mb-6">
         <p className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-primary">
           <Clapperboard className="h-3.5 w-3.5" />
-          Studio
+          Studio · v2
         </p>
         <h1 className="mt-1 font-display text-2xl font-semibold text-fg">
           动画工坊
         </h1>
         <p className="mt-1 text-sm text-muted">
-          四项闯关，把课程里的控制、微交互与状态机练熟
+          七项闯关：控制、微交互、状态机、scrub、倒放、markers、串联
         </p>
         <div className="mt-4 flex items-center gap-3">
           <div className="h-2 min-w-[8rem] flex-1 overflow-hidden rounded-full bg-surface-3 sm:max-w-xs">
@@ -136,6 +154,27 @@ function StudioPage() {
             checkInToday();
           }}
         />
+        <ReverseQuest
+          done={studioDone.includes("q-reverse")}
+          onDone={() => {
+            markStudio("q-reverse");
+            checkInToday();
+          }}
+        />
+        <MarkerQuest
+          done={studioDone.includes("q-marker")}
+          onDone={() => {
+            markStudio("q-marker");
+            checkInToday();
+          }}
+        />
+        <SequenceQuest
+          done={studioDone.includes("q-sequence")}
+          onDone={() => {
+            markStudio("q-sequence");
+            checkInToday();
+          }}
+        />
       </div>
     </div>
   );
@@ -143,14 +182,19 @@ function StudioPage() {
 
 function Panel({
   title,
+  icon,
   children,
 }: {
   title: string;
+  icon?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
     <section className="rounded-xl border border-border bg-surface p-4 sm:p-5">
-      <h2 className="font-display text-base font-semibold text-fg">{title}</h2>
+      <h2 className="flex items-center gap-2 font-display text-base font-semibold text-fg">
+        {icon}
+        {title}
+      </h2>
       <div className="mt-4">{children}</div>
     </section>
   );
@@ -340,6 +384,161 @@ function ScrubQuest({ done, onDone }: { done: boolean; onDone: () => void }) {
           className="mt-1 w-full accent-[var(--color-primary)]"
         />
       </label>
+    </Panel>
+  );
+}
+
+function ReverseQuest({ done, onDone }: { done: boolean; onDone: () => void }) {
+  const ref = useRef<LottieRefCurrentProps>(null);
+  const [dir, setDir] = useState<1 | -1>(1);
+
+  return (
+    <Panel
+      title="5. 倒放"
+      icon={<ArrowLeftRight className="h-4 w-4 text-primary" />}
+    >
+      <div className="flex flex-col items-center gap-3 sm:flex-row">
+        <LottiePlayer
+          src={ANIMATIONS.loading}
+          lottieRef={ref}
+          loop
+          style={{ width: 120, height: 120 }}
+        />
+        <div className="flex flex-wrap gap-2">
+          <Button
+            size="sm"
+            variant={dir === 1 ? "default" : "secondary"}
+            onClick={() => {
+              setDir(1);
+              ref.current?.setDirection(1);
+              ref.current?.play();
+            }}
+          >
+            正放
+          </Button>
+          <Button
+            size="sm"
+            variant={dir === -1 ? "default" : "secondary"}
+            onClick={() => {
+              setDir(-1);
+              ref.current?.setDirection(-1);
+              ref.current?.play();
+              if (!done) onDone();
+            }}
+          >
+            倒放
+          </Button>
+        </div>
+      </div>
+      <p className="mt-2 text-xs text-muted">
+        {done ? "已完成倒放" : "点击「倒放」完成任务"}
+      </p>
+    </Panel>
+  );
+}
+
+function MarkerQuest({ done, onDone }: { done: boolean; onDone: () => void }) {
+  const ref = useRef<LottieRefCurrentProps>(null);
+  const [markers, setMarkers] = useState<{ tm: number; cm: string }[]>([]);
+
+  return (
+    <Panel
+      title="6. Markers"
+      icon={<Flag className="h-4 w-4 text-primary" />}
+    >
+      <LottiePlayer
+        src={ANIMATIONS.progress}
+        lottieRef={ref}
+        loop={false}
+        autoplay={false}
+        onDataReady={(m) =>
+          setMarkers(m.markers.map((x) => ({ tm: x.tm, cm: x.cm })))
+        }
+        style={{ width: "100%", maxWidth: 320, height: 64 }}
+      />
+      <div className="mt-3 flex flex-wrap gap-2">
+        {markers.map((m) => (
+          <Button
+            key={m.cm}
+            size="sm"
+            variant="secondary"
+            onClick={() => {
+              ref.current?.goToAndStop(m.tm, true);
+              if (!done) onDone();
+            }}
+          >
+            {m.cm}
+          </Button>
+        ))}
+      </div>
+      <p className="mt-2 text-xs text-muted">
+        {done ? "已完成" : "点击任一标记"}
+      </p>
+    </Panel>
+  );
+}
+
+function SequenceQuest({
+  done,
+  onDone,
+}: {
+  done: boolean;
+  onDone: () => void;
+}) {
+  type Step = "idle" | "load" | "ok" | "party";
+  const [step, setStep] = useState<Step>("idle");
+
+  const src =
+    step === "load"
+      ? ANIMATIONS.loading
+      : step === "ok"
+        ? ANIMATIONS.success
+        : step === "party"
+          ? ANIMATIONS.confetti
+          : ANIMATIONS.pulse;
+
+  return (
+    <Panel
+      title="7. 串联三步"
+      icon={<Layers className="h-4 w-4 text-primary" />}
+    >
+      <div className="flex min-h-[120px] items-center gap-4">
+        <LottiePlayer
+          key={step}
+          src={src}
+          loop={step === "load" || step === "idle"}
+          autoplay={step !== "idle"}
+          onComplete={() => {
+            if (step === "ok") setStep("party");
+            if (step === "party") {
+              if (!done) onDone();
+              setStep("idle");
+            }
+          }}
+          style={{ width: 120, height: 100 }}
+        />
+        <div>
+          <p className="font-mono text-xs text-muted">step = {step}</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <Button
+              size="sm"
+              disabled={step === "load"}
+              onClick={() => {
+                setStep("load");
+                window.setTimeout(() => setStep("ok"), 1200);
+              }}
+            >
+              开始
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => setStep("idle")}>
+              复位
+            </Button>
+          </div>
+        </div>
+      </div>
+      <p className="mt-2 text-xs text-muted">
+        {done ? "串联完成" : "跑完 load → ok → party"}
+      </p>
     </Panel>
   );
 }

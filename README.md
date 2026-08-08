@@ -1,6 +1,6 @@
 # Lottie 实战学习
 
-交互式中文 Lottie 教程：课程 + 测验 + 进度 + Playground + 动画工坊。
+交互式中文 Lottie 教程：课程 + 测验 + 进度 + Playground + 动画工坊 + 模式图鉴。
 
 **在线访问：** [https://xiaoqianran.github.io/learning-Lottie/](https://xiaoqianran.github.io/learning-Lottie/)  
 **仓库：** [https://github.com/xiaoqianran/learning-Lottie](https://github.com/xiaoqianran/learning-Lottie)  
@@ -14,9 +14,10 @@
 
 你可以：
 
-- 按路径学完 **19 节** 课程（**讲解 + 代码 + 交互 Demo + 小测验**）
-- 在 **Playground** 里切换预设、调速度 / loop、加载自定义 JSON
-- 在 **动画工坊** 里完成播放控制、点赞、四态、scrub 闯关
+- 按路径学完 **25 节** 课程（**讲解 + 代码 + 交互 Demo + 小测验**）
+- 在 **Playground** 里：预设 / 本地 JSON / URL、速度、方向、段落、renderer、scrub、markers
+- 在 **动画工坊** 完成 **七项** 闯关
+- 在 **模式图鉴** 浏览产品用法并跳到对应课程
 - 用 **速查表** 复习，用 **学习中心 / 错题本 / 结业证明** 跟进度
 
 > 说明：本站用 React + TanStack Start 承载教学内容；动画运行时为 `lottie-web`（经封装的 `LottiePlayer`）。
@@ -29,8 +30,9 @@
 |------|------|------|
 | 课程 | `/lesson/:slug` | 正文、代码、Live Demo、测验、笔记 |
 | 首页大纲 | `/` | 搜索、路径筛选、进度条 |
-| Playground | `/playground` | 预设 + 自定义 URL + 速度 / loop |
-| 动画工坊 | `/studio` | 四项闯关练手 |
+| Playground | `/playground` | 实验台（v2 增强） |
+| 动画工坊 | `/studio` | 七项闯关 |
+| 模式图鉴 | `/gallery` | 产品模式速览 |
 | 速查表 | `/cheatsheet` | API 与模式一页纸 |
 | 学习中心 | `/hub` | 打卡、收藏、路径进度 |
 | 练习场 | `/lab` | 综合抽题 |
@@ -44,15 +46,15 @@
 | 路径 | 你学到什么 |
 |------|------------|
 | **基础** | 是什么、JSON、播放、速度循环、段落、事件 |
-| **进阶** | 主题色思路 |
-| **交互** | hover、点击状态、scrub、多状态 |
-| **工程** | a11y、性能、React 集成、工作流 |
+| **进阶** | 主题色、markers、倒放、串联 |
+| **交互** | hover、点击状态、scrub、多状态、滚动/可见性 |
+| **工程** | a11y、性能、React、工作流、renderer、体积优化 |
 | **实战** | 加载 UX、微交互、常见坑、上线清单 |
 
 建议顺序：
 
 ```text
-基础 → 交互 → 进阶 → 工程 → 实战 → 工坊闯关 → 自己的作品
+基础 → 交互 → 进阶 → 工程 → 实战 → 工坊闯关 → 图鉴对照 → 自己的作品
 ```
 
 ---
@@ -63,6 +65,9 @@
 |------|------|
 | v1 | 19 课 + Demo + Playground + 工坊 + 学习中心 |
 | v1.1 | GitHub Pages（Actions）+ base 资源路径修正 |
+| **v2** | +6 课（markers / 倒放 / 串联 / 滚动 / renderer / 优化）；Playground 增强；工坊 7 关；模式图鉴 |
+
+分支：`v1` 冻结 v1 线；`main` 持续迭代。标签：`v1.0.0`、`v2.0.0`。
 
 ---
 
@@ -112,7 +117,7 @@ src/
   components/demos/        # 交互 Demo
   routes/                  # 页面路由
   store/progress.ts        # 学习进度
-public/animations/         # Lottie JSON
+public/animations/         # Lottie JSON（含教学 markers）
 .github/workflows/         # Pages 部署
 ```
 

@@ -21,7 +21,14 @@ export type DemoKind =
   | "loading-ux"
   | "micro"
   | "inspect-json"
-  | "challenge";
+  | "challenge"
+  | "markers"
+  | "direction"
+  | "sequence"
+  | "scroll-drive"
+  | "renderer"
+  | "optimize";
+
 
 export type LessonBlock =
   | { type: "text"; title?: string; body: string }
@@ -610,7 +617,329 @@ function recolor(data: any, rgba: number[]) {
     ],
   },
   {
+    slug: "markers",
+    title: "Markers 命名标记",
+    summary: "用 markers 代替魔法数字帧 · 与设计对齐。",
+    level: "进阶",
+    track: "进阶",
+    minutes: 9,
+    blocks: [
+      {
+        type: "text",
+        title: "为什么需要 markers",
+        body: "playSegments([12, 48]) 里的数字难维护。AE / Bodymovin 可导出 markers（tm 帧 + cm 名称）。运行时按名字定位，设计和工程说同一种语言。",
+      },
+      {
+        type: "demo",
+        kind: "markers",
+        title: "动手：按标记跳转",
+        hint: "点击标记名，跳到对应帧（本教程为 progress / rocket 注入了教学 markers）。",
+      },
+      {
+        type: "code",
+        title: "按名取帧",
+        lang: "ts",
+        code: `type Marker = { tm: number; cm: string };
+
+function frameOf(markers: Marker[], name: string) {
+  const m = markers.find((x) => x.cm === name);
+  if (!m) throw new Error(\`missing marker: \${name}\`);
+  return m.tm;
+}
+
+ref.current?.goToAndPlay(frameOf(markers, "launch"), true);`,
+      },
+      {
+        type: "tip",
+        body: "段落播放可用相邻 markers：from = idle.tm，to = launch.tm。约定命名：idle / open / close / success。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "mk1",
+            question: "marker 的 tm 通常表示？",
+            options: ["毫秒时间戳", "帧时间", "图层 id", "颜色"],
+            answer: 1,
+            explain: "tm 是时间轴上的帧位置。",
+          },
+          {
+            id: "mk2",
+            question: "比硬编码 [12,48] 更好的做法？",
+            options: ["随机帧", "用 markers 命名", "只用 setTimeout", "删掉段落"],
+            answer: 1,
+            explain: "命名标记可随设计改时间轴而不改业务语义。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "direction",
+    title: "正放与倒放",
+    summary: "setDirection · 开关闭合 · 收藏取消。",
+    level: "进阶",
+    track: "进阶",
+    minutes: 8,
+    blocks: [
+      {
+        type: "text",
+        title: "一套动画两种状态",
+        body: "很多 UI 只需「打开」时间轴：正向播 = 打开，反向播 = 关闭。比维护两份 JSON 更省。注意：倒放时 complete 时机与 loop 行为要自己测。",
+      },
+      {
+        type: "demo",
+        kind: "direction",
+        title: "动手：方向切换",
+        hint: "切换正放 / 倒放，观察动画方向。",
+      },
+      {
+        type: "code",
+        title: "方向控制",
+        lang: "ts",
+        code: `function setOpen(open: boolean) {
+  const dir = open ? 1 : -1;
+  ref.current?.setDirection(dir);
+  ref.current?.play();
+}`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "d1",
+            question: "setDirection(-1) 表示？",
+            options: ["加速", "倒放", "销毁", "改 renderer"],
+            answer: 1,
+            explain: "-1 反向播放。",
+          },
+          {
+            id: "d2",
+            question: "倒放适合？",
+            options: ["开关/抽屉闭合", "永久 loading", "替代所有状态机", "必须 canvas"],
+            answer: 0,
+            explain: "对称开合最常见。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "sequence",
+    title: "动画串联",
+    summary: "complete 链式 · 编排多段反馈。",
+    level: "进阶",
+    track: "进阶",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "编排思路",
+        body: "复杂反馈往往是：loading → success → confetti。用 complete 事件推进下一步，或显式状态机。不要用一串魔法 setTimeout 硬拼。",
+      },
+      {
+        type: "demo",
+        kind: "sequence",
+        title: "动手：三步串联",
+        hint: "点击开始：加载 → 成功 → 庆祝。",
+      },
+      {
+        type: "code",
+        title: "状态机串联",
+        lang: "ts",
+        code: `type Step = "load" | "ok" | "party" | "done";
+
+// onComplete of current step → next step
+function next(step: Step): Step | null {
+  if (step === "load") return "ok";
+  if (step === "ok") return "party";
+  if (step === "party") return "done";
+  return null;
+}`,
+      },
+      {
+        type: "tip",
+        body: "串联时务必销毁或停掉上一段，避免多个 loop loading 叠在一起。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "sq1",
+            question: "推进下一步更可靠的信号？",
+            options: ["随意 delay", "complete / 明确超时", "hover", "随机"],
+            answer: 1,
+            explain: "用完成事件或可控超时。",
+          },
+          {
+            id: "sq2",
+            question: "多段串联时？",
+            options: ["全部 loop 叠加", "单槽位切换并清理", "永不 complete", "忽略状态"],
+            answer: 1,
+            explain: "单槽位 + 清理是稳妥模式。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "scroll-drive",
+    title: "滚动与可见性驱动",
+    summary: "IntersectionObserver · 离屏暂停 · 滚动 scrub。",
+    level: "进阶",
+    track: "交互",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "两种模式",
+        body: "1）可见才播放：IO 进入 viewport → play，离开 → pause。\n2）滚动叙事：用 scroll progress 映射帧（goToAndStop）。落地页「画卷」常用第二种。",
+      },
+      {
+        type: "demo",
+        kind: "scroll-drive",
+        title: "动手：可见性驱动",
+        hint: "模拟进入/离开视口；离开时暂停以省 CPU。",
+      },
+      {
+        type: "code",
+        title: "IntersectionObserver",
+        lang: "ts",
+        code: `const io = new IntersectionObserver(([e]) => {
+  if (e.isIntersecting) ref.current?.play();
+  else ref.current?.pause();
+}, { threshold: 0.35 });
+
+io.observe(container);
+// unmount: io.disconnect()`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "sd1",
+            question: "离屏动画建议？",
+            options: ["继续全速 loop", "pause / 降频", "重新 fetch JSON", "改成 GIF"],
+            answer: 1,
+            explain: "省电省主线程。",
+          },
+          {
+            id: "sd2",
+            question: "滚动叙事帧定位用？",
+            options: ["play() only", "goToAndStop(frame)", "必须 setDirection", "window.open"],
+            answer: 1,
+            explain: "按进度 scrub 帧。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "renderer",
+    title: "SVG 与 Canvas 渲染",
+    summary: "清晰度 · 性能 · 何时换 renderer。",
+    level: "进阶",
+    track: "工程",
+    minutes: 9,
+    blocks: [
+      {
+        type: "text",
+        title: "怎么选",
+        body: "SVG：默认首选，清晰、易与 CSS 混排、图层可检。\nCanvas：大量路径/粒子时往往更省 DOM，但清晰度与无障碍/检索较差。\nHTML renderer 少用。先 SVG，性能 profiling 后再换。",
+      },
+      {
+        type: "demo",
+        kind: "renderer",
+        title: "动手：切换 renderer",
+        hint: "同一 JSON 在 SVG / Canvas 下播放，体感对比。",
+      },
+      {
+        type: "code",
+        title: "指定 renderer",
+        lang: "ts",
+        code: `lottie.loadAnimation({
+  container,
+  renderer: "canvas", // or "svg"
+  loop: true,
+  autoplay: true,
+  animationData,
+});`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "rn1",
+            question: "默认更推荐？",
+            options: ["canvas 永远", "svg 优先", "html only", "不用 renderer"],
+            answer: 1,
+            explain: "SVG 通用性最好。",
+          },
+          {
+            id: "rn2",
+            question: "极重粒子场景可考虑？",
+            options: ["只能 GIF", "canvas", "必须 iframe", "关掉硬件加速永远"],
+            answer: 1,
+            explain: "Canvas 有时更合适。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "optimize",
+    title: "体积与性能优化",
+    summary: "瘦身清单 · 图层 · 位图 · 缓存哈希。",
+    level: "实战",
+    track: "工程",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "瘦身优先级",
+        body: "1）删隐藏/未用图层与效果\n2）能矢量别位图；位图压缩并进 assets\n3）降 fr（UI 反馈 30fps 常够）\n4）缩短时长、少用模糊/阴影\n5）JSON 压缩 + 文件名内容哈希\n6）离屏 pause；同屏实例数设上限",
+      },
+      {
+        type: "demo",
+        kind: "optimize",
+        title: "动手：体积体检",
+        hint: "查看各预设的近似体积与图层数，建立「贵不贵」直觉。",
+      },
+      {
+        type: "code",
+        title: "构建期哈希",
+        lang: "ts",
+        code: `// Vite: import animUrl from "./hero.json?url"
+// 产出 /assets/hero-a1b2c3.json —— 更新即换 URL，缓存安全`,
+      },
+      {
+        type: "tip",
+        body: "单文件 UI 反馈建议盯紧 50–150KB；开屏/插画可放宽，但要懒加载。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "op1",
+            question: "体积暴涨常见原因？",
+            options: ["markers 太多", "大图 assets / 未删图层", "setSpeed", "basepath"],
+            answer: 1,
+            explain: "位图与冗余图层是大头。",
+          },
+          {
+            id: "op2",
+            question: "更新动画用户仍看旧版？",
+            options: ["正常", "缺内容哈希/缓存策略", "只能清 cookie", "Lottie 锁死"],
+            answer: 1,
+            explain: "用哈希文件名或版本 query。",
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "a11y",
+
     title: "无障碍与 reduced-motion",
     summary: "prefers-reduced-motion · aria · 静态兜底。",
     level: "进阶",

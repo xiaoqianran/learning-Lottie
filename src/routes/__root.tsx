@@ -18,7 +18,9 @@ import {
   Sparkles,
   BookMarked,
   Clapperboard,
+  Images,
 } from "lucide-react";
+
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useProgress } from "@/store/progress";
@@ -31,13 +33,14 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
-        title: "Lottie 实战学习 · 讲解 / Demo / 测验",
+        title: "Lottie 实战学习 v2 · markers / 串联 / 图鉴",
       },
       {
         name: "description",
         content:
-          "Lottie 中文交互式教程：讲解、实时 Demo、测验、Playground 与动画工坊。",
+          "Lottie 中文交互式教程 v2：markers、倒放、串联、renderer、Playground 增强、模式图鉴与工坊闯关。",
       },
+
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -77,12 +80,14 @@ function RootDocument({ children }: { children: ReactNode }) {
 const NAV_EXTRA = [
   { to: "/playground" as const, label: "Playground", icon: Sparkles },
   { to: "/studio" as const, label: "动画工坊", icon: Clapperboard },
+  { to: "/gallery" as const, label: "模式图鉴", icon: Images },
   { to: "/cheatsheet" as const, label: "速查表", icon: BookMarked },
   { to: "/hub" as const, label: "学习中心", icon: LayoutDashboard },
   { to: "/lab" as const, label: "练习场", icon: FlaskConical },
   { to: "/mistakes" as const, label: "错题本", icon: BookX },
   { to: "/certificate" as const, label: "结业", icon: Award },
 ];
+
 
 function AppShell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -120,7 +125,8 @@ function AppShell({ children }: { children: ReactNode }) {
               Lottie 实战学习
             </span>
             <span className="hidden rounded-full bg-surface-3 px-1.5 py-0.5 font-mono text-[10px] text-primary sm:inline">
-              v1.1
+              v2
+
 
             </span>
           </Link>
