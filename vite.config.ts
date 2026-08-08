@@ -162,6 +162,15 @@ const lessonSlugs = [
   "kit-like",
   "kit-async",
   "interview-lottie",
+  "layer-types",
+  "lottie-vs-dotlottie",
+  "dotlottie-intro",
+  "dotlottie-player",
+  "theming-slots",
+  "state-machines",
+  "platform-map",
+  "feature-support",
+  "ecosystem",
 ];
 
 const lessonPaths = lessonSlugs.map((slug) => ({ path: `/lesson/${slug}` }));
@@ -177,6 +186,7 @@ const staticPages = [
   { path: "/cheatsheet" },
   { path: "/gallery" },
   { path: "/kit" },
+  { path: "/ecosystem" },
   ...lessonPaths,
 ];
 

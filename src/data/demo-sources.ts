@@ -6,255 +6,206 @@ export type DemoSource = {
   code: string;
 };
 
-/** 每个交互 Demo 对应源码 — 与 live 区同一套逻辑 */
-export const DEMO_SOURCES: Record<DemoKind, DemoSource> = {
+const DEMO_SOURCES: Record<DemoKind, DemoSource> = {
   hello: {
     lang: "tsx",
-    title: "最小播放",
-    code: `import { useRef } from "react";
-import { LottiePlayer } from "@/components/LottiePlayer";
-
-export function Hello() {
-  const ref = useRef(null);
-  return (
-    <>
-      <LottiePlayer src="/animations/rocket.json" lottieRef={ref} />
-      <button onClick={() => ref.current?.pause()}>暂停</button>
-      <button onClick={() => ref.current?.play()}>播放</button>
-    </>
-  );
-}`,
+    title: "Hello",
+    code: "import { LottiePlayer } from \"@/components/LottiePlayer\"\n<LottiePlayer src=\"/animations/pulse.json\" style={{ width: 160 }} />",
   },
   playback: {
-    lang: "tsx",
-    title: "play / pause / stop",
-    code: `// loop={false} 播完会触发 complete
-ref.current?.play()
-ref.current?.pause()
-ref.current?.stop()
-ref.current?.goToAndPlay(0, true) // isFrame=true`,
+    lang: "ts",
+    title: "playback",
+    code: "ref.play(); ref.pause(); ref.stop()\nref.goToAndPlay(0, true)",
   },
   "speed-loop": {
-    lang: "tsx",
-    title: "速度与循环",
-    code: `const [speed, setSpeed] = useState(1)
-const [loop, setLoop] = useState(true)
-
-useEffect(() => {
-  ref.current?.setSpeed(speed)
-}, [speed])
-
-<LottiePlayer key={String(loop)} loop={loop} lottieRef={ref} src={src} />`,
+    lang: "ts",
+    title: "speed/loop",
+    code: "anim.setSpeed(1.5)\nanim.loop = true",
   },
   segments: {
-    lang: "tsx",
-    title: "playSegments",
-    code: `// force=true 打断当前段落
-ref.current?.playSegments([0, 30], true)
-ref.current?.playSegments([30, 60], true)
-ref.current?.playSegments([60, 90], true)`,
+    lang: "ts",
+    title: "segments",
+    code: "anim.playSegments([0, 30], true)",
   },
   events: {
-    lang: "tsx",
-    title: "complete / loopComplete",
-    code: `<LottiePlayer
-  loop={false}
-  onComplete={() => setLog("complete")}
-  onLoopComplete={() => setLog("loopComplete")}
-  src={src}
-/>`,
+    lang: "ts",
+    title: "events",
+    code: "anim.addEventListener(\"complete\", onDone)\n// data_ready · loopComplete · enterFrame",
   },
   hover: {
     lang: "tsx",
-    title: "hover 播放",
-    code: `<div
-  onMouseEnter={() => ref.current?.play()}
-  onMouseLeave={() => ref.current?.goToAndStop(0, true)}
-  onFocus={() => ref.current?.play()}
-  onBlur={() => ref.current?.goToAndStop(0, true)}
->
-  <LottiePlayer lottieRef={ref} autoplay={false} loop={false} src={src} />
-</div>
-// 触屏务必提供 click 等价`,
+    title: "hover",
+    code: "onMouseEnter={() => ref.play()}\nonMouseLeave={() => ref.goToAndStop(0, true)}",
   },
   "click-toggle": {
     lang: "tsx",
-    title: "状态驱动切换",
-    code: `const [on, setOn] = useState(false)
-
-// 状态在 React；动画只是表现
-<button onClick={() => setOn(v => !v)}>
-  {on ? "已喜欢" : "点赞"}
-</button>
-{on && <LottiePlayer src={heart} loop={false} />}`,
+    title: "toggle",
+    code: "const [on, setOn] = useState(false)\n// switch animation or segments",
   },
   "progress-scrub": {
     lang: "ts",
-    title: "scrub 映射帧",
-    code: `function scrub(ref, p: number, totalFrames: number) {
-  const frame = Math.round(
-    Math.min(1, Math.max(0, p)) * (totalFrames - 1)
-  )
-  ref.current?.goToAndStop(frame, true)
-}
-
-// <input type="range" onChange={e => scrub(ref, +e.target.value, 90)} />`,
+    title: "scrub",
+    code: "const frame = p * (op - ip)\nanim.goToAndStop(frame, true)",
   },
   theme: {
     lang: "tsx",
-    title: "主题容器（示意）",
-    code: `// 简单方案：容器 token 变色
-// 真改 JSON fill → 见 recolor 课 + recolorLottieHex
-<div className={themeRing}>
-  <LottiePlayer src={pulse} />
-</div>`,
+    title: "theme container",
+    code: "// container color scheme\n// or setTheme / recolor",
   },
   "reduced-motion": {
     lang: "ts",
-    title: "prefers-reduced-motion",
-    code: `const reduce = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-).matches
-
-if (reduce) {
-  ref.current?.goToAndStop(lastFrame, true)
-} else {
-  ref.current?.play()
-}`,
+    title: "a11y",
+    code: "const reduce = matchMedia(\n  \"(prefers-reduced-motion: reduce)\"\n).matches\n// show static if reduce",
   },
   "multi-state": {
-    lang: "tsx",
-    title: "四态切换",
-    code: `type S = "idle" | "loading" | "success" | "error"
-const [state, setState] = useState<S>("idle")
-
-const src = {
-  idle: pulse, loading, success, error
-}[state]
-
-<LottiePlayer key={state} src={src} loop={state==="loading"} />`,
+    lang: "ts",
+    title: "states",
+    code: "type S = \"idle\"|\"loading\"|\"success\"|\"error\"\n// map S → src or segments",
   },
   "loading-ux": {
     lang: "tsx",
-    title: "加载完成反馈",
-    code: `const [phase, setPhase] = useState<"idle"|"load"|"done">("idle")
-
-function start() {
-  setPhase("load")
-  setTimeout(() => setPhase("done"), 1600)
-}
-
-{phase === "load" && <LottiePlayer src={loading} />}
-{phase === "done" && <LottiePlayer src={success} loop={false} />}`,
+    title: "loading UX",
+    code: "// idle → loading → ok|err\n// wire loadError",
   },
   micro: {
     lang: "tsx",
-    title: "微交互：点赞 + 庆祝",
-    code: `{liked && <LottiePlayer src={heart} loop={false} />}
-{celebrate && <LottiePlayer src={confetti} loop={false} />}
-// 庆祝只留给关键节点，勿每次点击`,
+    title: "micro",
+    code: "// short feedback on click\n// interruptible",
   },
   "inspect-json": {
     lang: "ts",
-    title: "读取元数据",
-    code: `onDataReady={(m) => {
-  // m.fr / m.frames / m.layers / m.markers
-  setMeta(m)
-}}`,
+    title: "meta",
+    code: "const frames = data.op - data.ip\nconst sec = frames / data.fr",
   },
   challenge: {
     lang: "txt",
-    title: "上线自检清单",
-    code: `□ 离屏 pause
-□ loop 语义正确
-□ reduced-motion 兜底
-□ JSON 内容哈希
-□ complete 推进业务状态`,
+    title: "checklist",
+    code: "size · device · a11y · destroy\ncache · license · feature support",
   },
   markers: {
     lang: "ts",
-    title: "按 marker 名跳转",
-    code: `function frameOf(markers, name: string) {
-  const m = markers.find(x => x.cm === name)
-  if (!m) throw new Error(name)
-  return m.tm
-}
-
-ref.current?.goToAndStop(frameOf(markers, "half"), true)`,
+    title: "markers",
+    code: "const m = data.markers.find(x => x.cm === \"loop\")\nanim.goToAndPlay(m.tm, true)",
   },
   direction: {
     lang: "ts",
-    title: "正放 / 倒放",
-    code: `function setOpen(open: boolean) {
-  ref.current?.setDirection(open ? 1 : -1)
-  ref.current?.play()
-}`,
+    title: "direction",
+    code: "anim.setDirection(-1)\n// DotLottie: mode \"bounce\"|\"reverse\"",
   },
   sequence: {
     lang: "ts",
-    title: "complete 串联",
-    code: `// load → ok → party
-onComplete={() => {
-  if (step === "ok") setStep("party")
-  else if (step === "party") setStep("idle")
-}}`,
+    title: "sequence",
+    code: "on complete → play next\n// cancel on unmount",
   },
   "scroll-drive": {
     lang: "ts",
-    title: "可见性驱动",
-    code: `const io = new IntersectionObserver(([e]) => {
-  if (e.isIntersecting) ref.current?.play()
-  else ref.current?.pause()
-}, { threshold: 0.35 })
-
-io.observe(el)
-// unmount: io.disconnect()`,
+    title: "IO",
+    code: "new IntersectionObserver(([e]) => {\n  e.isIntersecting ? play() : pause()\n})",
   },
   renderer: {
     lang: "ts",
-    title: "svg | canvas",
-    code: `lottie.loadAnimation({
-  container,
-  renderer: "canvas", // or "svg"
-  loop: true,
-  autoplay: true,
-  animationData,
-})`,
+    title: "renderer",
+    code: "// lottie-web: svg | canvas\n// dotlottie-web: canvas core",
   },
   optimize: {
     lang: "txt",
-    title: "瘦身优先级",
-    code: `1 删隐藏图层
-2 少位图、压缩 assets
-3 降 fr（UI 30fps 常够）
-4 JSON 压缩 + 文件名哈希
-5 离屏 pause；限制同屏实例`,
+    title: "optimize",
+    code: "drop hidden layers\nless bitmaps · Optimizer\nto .lottie · hash cache",
   },
   recolor: {
     lang: "ts",
-    title: "运行时改色",
-    code: `import { recolorLottieHex } from "@/lib/lottie-recolor"
-
-const themed = recolorLottieHex(rawJson, "#6366f1")
-// <LottiePlayer animationData={themed} />`,
+    title: "recolor",
+    code: "// walk fills/strokes hex\n// or official setTheme",
   },
   "kit-like": {
     lang: "tsx",
-    title: "LottieLikeToggle",
-    code: `import { LottieLikeToggle } from "@/components/kit/LottieLikeToggle"
-
-<LottieLikeToggle
-  onChange={(liked) => console.log(liked)}
-/>
-// 状态在组件内；可受控扩展`,
+    title: "LikeToggle",
+    code: "<LottieLikeToggle onChange={...} />",
   },
   "kit-async": {
     lang: "tsx",
-    title: "LottieAsyncSlot",
-    code: `import { LottieAsyncSlot } from "@/components/kit/LottieAsyncSlot"
-
-<LottieAsyncSlot delayMs={1200} />
-// idle → loading → success | error`,
+    title: "AsyncSlot",
+    code: "<LottieAsyncSlot delayMs={1200} />",
+  },
+  dotlottie: {
+    lang: "ts",
+    title: "DotLottie",
+    code: "import { DotLottie } from \"@lottiefiles/dotlottie-web\"\nnew DotLottie({ canvas, src, autoplay, loop })\n// destroy()",
+  },
+  "layer-map": {
+    lang: "ts",
+    title: "ty",
+    code: "// 0 precomp 1 solid 2 image 3 null\n// 4 shape 5 text 6 audio 13 camera",
+  },
+  "state-machine": {
+    lang: "ts",
+    title: "SM",
+    code: "loadStateMachine(id)\nstartStateMachine()\npostEvent(\"String: click\")",
+  },
+  "platform-matrix": {
+    lang: "txt",
+    title: "packages",
+    code: "Web @lottiefiles/dotlottie-web\nReact @lottiefiles/dotlottie-react\niOS dotlottie-ios\nAndroid dotlottie-android",
+  },
+  "official-map": {
+    lang: "txt",
+    title: "官方 llms 入口",
+    code: "https://lottiefiles.com/llms.txt\nhttps://developers.lottiefiles.com/llms.txt\nhttps://developers.lottiefiles.com/dotlottie-players-web-llms.txt\nhttps://developers.lottiefiles.com/dotlottie-players-mobile-llms.txt\nhttps://developers.lottiefiles.com/dotlottiejs-llms.txt\nhttps://developers.lottiefiles.com/relottie-llms.txt",
+  },
+  "tool-chain": {
+    lang: "txt",
+    title: "工具链",
+    code: "Creator → Editor/Previewer\n→ Optimizer / to-dotLottie\n→ Workspace handoff\n→ Players + Feature Support",
+  },
+  "mcp-tools": {
+    lang: "txt",
+    title: "MCP tools",
+    code: "operations_list\nschema_search\nschema_details\ngraphql_execute\n// https://mcp.lottiefiles.com/mcp",
+  },
+  "license-card": {
+    lang: "txt",
+    title: "许可检查",
+    code: "1. 来源（free / marketplace）\n2. Simple License or plan commercial\n3. 禁止竞争动画库",
+  },
+  "layout-fit": {
+    lang: "ts",
+    title: "layout",
+    code: "new DotLottie({\n  canvas, src,\n  layout: { fit: \"cover\", align: [0.5, 0.5] },\n  backgroundColor: \"#000\",\n})",
+  },
+  "multi-anim": {
+    lang: "ts",
+    title: "loadAnimation",
+    code: "const list = dotLottie.manifest.animations\ndotLottie.loadAnimation(list[0].id)",
+  },
+  "dotlottie-js": {
+    lang: "ts",
+    title: "dotlottie-js",
+    code: "import { DotLottie } from \"@dotlottie/dotlottie-js\"\nconst dl = new DotLottie()\ndl.addAnimation({ id: \"main\", data })\ndl.addTheme({ id: \"dark\", data: theme })\nawait dl.build()\nawait dl.download(\"out.lottie\")",
+  },
+  "relottie-pipe": {
+    lang: "ts",
+    title: "reLottie",
+    code: "import { relottie } from \"@lottiefiles/relottie\"\nimport meta from \"@lottiefiles/relottie-metadata\"\nconst file = await relottie().use(meta).process(json)\n// file.data.metadata · hasExpressions",
+  },
+  "framework-wc": {
+    lang: "tsx",
+    title: "框架封装",
+    code: "// React\nimport { DotLottieReact } from \"@lottiefiles/dotlottie-react\"\n// WC\n// <dotlottie-player src autoplay loop />",
+  },
+  "worker-perf": {
+    lang: "ts",
+    title: "Worker",
+    code: "import { DotLottieWorker } from \"@lottiefiles/dotlottie-web\"\nconst a = new DotLottieWorker({ canvas, src, workerId: \"w1\" })\nawait a.play()\n// destroy on unmount",
+  },
+  integrations: {
+    lang: "txt",
+    title: "插件",
+    code: "AE · Figma · Webflow · Framer · Canva\nhttps://lottiefiles.com/integrations",
+  },
+  "expr-security": {
+    lang: "txt",
+    title: "表达式安全",
+    code: "1. bake expressions in AE\n2. detect hasExpressions (reLottie)\n3. Feature Support matrix\n4. degrade to static",
   },
 };
 

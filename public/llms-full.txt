@@ -1,0 +1,258 @@
+# Lottie 实战学习 · 完整课程索引
+
+> 48 课 · 对齐官方六份 llms.txt
+> 站点：https://xiaoqianran.github.io/learning-Lottie/
+
+## 全部课程
+
+### 1. Lottie 是什么 (`intro`)
+- 路径: 基础 · 入门
+- 摘要: 矢量动画 JSON · 跨平台 · 为什么比 GIF/视频更适合 UI。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/intro
+
+### 2. JSON 结构速览 (`json-structure`)
+- 路径: 基础 · 入门
+- 摘要: v / fr / ip / op / layers · 读懂一份动画文件。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/json-structure
+
+### 3. 播放控制 (`playback`)
+- 路径: 基础 · 入门
+- 摘要: play / pause / stop / goToAndPlay · 掌握基础控制。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/playback
+
+### 4. 速度与循环 (`speed-loop`)
+- 路径: 基础 · 入门
+- 摘要: setSpeed · loop · 产品节奏。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/speed-loop
+
+### 5. 段落播放 (`segments`)
+- 路径: 基础 · 入门
+- 摘要: playSegments · 同一文件多段 UI 状态。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/segments
+
+### 6. 事件回调 (`events`)
+- 路径: 基础 · 入门
+- 摘要: complete / loopComplete / enterFrame · 串联逻辑。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/events
+
+### 7. 悬停交互 (`hover-interact`)
+- 路径: 交互 · 进阶
+- 摘要: hover 播 · 触屏兜底 · 微反馈。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/hover-interact
+
+### 8. 点击切换 (`click-toggle`)
+- 路径: 交互 · 进阶
+- 摘要: 点赞 / 收藏 · 两态或段落。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/click-toggle
+
+### 9. 进度拖拽 (`scrub`)
+- 路径: 交互 · 进阶
+- 摘要: scrub · goToAndStop · 与滑块同步。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/scrub
+
+### 10. 多状态槽 (`multi-state`)
+- 路径: 交互 · 进阶
+- 摘要: idle / loading / success / error · 产品四态。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/multi-state
+
+### 11. 主题与色板 (`theme`)
+- 路径: 进阶 · 进阶
+- 摘要: 深浅色 · 品牌色 · 与 UI 一致。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/theme
+
+### 12. Markers 命名段 (`markers`)
+- 路径: 进阶 · 进阶
+- 摘要: tm + cm · 告别魔法帧号。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/markers
+
+### 13. 倒放与方向 (`direction`)
+- 路径: 进阶 · 进阶
+- 摘要: setDirection · bounce 模式对照。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/direction
+
+### 14. 串联编排 (`sequence`)
+- 路径: 进阶 · 进阶
+- 摘要: complete 链式 · 多段叙事。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/sequence
+
+### 15. 滚动与可见性 (`scroll-drive`)
+- 路径: 交互 · 进阶
+- 摘要: IntersectionObserver · 离屏 pause。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/scroll-drive
+
+### 16. 渲染器选择 (`renderer`)
+- 路径: 工程 · 实战
+- 摘要: svg vs canvas · 取舍。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/renderer
+
+### 17. 体积与优化 (`optimize`)
+- 路径: 工程 · 实战
+- 摘要: 清图层 · 少位图 · 官方 Optimizer。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/optimize
+
+### 18. 无障碍 (`a11y`)
+- 路径: 工程 · 实战
+- 摘要: reduced-motion · 语义 · 焦点。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/a11y
+
+### 19. 性能工程 (`performance`)
+- 路径: 工程 · 实战
+- 摘要: 离屏 · destroy · Worker · 列表。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/performance
+
+### 20. React 接入 (`react-integration`)
+- 路径: 工程 · 实战
+- 摘要: lottie-react · SSR · 封装。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/react-integration
+
+### 21. 设计协作流 (`workflow`)
+- 路径: 工程 · 实战
+- 摘要: AE → 插件 → 评审 → 接入 → 回归。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/workflow
+
+### 22. 加载 UX (`loading-ux`)
+- 路径: 实战 · 实战
+- 摘要: 骨架 · 超时 · 失败态。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/loading-ux
+
+### 23. 微交互 (`micro-interactions`)
+- 路径: 实战 · 实战
+- 摘要: 按钮 · 点赞 · 轻反馈时长。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/micro-interactions
+
+### 24. 常见坑 (`pitfalls`)
+- 路径: 实战 · 实战
+- 摘要: 字体 · 蒙版 · destroy · CORS · 表达式。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/pitfalls
+
+### 25. 上线清单 (`checklist`)
+- 路径: 实战 · 实战
+- 摘要: 发布前 12 项自检。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/checklist
+
+### 26. 运行时改色 (`recolor-runtime`)
+- 路径: 进阶 · 进阶
+- 摘要: 遍历 fill/stroke · 工程 recolor。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/recolor-runtime
+
+### 27. 组件：点赞开关 (`kit-like`)
+- 路径: 组件 · 实战
+- 摘要: 可复用 LikeToggle。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/kit-like
+
+### 28. 组件：异步四态槽 (`kit-async`)
+- 路径: 组件 · 实战
+- 摘要: AsyncSlot · 请求态映射。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/kit-async
+
+### 29. 面试要点 (`interview-lottie`)
+- 路径: 实战 · 实战
+- 摘要: 原理 · 取舍 · 性能 · 生态。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/interview-lottie
+
+### 30. 图层类型深潜 (`layer-types`)
+- 路径: 进阶 · 进阶
+- 摘要: ty 0–5 · 预合成 / 形状 / 图片 / 文本 · schema。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/layer-types
+
+### 31. JSON vs dotLottie (`lottie-vs-dotlottie`)
+- 路径: 生态 · 入门
+- 摘要: 单文件 JSON 与 .lottie 压缩包 · 何时升级。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/lottie-vs-dotlottie
+
+### 32. dotLottie 导读 (`dotlottie-intro`)
+- 路径: 生态 · 进阶
+- 摘要: 多动画 · 主题 · 状态机 · 生产格式。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-intro
+
+### 33. 官方 Web 播放器 (`dotlottie-player`)
+- 路径: 工程 · 实战
+- 摘要: DotLottie API · 事件 · layout · Worker。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-player
+
+### 34. Layout 与适配 (`layout-fit`)
+- 路径: 工程 · 进阶
+- 摘要: fit · align · backgroundColor · 画布。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/layout-fit
+
+### 35. 多动画清单 (`multi-animation`)
+- 路径: 生态 · 进阶
+- 摘要: manifest.animations · loadAnimation。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/multi-animation
+
+### 36. 官方主题与 slots (`theming-slots`)
+- 路径: 生态 · 进阶
+- 摘要: token 主题 · setTheme · 对比 recolor。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/theming-slots
+
+### 37. 状态机概念 (`state-machines`)
+- 路径: 交互 · 进阶
+- 摘要: states · transitions · inputs · 与手写对照。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/state-machines
+
+### 38. dotLottie-JS 打包 (`dotlottie-js`)
+- 路径: 工程 · 实战
+- 摘要: 程序化创建 .lottie · 主题 · 状态机。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/dotlottie-js
+
+### 39. reLottie 与 LAST (`relottie`)
+- 路径: 工程 · 实战
+- 摘要: AST 管线 · 元数据 · 安全表达式标记。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/relottie
+
+### 40. 表达式与安全 (`expressions-security`)
+- 路径: 工程 · 实战
+- 摘要: expressions · 兼容 · 不可信资源。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/expressions-security
+
+### 41. 跨端玩家地图 (`platform-map`)
+- 路径: 生态 · 实战
+- 摘要: Web / iOS / Android / RN · 选型。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/platform-map
+
+### 42. 框架封装与 CDN (`framework-players`)
+- 路径: 工程 · 实战
+- 摘要: React/Vue/Svelte/WC · 属性对照。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/framework-players
+
+### 43. 特性支持与取舍 (`feature-support`)
+- 路径: 工程 · 实战
+- 摘要: 表达式 · 遮罩 · 字体 · 兼容性检查。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/feature-support
+
+### 44. 官方工具与转换 (`tools-converters`)
+- 路径: 生态 · 入门
+- 摘要: Creator · Editor · Optimizer · 转换器。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/tools-converters
+
+### 45. 集成与插件 (`integrations`)
+- 路径: 生态 · 入门
+- 摘要: Figma · Webflow · Framer · Canva · AE。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/integrations
+
+### 46. MCP 与 AI 代理 (`mcp-ai`)
+- 路径: 生态 · 实战
+- 摘要: LottieFiles MCP · Creator MCP · llms.txt。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/mcp-ai
+
+### 47. 许可与商用 (`licensing`)
+- 路径: 实战 · 实战
+- 摘要: Lottie Simple License · 套餐 · 合规。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/licensing
+
+### 48. 官方生态与 llms.txt (`ecosystem`)
+- 路径: 生态 · 入门
+- 摘要: 六份官方 llms · 本站索引 · 不落后官网。
+- URL: https://xiaoqianran.github.io/learning-Lottie/lesson/ecosystem
+
+
+## 官方权威
+- https://lottiefiles.com/llms.txt
+- https://developers.lottiefiles.com/llms.txt
+- https://developers.lottiefiles.com/dotlottie-players-web-llms.txt
+- https://developers.lottiefiles.com/dotlottie-players-mobile-llms.txt
+- https://developers.lottiefiles.com/dotlottiejs-llms.txt
+- https://developers.lottiefiles.com/relottie-llms.txt
+- https://lottiefiles.github.io/lottie-docs/
+- https://dotlottie.io/spec/2.0/
+- https://docs.lottiefiles.com/en/platform/mcp

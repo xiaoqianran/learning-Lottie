@@ -30,9 +30,23 @@ export type DemoKind =
   | "optimize"
   | "recolor"
   | "kit-like"
-  | "kit-async";
-
-
+  | "kit-async"
+  | "dotlottie"
+  | "layer-map"
+  | "state-machine"
+  | "platform-matrix"
+  | "official-map"
+  | "tool-chain"
+  | "mcp-tools"
+  | "license-card"
+  | "layout-fit"
+  | "multi-anim"
+  | "dotlottie-js"
+  | "relottie-pipe"
+  | "framework-wc"
+  | "worker-perf"
+  | "integrations"
+  | "expr-security";
 
 export type LessonBlock =
   | { type: "text"; title?: string; body: string }
@@ -46,11 +60,10 @@ export type Lesson = {
   title: string;
   summary: string;
   level: "入门" | "进阶" | "实战";
-  track: "基础" | "进阶" | "交互" | "工程" | "实战" | "组件";
+  track: "基础" | "进阶" | "交互" | "工程" | "实战" | "组件" | "生态";
   minutes: number;
   blocks: LessonBlock[];
 };
-
 
 export const LESSONS: Lesson[] = [
   {
@@ -64,12 +77,12 @@ export const LESSONS: Lesson[] = [
       {
         type: "text",
         title: "一句话",
-        body: "Lottie 是 Airbnb 开源的动画运行时：把 After Effects（经 Bodymovin 插件）导出的 JSON，在 Web / iOS / Android / Flutter 上以矢量方式播放。",
+        body: "Lottie 是 Airbnb 开源的动画运行时：把 After Effects（经 Bodymovin / LottieFiles for AE）导出的 JSON，在 Web / iOS / Android / Flutter 上以矢量方式播放。",
       },
       {
         type: "text",
         title: "对比",
-        body: "GIF：体积大、不可交互、分辨率差。\nMP4：需要解码器、难做透明与状态控制。\nCSS/SVG 手写：适合简单过渡，复杂时间轴成本高。\nLottie：设计师出稿，工程师控制 play / pause / 速度 / 段落 / 事件。",
+        body: "GIF：体积大、不可交互、分辨率差。\nMP4：需要解码器、难做透明与状态控制。\nCSS/SVG 手写：适合简单过渡，复杂时间轴成本高。\nLottie：设计师出稿，工程师控制 play / pause / 速度 / 段落 / 事件。\ndotLottie（官方首选下一代）：压缩包内可含多动画、主题、状态机。",
       },
       {
         type: "demo",
@@ -90,7 +103,7 @@ export function Hello() {
       },
       {
         type: "tip",
-        body: "本教程用 React + lottie-react 演示；核心 API 与 lottie-web 一致，换到 Vue / 原生同样适用。",
+        body: "官方 FAQ：Lottie 比 GIF 约 10× 更小且可缩放；离线可播。生产优先考虑 .lottie + 官方 players。",
       },
       {
         type: "quiz",
@@ -124,7 +137,7 @@ export function Hello() {
       {
         type: "text",
         title: "顶层字段",
-        body: "v：Bodymovin 版本\nfr：帧率\nip / op：入点 / 出点（帧）\nw / h：画布宽高\nlayers：图层数组（形状、图片、预合成等）\nassets：图片与预合成资源",
+        body: "v：Bodymovin 版本\nfr：帧率\nip / op：入点 / 出点（帧）\nw / h：画布宽高\nlayers：图层数组（形状、图片、预合成等）\nassets：图片与预合成资源\nmarkers / slots：命名标记与主题插槽（进阶）",
       },
       {
         type: "demo",
@@ -144,7 +157,7 @@ export function Hello() {
       },
       {
         type: "tip",
-        body: "不要手改复杂 JSON。改交互与主题优先用运行时 API；改内容回 AE 重导出。",
+        body: "完整 schema：lottiefiles.github.io/lottie-docs/schema/。LAC Spec 是跨实现兼容的最小化子集。",
       },
       {
         type: "quiz",
@@ -193,28 +206,27 @@ export function Hello() {
         code: `const ref = useRef<LottieRefCurrentProps>(null);
 
 <Lottie lottieRef={ref} animationData={data} loop={false} />
-
 ref.current?.play();
 ref.current?.pause();
 ref.current?.stop();
-ref.current?.goToAndPlay(0, true); // 帧, isFrame`,
+ref.current?.goToAndPlay(0, true);`,
       },
       {
         type: "quiz",
         questions: [
           {
             id: "p1",
-            question: "成功勾播完后常做？",
-            options: ["无限循环", "停在末帧", "立刻销毁 DOM", "改成 GIF"],
+            question: "goToAndPlay 第二参 true 表示？",
+            options: ["循环", "按帧定位", "倒放", "销毁"],
             answer: 1,
-            explain: "loop=false + 末帧保留状态。",
+            explain: "isFrame=true 按帧跳转。",
           },
           {
             id: "p2",
-            question: "goToAndPlay 第二参数 true 表示？",
-            options: ["秒", "按帧定位", "倒放", "静音"],
+            question: "播完停在末帧常见做法？",
+            options: ["loop=true", "loop=false + 不 stop", "删 JSON", "必须视频"],
             answer: 1,
-            explain: "isFrame=true 时首参是帧。",
+            explain: "非循环播完停在最后一帧。",
           },
         ],
       },
@@ -223,46 +235,45 @@ ref.current?.goToAndPlay(0, true); // 帧, isFrame`,
   {
     slug: "speed-loop",
     title: "速度与循环",
-    summary: "setSpeed · loop · 方向 · 什么时候不该循环。",
+    summary: "setSpeed · loop · 产品节奏。",
     level: "入门",
     track: "基础",
     minutes: 7,
     blocks: [
       {
         type: "text",
-        title: "原则",
-        body: "Loading / 背景装饰：可循环。\n成功、错误、引导步骤：通常播一次。\n速度：默认 1；反馈过慢可 1.2–1.5，过快会显得廉价。",
+        title: "节奏",
+        body: "加载圈可稍快（1.2–1.5×）；成功勾可选播一次；微交互别过快导致「闪一下看不清」。",
       },
       {
         type: "demo",
         kind: "speed-loop",
-        title: "动手：速度与循环",
-        hint: "拖动速度，切换 loop，观察体感差异。",
+        title: "动手：速度 / 循环",
+        hint: "拖速度、切换循环，体感差异。",
       },
       {
         type: "code",
-        title: "设置速度",
-        lang: "tsx",
-        code: `ref.current?.setSpeed(1.25);
-// 负速度可倒放（视版本与资源支持）
-ref.current?.setDirection(-1);`,
+        title: "API",
+        lang: "ts",
+        code: `anim.setSpeed(1.5);
+anim.loop = true; // 或 load 时 loop: true`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "s1",
-            question: "支付成功勾最合适？",
-            options: ["无限 loop", "播一次", "必须 3 倍速", "必须倒放"],
-            answer: 1,
-            explain: "状态反馈播一次即可。",
+            id: "sl1",
+            question: "setSpeed(2) 含义？",
+            options: ["两倍速", "两帧", "循环两次", "倒放"],
+            answer: 0,
+            explain: "相对默认 1 的倍率。",
           },
           {
-            id: "s2",
-            question: "setSpeed(2) 表示？",
-            options: ["两倍速", "两帧", "循环两次", "延迟 2s"],
-            answer: 0,
-            explain: "相对默认 1 的倍速。",
+            id: "sl2",
+            question: "成功勾动画通常？",
+            options: ["无限循环", "播一次", "必须 10×", "禁止 pause"],
+            answer: 1,
+            explain: "完成反馈常 loop=false。",
           },
         ],
       },
@@ -270,52 +281,51 @@ ref.current?.setDirection(-1);`,
   },
   {
     slug: "segments",
-    title: "段落与帧区间",
-    summary: "playSegments · 用同一文件做多状态图标。",
+    title: "段落播放",
+    summary: "playSegments · 同一文件多段 UI 状态。",
     level: "入门",
     track: "基础",
     minutes: 9,
     blocks: [
       {
         type: "text",
-        title: "为什么用段落",
-        body: "一份 JSON 可以包含「关→开」「开→关」两段。用 playSegments([from, to], forceFlag) 只播需要的区间，比加载两个文件更省。",
+        title: "为何段落",
+        body: "一个 JSON 可含 intro / loop / outro。用 playSegments([in,out], force) 切段，比拆成多个文件更省请求。",
       },
       {
         type: "demo",
         kind: "segments",
-        title: "动手：段落播放",
-        hint: "点按钮只播放指定帧区间。",
+        title: "动手：切段",
+        hint: "点不同段落按钮。",
       },
       {
         type: "code",
-        title: "playSegments",
+        title: "段落",
         lang: "ts",
-        code: `// 播放 0–30 帧，强制打断当前
-ref.current?.playSegments([0, 30], true);
-// 队列多段
-ref.current?.playSegments([[0, 20], [40, 60]], true);`,
+        code: `// force=true 打断当前播放
+anim.playSegments([0, 30], true);
+anim.playSegments([30, 60], true);`,
       },
       {
         type: "tip",
-        body: "和设计师约定帧标记（markers）或文档化区间，避免魔法数字散落代码。",
+        body: "帧号难维护时改用 markers（见 markers 课）。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "g1",
-            question: "playSegments 主要用途？",
-            options: ["压缩 JSON", "只播指定帧区间", "改颜色", "上传 AE"],
-            answer: 1,
-            explain: "同一资源多状态。",
+            id: "sg1",
+            question: "playSegments 第二参 force？",
+            options: ["强制打断当前", "强制循环", "强制 canvas", "无意义"],
+            answer: 0,
+            explain: "true 立刻切到新段。",
           },
           {
-            id: "g2",
-            question: "forceFlag=true？",
-            options: ["忽略错误", "打断当前立即播新段", "强制 loop", "强制静音"],
+            id: "sg2",
+            question: "段落帧号从哪来？",
+            options: ["随便写", "AE 时间轴 / markers", "CSS", "随机"],
             answer: 1,
-            explain: "立即切换段落。",
+            explain: "与设计师对齐时间轴。",
           },
         ],
       },
@@ -323,50 +333,47 @@ ref.current?.playSegments([[0, 20], [40, 60]], true);`,
   },
   {
     slug: "events",
-    title: "事件与完成回调",
-    summary: "DOMLoaded · complete · loopComplete · enterFrame。",
+    title: "事件回调",
+    summary: "complete / loopComplete / enterFrame · 串联逻辑。",
     level: "入门",
     track: "基础",
     minutes: 8,
     blocks: [
       {
         type: "text",
-        title: "常用事件",
-        body: "DOMLoaded / data_ready：资源就绪。\ncomplete：非循环播完。\nloopComplete：循环一圈结束。\nenterFrame：每帧（慎用，注意性能）。",
+        title: "关键事件",
+        body: "DOMLoaded / data_ready：可开始控制。\ncomplete：非循环播完（串联下一步）。\nloopComplete：每圈一次。\nenterFrame：每帧，逻辑必须极轻。",
       },
       {
         type: "demo",
         kind: "events",
-        title: "动手：事件日志",
-        hint: "播放并观察事件流；complete 时会提示。",
+        title: "动手：看事件日志",
+        hint: "观察 complete / loop 等输出。",
       },
       {
         type: "code",
-        title: "onComplete",
-        lang: "tsx",
-        code: `<Lottie
-  animationData={data}
-  loop={false}
-  onComplete={() => setStep("done")}
-  onLoopComplete={() => console.log("loop")}
-/>`,
+        title: "订阅",
+        lang: "ts",
+        code: `anim.addEventListener("complete", () => goNext());
+anim.addEventListener("loopComplete", () => count++);
+// 卸载时 removeEventListener`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "e1",
-            question: "非循环播完触发？",
-            options: ["complete", "loopComplete only", "error only", "scroll"],
-            answer: 0,
-            explain: "complete / onComplete。",
+            id: "ev1",
+            question: "串联「播完再请求」用？",
+            options: ["enterFrame 狂轮询", "complete", "setSpeed", "fr 字段"],
+            answer: 1,
+            explain: "complete 表示一轮结束。",
           },
           {
-            id: "e2",
-            question: "enterFrame 注意？",
-            options: ["可随便写重逻辑", "每帧触发，逻辑要轻", "只触发一次", "浏览器禁止"],
+            id: "ev2",
+            question: "enterFrame 里应避免？",
+            options: ["轻量读 currentFrame", "重 DOM 操作", "什么都不做", "日志节流"],
             answer: 1,
-            explain: "高频回调，避免重计算。",
+            explain: "每帧重活会掉帧。",
           },
         ],
       },
@@ -374,58 +381,39 @@ ref.current?.playSegments([[0, 20], [40, 60]], true);`,
   },
   {
     slug: "hover-interact",
-    title: "悬停与指针交互",
-    summary: "鼠标进入播放、离开回退 · 图标微动效。",
+    title: "悬停交互",
+    summary: "hover 播 · 触屏兜底 · 微反馈。",
     level: "进阶",
     track: "交互",
-    minutes: 9,
+    minutes: 8,
     blocks: [
       {
         type: "text",
         title: "模式",
-        body: "悬停播放、离开倒回或停在中间帧。适合导航图标、卡片装饰。触屏无 hover，要准备 click / press 兜底。",
+        body: "桌面：mouseenter play / mouseleave stop 或反向。\n触屏无 hover：提供 click / focus 等价路径。",
       },
       {
         type: "demo",
         kind: "hover",
-        title: "动手：Hover 播放",
-        hint: "鼠标移入播放，移出暂停并回到开头（移动端可点按）。",
-      },
-      {
-        type: "code",
-        title: "hover 控制",
-        lang: "tsx",
-        code: `function HoverIcon() {
-  const ref = useRef<LottieRefCurrentProps>(null);
-  return (
-    <div
-      onMouseEnter={() => ref.current?.play()}
-      onMouseLeave={() => {
-        ref.current?.pause();
-        ref.current?.goToAndStop(0, true);
-      }}
-    >
-      <Lottie lottieRef={ref} animationData={data} loop autoplay={false} />
-    </div>
-  );
-}`,
+        title: "动手：悬停播放",
+        hint: "移入播放，移出复位；点按亦可。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "h1",
-            question: "仅 hover 交互的问题？",
-            options: ["触屏无 hover", "JSON 变大", "无法循环", "颜色固定"],
-            answer: 0,
-            explain: "需要 click/focus 等价交互。",
+            id: "hv1",
+            question: "触屏设备 hover ？",
+            options: ["永远可靠", "需 click/focus 兜底", "禁止 Lottie", "只能 GIF"],
+            answer: 1,
+            explain: "无持续 hover 状态。",
           },
           {
-            id: "h2",
-            question: "离开时 goToAndStop(0) 作用？",
-            options: ["加速", "复位到起始帧", "删除图层", "改 fr"],
-            answer: 1,
-            explain: "回到初始姿态。",
+            id: "hv2",
+            question: "离开时常见？",
+            options: ["goToAndStop(0)", "删除节点", "setSpeed(99)", "location.reload"],
+            answer: 0,
+            explain: "复位到起始帧。",
           },
         ],
       },
@@ -433,49 +421,39 @@ ref.current?.playSegments([[0, 20], [40, 60]], true);`,
   },
   {
     slug: "click-toggle",
-    title: "点击切换状态",
-    summary: "收藏 / 开关 / 播放按钮的双向动画。",
+    title: "点击切换",
+    summary: "点赞 / 收藏 · 两态或段落。",
     level: "进阶",
     track: "交互",
-    minutes: 10,
+    minutes: 8,
     blocks: [
       {
         type: "text",
-        title: "状态机思路",
-        body: "UI 状态 on/off 映射到两段动画或正放/倒放。状态以你的 React state 为准，动画只是表现层。",
+        title: "两态",
+        body: "liked 用不同段落或不同 JSON；切换时 goToAndPlay 对应段。",
       },
       {
         type: "demo",
         kind: "click-toggle",
-        title: "动手：点赞切换",
-        hint: "点击切换 liked；动画播一次。",
-      },
-      {
-        type: "code",
-        title: "状态驱动",
-        lang: "tsx",
-        code: `const [on, setOn] = useState(false);
-useEffect(() => {
-  if (on) ref.current?.playSegments([0, 30], true);
-  else ref.current?.playSegments([30, 60], true);
-}, [on]);`,
+        title: "动手：点击切换",
+        hint: "点动画在两态间切换。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "c1",
-            question: "切换按钮的真实状态应存在？",
-            options: ["只在 Lottie 内部", "应用 state / 后端", "JSON 文件名", "CSS only"],
+            id: "ct1",
+            question: "收藏态建议？",
+            options: ["无限循环闪烁", "切到 liked 段并停/微循环", "必须视频", "禁止动画"],
             answer: 1,
-            explain: "动画是表现，状态在应用层。",
+            explain: "状态清晰可辨。",
           },
           {
-            id: "c2",
-            question: "点太快连点怎么办？",
-            options: ["忽略", "防抖或播完再接受", "删动画", "必须 loop"],
+            id: "ct2",
+            question: "乐观 UI？",
+            options: ["等服务器才动", "先切态再请求，失败回滚", "只能同步阻塞", "无"],
             answer: 1,
-            explain: "避免段落打架；可用 isPlaying 锁。",
+            explain: "微交互常见乐观更新。",
           },
         ],
       },
@@ -483,48 +461,39 @@ useEffect(() => {
   },
   {
     slug: "scrub",
-    title: "进度 scrub",
-    summary: "goToAndStop · 用滚动或滑杆驱动帧。",
+    title: "进度拖拽",
+    summary: "scrub · goToAndStop · 与滑块同步。",
     level: "进阶",
     track: "交互",
     minutes: 9,
     blocks: [
       {
         type: "text",
-        title: "场景",
-        body: "落地页滚动叙事、步骤指示器、自定义进度。用百分比映射到帧：frame = p * (op - ip)。",
+        title: "映射",
+        body: "progress ∈ [0,1] → frame = ip + progress * (op-ip)；用 goToAndStop(frame, true)。",
       },
       {
         type: "demo",
         kind: "progress-scrub",
-        title: "动手：滑杆 scrub",
-        hint: "拖动进度条，动画跟着手指走。",
-      },
-      {
-        type: "code",
-        title: "映射帧",
-        lang: "ts",
-        code: `function scrub(ref: LottieRef, p: number, totalFrames: number) {
-  const frame = Math.round(Math.min(1, Math.max(0, p)) * (totalFrames - 1));
-  ref.current?.goToAndStop(frame, true);
-}`,
+        title: "动手：拖进度",
+        hint: "拖滑块看帧同步。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "r1",
-            question: "scrub 时通常？",
-            options: ["保持 autoplay", "goToAndStop 定位", "必须 setSpeed(0)", "删 layers"],
-            answer: 1,
-            explain: "手动定位帧，不自动播。",
+            id: "sc1",
+            question: "scrub 主 API？",
+            options: ["goToAndStop", "setSpeed only", "destroy", "alert"],
+            answer: 0,
+            explain: "停在指定帧。",
           },
           {
-            id: "r2",
-            question: "滚动叙事注意？",
-            options: ["每像素重载 JSON", "节流 + 缓存实例", "禁用 GPU", "改成 GIF"],
-            answer: 1,
-            explain: "单实例 + rAF/节流。",
+            id: "sc2",
+            question: "拖动中是否持续 play？",
+            options: ["通常 pause/stop 在帧上", "必须满速 play", "必须 Worker", "禁止"],
+            answer: 0,
+            explain: "用户拖进度时停在帧上。",
           },
         ],
       },
@@ -532,39 +501,39 @@ useEffect(() => {
   },
   {
     slug: "multi-state",
-    title: "多状态图标",
-    summary: "空 / 加载 / 成功 / 错误 四态一套反馈。",
+    title: "多状态槽",
+    summary: "idle / loading / success / error · 产品四态。",
     level: "进阶",
     track: "交互",
     minutes: 10,
     blocks: [
       {
         type: "text",
-        title: "产品模式",
-        body: "同一槽位根据异步状态切换不同 Lottie 或同一文件不同段落。切换时注意卸载旧实例，避免音频/循环泄漏（Lottie 本身无音频，但 rAF 仍在）。",
+        title: "模式",
+        body: "A. 多 JSON 换源\nB. 单 JSON 多段落\nC. 官方 State Machine（见状态机课）\n空态也要有（empty）。",
       },
       {
         type: "demo",
         kind: "multi-state",
         title: "动手：四态切换",
-        hint: "模拟请求：idle → loading → success / error。",
+        hint: "模拟请求成功/失败。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "m1",
-            question: "异步按钮反馈常见序列？",
-            options: ["success→loading", "idle→loading→success/error", "error 永远 loop", "只要 GIF"],
-            answer: 1,
-            explain: "标准异步反馈链。",
+            id: "ms1",
+            question: "loading 态常见？",
+            options: ["loop 加载动画", "必须 error", "无动画", "只静态图永远"],
+            answer: 0,
+            explain: "等待反馈。",
           },
           {
-            id: "m2",
-            question: "状态切换时？",
-            options: ["叠加多个 loop loading", "替换并停掉上一实例", "忽略 complete", "强制 10x 速"],
+            id: "ms2",
+            question: "error 态应？",
+            options: ["无反馈", "明确错误动画 + 可重试", "无限 loading", "白屏"],
             answer: 1,
-            explain: "避免多个动画同时跑。",
+            explain: "可恢复路径。",
           },
         ],
       },
@@ -572,50 +541,39 @@ useEffect(() => {
   },
   {
     slug: "theme",
-    title: "主题与颜色",
-    summary: "设计 token · 替换填充色 · 深浅色适配。",
+    title: "主题与色板",
+    summary: "深浅色 · 品牌色 · 与 UI 一致。",
     level: "进阶",
     track: "进阶",
-    minutes: 8,
+    minutes: 9,
     blocks: [
       {
         type: "text",
         title: "策略",
-        body: "1）导出时用中性色，运行时用 lottie-colorify 等改色。\n2）深浅色各导出一套（可控但体积翻倍）。\n3）简单图标优先用 CSS/SVG，把 Lottie 留给复杂动态。",
+        body: "1）导出两套 JSON\n2）运行时 recolor（本站 recolor 课）\n3）官方 theming/slots（.lottie 内主题）\n选 3 做设计系统；选 2 做简单图标。",
       },
       {
         type: "demo",
         kind: "theme",
-        title: "动手：主题预览",
-        hint: "切换强调色，观察容器与叠加层（真实改 JSON 色需遍历 layers）。",
-      },
-      {
-        type: "code",
-        title: "思路：遍历改 fill",
-        lang: "ts",
-        code: `// 简化示意：生产请用成熟改色库或设计约定
-function recolor(data: any, rgba: number[]) {
-  const clone = structuredClone(data);
-  // 递归 layers / shapes 找 ty==='fl' 改 c.k
-  return clone;
-}`,
+        title: "动手：切换主题容器",
+        hint: "背景/色板变化时动画是否仍和谐。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "t1",
-            question: "深浅色适配更稳妥？",
-            options: ["运行时乱改所有层", "设计约定 + 可控改色/双资源", "只用 GIF", "忽略对比度"],
+            id: "tm1",
+            question: "设计系统多主题优先？",
+            options: ["手改十份无关联 JSON", "dotLottie theming", "只 CSS filter 糊弄", "放弃动画"],
             answer: 1,
-            explain: "约定与可控方案更稳。",
+            explain: "官方主题链路。",
           },
           {
-            id: "t2",
-            question: "极简图标更推荐？",
-            options: ["必上 Lottie", "SVG/图标字体可能更合适", "必须 AE", "必须视频"],
+            id: "tm2",
+            question: "简单单色图标？",
+            options: ["必须 SM", "运行时 recolor 可", "必须 iOS", "必须 MCP"],
             answer: 1,
-            explain: "Lottie 适合有时间轴的动态。",
+            explain: "小场景够用。",
           },
         ],
       },
@@ -623,57 +581,46 @@ function recolor(data: any, rgba: number[]) {
   },
   {
     slug: "markers",
-    title: "Markers 命名标记",
-    summary: "用 markers 代替魔法数字帧 · 与设计对齐。",
+    title: "Markers 命名段",
+    summary: "tm + cm · 告别魔法帧号。",
     level: "进阶",
     track: "进阶",
     minutes: 9,
     blocks: [
       {
         type: "text",
-        title: "为什么需要 markers",
-        body: "playSegments([12, 48]) 里的数字难维护。AE / Bodymovin 可导出 markers（tm 帧 + cm 名称）。运行时按名字定位，设计和工程说同一种语言。",
+        title: "为什么",
+        body: "playSegments([12,48]) 难维护。AE 导出 markers（tm 帧 + cm 名称），运行时按名定位。",
       },
       {
         type: "demo",
         kind: "markers",
-        title: "动手：按标记跳转",
-        hint: "点击标记名，跳到对应帧（本教程为 progress / rocket 注入了教学 markers）。",
+        title: "动手：按 marker 跳转",
+        hint: "点命名标记。",
       },
       {
         type: "code",
-        title: "按名取帧",
+        title: "查找",
         lang: "ts",
-        code: `type Marker = { tm: number; cm: string };
-
-function frameOf(markers: Marker[], name: string) {
-  const m = markers.find((x) => x.cm === name);
-  if (!m) throw new Error(\`missing marker: \${name}\`);
-  return m.tm;
-}
-
-ref.current?.goToAndPlay(frameOf(markers, "launch"), true);`,
-      },
-      {
-        type: "tip",
-        body: "段落播放可用相邻 markers：from = idle.tm，to = launch.tm。约定命名：idle / open / close / success。",
+        code: `const m = data.markers?.find((x) => x.cm === "loop");
+if (m) anim.goToAndPlay(m.tm, true);`,
       },
       {
         type: "quiz",
         questions: [
           {
             id: "mk1",
-            question: "marker 的 tm 通常表示？",
-            options: ["毫秒时间戳", "帧时间", "图层 id", "颜色"],
+            question: "cm 字段是？",
+            options: ["颜色", "标记名称", "压缩率", "相机"],
             answer: 1,
-            explain: "tm 是时间轴上的帧位置。",
+            explain: "comment/name。",
           },
           {
             id: "mk2",
-            question: "比硬编码 [12,48] 更好的做法？",
-            options: ["随机帧", "用 markers 命名", "只用 setTimeout", "删掉段落"],
-            answer: 1,
-            explain: "命名标记可随设计改时间轴而不改业务语义。",
+            question: "markers 优势？",
+            options: ["设计与工程同名", "更大文件必然", "禁止循环", "只 Android"],
+            answer: 0,
+            explain: "协作契约。",
           },
         ],
       },
@@ -681,49 +628,46 @@ ref.current?.goToAndPlay(frameOf(markers, "launch"), true);`,
   },
   {
     slug: "direction",
-    title: "正放与倒放",
-    summary: "setDirection · 开关闭合 · 收藏取消。",
+    title: "倒放与方向",
+    summary: "setDirection · bounce 模式对照。",
     level: "进阶",
     track: "进阶",
-    minutes: 8,
+    minutes: 7,
     blocks: [
       {
         type: "text",
-        title: "一套动画两种状态",
-        body: "很多 UI 只需「打开」时间轴：正向播 = 打开，反向播 = 关闭。比维护两份 JSON 更省。注意：倒放时 complete 时机与 loop 行为要自己测。",
+        title: "方向",
+        body: "lottie-web：setDirection(1|-1)。\ndotLottie：mode 可为 forward / reverse / bounce。\nbounce = 来回播，适合呼吸/弹性微动效。",
       },
       {
         type: "demo",
         kind: "direction",
-        title: "动手：方向切换",
-        hint: "切换正放 / 倒放，观察动画方向。",
+        title: "动手：正放 / 倒放",
+        hint: "切换方向观察。",
       },
       {
         type: "code",
-        title: "方向控制",
+        title: "dotLottie mode",
         lang: "ts",
-        code: `function setOpen(open: boolean) {
-  const dir = open ? 1 : -1;
-  ref.current?.setDirection(dir);
-  ref.current?.play();
-}`,
+        code: `new DotLottie({ canvas, src, mode: "bounce", loop: true });
+// 或 setMode("reverse")`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "d1",
-            question: "setDirection(-1) 表示？",
-            options: ["加速", "倒放", "销毁", "改 renderer"],
-            answer: 1,
-            explain: "-1 反向播放。",
+            id: "dr1",
+            question: "setDirection(-1)？",
+            options: ["倒放", "双倍速", "销毁", "改主题"],
+            answer: 0,
+            explain: "反向时间轴。",
           },
           {
-            id: "d2",
-            question: "倒放适合？",
-            options: ["开关/抽屉闭合", "永久 loading", "替代所有状态机", "必须 canvas"],
-            answer: 0,
-            explain: "对称开合最常见。",
+            id: "dr2",
+            question: "bounce 模式？",
+            options: ["只播一帧", "来回播放", "必须 Worker", "仅 iOS"],
+            answer: 1,
+            explain: "forward+reverse 循环。",
           },
         ],
       },
@@ -731,57 +675,39 @@ ref.current?.goToAndPlay(frameOf(markers, "launch"), true);`,
   },
   {
     slug: "sequence",
-    title: "动画串联",
-    summary: "complete 链式 · 编排多段反馈。",
+    title: "串联编排",
+    summary: "complete 链式 · 多段叙事。",
     level: "进阶",
     track: "进阶",
-    minutes: 10,
+    minutes: 8,
     blocks: [
       {
         type: "text",
-        title: "编排思路",
-        body: "复杂反馈往往是：loading → success → confetti。用 complete 事件推进下一步，或显式状态机。不要用一串魔法 setTimeout 硬拼。",
+        title: "编排",
+        body: "A 播完 → B → C。用 complete 回调或 async 队列；注意卸载取消。",
       },
       {
         type: "demo",
         kind: "sequence",
-        title: "动手：三步串联",
-        hint: "点击开始：加载 → 成功 → 庆祝。",
-      },
-      {
-        type: "code",
-        title: "状态机串联",
-        lang: "ts",
-        code: `type Step = "load" | "ok" | "party" | "done";
-
-// onComplete of current step → next step
-function next(step: Step): Step | null {
-  if (step === "load") return "ok";
-  if (step === "ok") return "party";
-  if (step === "party") return "done";
-  return null;
-}`,
-      },
-      {
-        type: "tip",
-        body: "串联时务必销毁或停掉上一段，避免多个 loop loading 叠在一起。",
+        title: "动手：三段串联",
+        hint: "看自动进入下一段。",
       },
       {
         type: "quiz",
         questions: [
           {
             id: "sq1",
-            question: "推进下一步更可靠的信号？",
-            options: ["随意 delay", "complete / 明确超时", "hover", "随机"],
-            answer: 1,
-            explain: "用完成事件或可控超时。",
+            question: "串联关键事件？",
+            options: ["complete", "fr", "w/h", "v"],
+            answer: 0,
+            explain: "非循环结束。",
           },
           {
             id: "sq2",
-            question: "多段串联时？",
-            options: ["全部 loop 叠加", "单槽位切换并清理", "永不 complete", "忽略状态"],
+            question: "卸载时？",
+            options: ["继续队列", "取消监听与队列", "setSpeed(0)", "无"],
             answer: 1,
-            explain: "单槽位 + 清理是稳妥模式。",
+            explain: "防泄漏与 setState。",
           },
         ],
       },
@@ -789,51 +715,39 @@ function next(step: Step): Step | null {
   },
   {
     slug: "scroll-drive",
-    title: "滚动与可见性驱动",
-    summary: "IntersectionObserver · 离屏暂停 · 滚动 scrub。",
+    title: "滚动与可见性",
+    summary: "IntersectionObserver · 离屏 pause。",
     level: "进阶",
     track: "交互",
-    minutes: 10,
+    minutes: 9,
     blocks: [
       {
         type: "text",
-        title: "两种模式",
-        body: "1）可见才播放：IO 进入 viewport → play，离开 → pause。\n2）滚动叙事：用 scroll progress 映射帧（goToAndStop）。落地页「画卷」常用第二种。",
+        title: "策略",
+        body: "进入视口 play，离开 pause。\ndotLottie 默认 renderConfig.freezeOnOffscreen 可冻结离屏渲染。",
       },
       {
         type: "demo",
         kind: "scroll-drive",
-        title: "动手：可见性驱动",
-        hint: "模拟进入/离开视口；离开时暂停以省 CPU。",
-      },
-      {
-        type: "code",
-        title: "IntersectionObserver",
-        lang: "ts",
-        code: `const io = new IntersectionObserver(([e]) => {
-  if (e.isIntersecting) ref.current?.play();
-  else ref.current?.pause();
-}, { threshold: 0.35 });
-
-io.observe(container);
-// unmount: io.disconnect()`,
+        title: "动手：滚动驱动",
+        hint: "滚出视口应暂停。",
       },
       {
         type: "quiz",
         questions: [
           {
             id: "sd1",
-            question: "离屏动画建议？",
-            options: ["继续全速 loop", "pause / 降频", "重新 fetch JSON", "改成 GIF"],
+            question: "离屏仍 play 的问题？",
+            options: ["更省电", "耗 CPU/电", "自动主题", "无"],
             answer: 1,
-            explain: "省电省主线程。",
+            explain: "浪费资源。",
           },
           {
             id: "sd2",
-            question: "滚动叙事帧定位用？",
-            options: ["play() only", "goToAndStop(frame)", "必须 setDirection", "window.open"],
-            answer: 1,
-            explain: "按进度 scrub 帧。",
+            question: "Web API？",
+            options: ["IntersectionObserver", "alert", "eval", "document.write"],
+            answer: 0,
+            explain: "可见性检测。",
           },
         ],
       },
@@ -841,51 +755,39 @@ io.observe(container);
   },
   {
     slug: "renderer",
-    title: "SVG 与 Canvas 渲染",
-    summary: "清晰度 · 性能 · 何时换 renderer。",
-    level: "进阶",
+    title: "渲染器选择",
+    summary: "svg vs canvas · 取舍。",
+    level: "实战",
     track: "工程",
-    minutes: 9,
+    minutes: 8,
     blocks: [
       {
         type: "text",
-        title: "怎么选",
-        body: "SVG：默认首选，清晰、易与 CSS 混排、图层可检。\nCanvas：大量路径/粒子时往往更省 DOM，但清晰度与无障碍/检索较差。\nHTML renderer 少用。先 SVG，性能 profiling 后再换。",
+        title: "取舍",
+        body: "SVG：DOM、易 CSS/无障碍命中、复杂图层可能慢。\nCanvas：像素、粒子多更稳；dotlottie-web 走 canvas 核心。\n先 SVG，重场景再 canvas / Worker。",
       },
       {
         type: "demo",
         kind: "renderer",
-        title: "动手：切换 renderer",
-        hint: "同一 JSON 在 SVG / Canvas 下播放，体感对比。",
-      },
-      {
-        type: "code",
-        title: "指定 renderer",
-        lang: "ts",
-        code: `lottie.loadAnimation({
-  container,
-  renderer: "canvas", // or "svg"
-  loop: true,
-  autoplay: true,
-  animationData,
-});`,
+        title: "动手：对比渲染路径",
+        hint: "本站双运行时对照。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rn1",
-            question: "默认更推荐？",
-            options: ["canvas 永远", "svg 优先", "html only", "不用 renderer"],
-            answer: 1,
-            explain: "SVG 通用性最好。",
+            id: "rd1",
+            question: "UI 图标默认？",
+            options: ["svg 优先", "必须 WebGL", "必须 GIF", "禁止 canvas"],
+            answer: 0,
+            explain: "清晰可交互。",
           },
           {
-            id: "rn2",
-            question: "极重粒子场景可考虑？",
-            options: ["只能 GIF", "canvas", "必须 iframe", "关掉硬件加速永远"],
-            answer: 1,
-            explain: "Canvas 有时更合适。",
+            id: "rd2",
+            question: "dotlottie-web 主渲染？",
+            options: ["canvas 核心", "仅 table", "仅 iframe", "仅 Flash"],
+            answer: 0,
+            explain: "高性能 canvas 管线。",
           },
         ],
       },
@@ -893,50 +795,43 @@ io.observe(container);
   },
   {
     slug: "optimize",
-    title: "体积与性能优化",
-    summary: "瘦身清单 · 图层 · 位图 · 缓存哈希。",
+    title: "体积与优化",
+    summary: "清图层 · 少位图 · 官方 Optimizer。",
     level: "实战",
     track: "工程",
-    minutes: 10,
+    minutes: 9,
     blocks: [
       {
         type: "text",
-        title: "瘦身优先级",
-        body: "1）删隐藏/未用图层与效果\n2）能矢量别位图；位图压缩并进 assets\n3）降 fr（UI 反馈 30fps 常够）\n4）缩短时长、少用模糊/阴影\n5）JSON 压缩 + 文件名内容哈希\n6）离屏 pause；同屏实例数设上限",
+        title: "清单",
+        body: "· 导出前清隐藏图层\n· 慎用位图，优先矢量\n· 表达式 bake\n· 列表勿每项巨型 Lottie\n· 官方 Lottie Optimizer / 转 .lottie 压缩\n· 哈希文件名缓存",
       },
       {
         type: "demo",
         kind: "optimize",
-        title: "动手：体积体检",
-        hint: "查看各预设的近似体积与图层数，建立「贵不贵」直觉。",
-      },
-      {
-        type: "code",
-        title: "构建期哈希",
-        lang: "ts",
-        code: `// Vite: import animUrl from "./hero.json?url"
-// 产出 /assets/hero-a1b2c3.json —— 更新即换 URL，缓存安全`,
+        title: "动手：体积意识",
+        hint: "对比「元数据」与优化方向。",
       },
       {
         type: "tip",
-        body: "单文件 UI 反馈建议盯紧 50–150KB；开屏/插画可放宽，但要懒加载。",
+        body: "工具：lottiefiles.com/tools/lottie-json-to-optimized-lottie-json · lottie-to-dotlottie。",
       },
       {
         type: "quiz",
         questions: [
           {
             id: "op1",
-            question: "体积暴涨常见原因？",
-            options: ["markers 太多", "大图 assets / 未删图层", "setSpeed", "basepath"],
+            question: "体积杀手常见？",
+            options: ["markers 名", "大图 assets", "fr=30", "loop 布尔"],
             answer: 1,
-            explain: "位图与冗余图层是大头。",
+            explain: "位图撑大。",
           },
           {
             id: "op2",
-            question: "更新动画用户仍看旧版？",
-            options: ["正常", "缺内容哈希/缓存策略", "只能清 cookie", "Lottie 锁死"],
+            question: "生产压缩优先？",
+            options: ["改成 4K PNG 序列", "Optimizer / .lottie", "嵌 10 份字体", "开表达式"],
             answer: 1,
-            explain: "用哈希文件名或版本 query。",
+            explain: "官方工具链。",
           },
         ],
       },
@@ -944,54 +839,39 @@ io.observe(container);
   },
   {
     slug: "a11y",
-
-    title: "无障碍与 reduced-motion",
-    summary: "prefers-reduced-motion · aria · 静态兜底。",
-    level: "进阶",
+    title: "无障碍",
+    summary: "reduced-motion · 语义 · 焦点。",
+    level: "实战",
     track: "工程",
     minutes: 8,
     blocks: [
       {
         type: "text",
-        title: "必须做",
-        body: "系统开启「减少动态效果」时：停在关键帧或换静态图。装饰动画 aria-hidden；信息性动画要有文本等价。",
+        title: "要点",
+        body: "prefers-reduced-motion：静态帧或静态图。\n装饰动画 aria-hidden；信息性动画要文本等价。\n可点击区域足够大。",
       },
       {
         type: "demo",
         kind: "reduced-motion",
-        title: "动手：减少动态",
-        hint: "切换开关模拟 prefers-reduced-motion。",
-      },
-      {
-        type: "code",
-        title: "检测",
-        lang: "ts",
-        code: `const reduce = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-).matches;
-
-if (reduce) {
-  ref.current?.goToAndStop(lastFrame, true);
-} else {
-  ref.current?.play();
-}`,
+        title: "动手：减弱动态",
+        hint: "模拟 reduced-motion。",
       },
       {
         type: "quiz",
         questions: [
           {
             id: "a1",
-            question: "reduced-motion 开启时？",
-            options: ["强制更炫", "减少或停在静态帧", "忽略", "必须 60fps"],
+            question: "reduced-motion 时？",
+            options: ["强制 10× 速", "静态/极简", "更大位图", "自动 MCP"],
             answer: 1,
             explain: "尊重系统偏好。",
           },
           {
             id: "a2",
-            question: "纯装饰动画？",
-            options: ["aria-hidden=true", "必须 live region", "role=alert", "强制 focus"],
+            question: "纯装饰 Lottie？",
+            options: ["aria-hidden=true", "必须 live region 每帧", "title=全部 JSON", "无"],
             answer: 0,
-            explain: "避免读屏噪音。",
+            explain: "避免噪音。",
           },
         ],
       },
@@ -999,50 +879,50 @@ if (reduce) {
   },
   {
     slug: "performance",
-    title: "性能与体积",
-    summary: "压缩 · 表达式 · 图片层 · 同时实例数。",
-    level: "进阶",
+    title: "性能工程",
+    summary: "离屏 · destroy · Worker · 列表。",
+    level: "实战",
     track: "工程",
     minutes: 10,
     blocks: [
       {
         type: "text",
-        title: "清单",
-        body: "· 导出前清理隐藏图层与无用属性\n· 慎用位图层，优先矢量\n· 复杂表达式在 AE 侧 bake\n· 列表里不要每项一个大 Lottie\n· 不可见时 pause / destroy\n· 用 lottie-optimizer / 压缩 JSON",
+        title: "法则",
+        body: "不可见 pause/destroy。\n列表虚拟化，勿 N 个重动画。\nDotLottieWorker 卸主线程。\nuseFrameInterpolation=false 可换性能。\n移动端进后台 pause。",
+      },
+      {
+        type: "demo",
+        kind: "worker-perf",
+        title: "动手：性能开关对照",
+        hint: "理解 Worker / 插值 / 离屏冻结。",
       },
       {
         type: "code",
-        title: "可见性",
-        lang: "tsx",
-        code: `useEffect(() => {
-  const io = new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) ref.current?.play();
-    else ref.current?.pause();
-  });
-  if (el) io.observe(el);
-  return () => io.disconnect();
-}, []);`,
-      },
-      {
-        type: "tip",
-        body: "首屏关键动画可内联 JSON；次要动画懒加载 fetch，避免阻塞主包。",
+        title: "Worker",
+        lang: "ts",
+        code: `import { DotLottieWorker } from "@lottiefiles/dotlottie-web";
+
+const a = new DotLottieWorker({
+  canvas, src, autoplay: true, workerId: "w1",
+});
+await a.play(); // Worker API 多为 async`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "f1",
-            question: "列表 50 项每项大 Lottie？",
-            options: ["完美", "性能风险，应静态/共享/虚拟化", "必须", "只增体积无CPU"],
-            answer: 1,
-            explain: "实例与 rAF 成本高。",
+            id: "pf1",
+            question: "卸载必须？",
+            options: ["destroy", "只 display:none", "忽略", "location.reload"],
+            answer: 0,
+            explain: "释放循环与 canvas。",
           },
           {
-            id: "f2",
-            question: "离屏动画建议？",
-            options: ["继续 play", "pause/destroy", "setSpeed(99)", "复制 10 份"],
-            answer: 1,
-            explain: "省 CPU。",
+            id: "pf2",
+            question: "多动画卡顿优先试？",
+            options: ["DotLottieWorker", "删掉所有 pause", "eval", "同步 XHR"],
+            answer: 0,
+            explain: "卸主线程。",
           },
         ],
       },
@@ -1050,53 +930,49 @@ if (reduce) {
   },
   {
     slug: "react-integration",
-    title: "React 集成",
-    summary: "lottie-react · SSR · 动态 import · 类型。",
-    level: "进阶",
+    title: "React 接入",
+    summary: "lottie-react · SSR · 封装。",
+    level: "实战",
     track: "工程",
-    minutes: 9,
+    minutes: 10,
     blocks: [
       {
         type: "text",
-        title: "注意 SSR",
-        body: "Lottie 依赖 DOM/canvas。在 TanStack Start / Next 等 SSR 环境：客户端再挂载，或 dynamic(..., { ssr: false })。",
+        title: "路径",
+        body: "经典：lottie-react + lottie-web。\n官方：@lottiefiles/dotlottie-react。\nSSR：客户端挂载；dynamic ssr:false。\n封装：统一 size / reduced-motion / destroy。",
+      },
+      {
+        type: "demo",
+        kind: "framework-wc",
+        title: "动手：框架 / CDN 选型",
+        hint: "React / Vue / Svelte / WC 对照。",
       },
       {
         type: "code",
-        title: "安全挂载",
+        title: "官方 React",
         lang: "tsx",
-        code: `const [ready, setReady] = useState(false);
-useEffect(() => setReady(true), []);
-if (!ready) return <div className="h-40 bg-surface-2" />;
-return <Lottie animationData={data} />;`,
-      },
-      {
-        type: "code",
-        title: "动态加载 JSON",
-        lang: "tsx",
-        code: `const [data, setData] = useState(null);
-useEffect(() => {
-  fetch("/animations/loading.json")
-    .then((r) => r.json())
-    .then(setData);
-}, []);`,
+        code: `import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
+<DotLottieReact src="/a.lottie" autoplay loop
+  dotLottieRefCallback={(inst) => { ref.current = inst; }}
+/>`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "re1",
-            question: "SSR 直接渲染 Lottie 风险？",
-            options: ["无风险", "window/DOM 不可用导致报错", "只是慢", "颜色不对"],
-            answer: 1,
-            explain: "需客户端挂载。",
+            id: "ri1",
+            question: "官方 React 包？",
+            options: ["@lottiefiles/dotlottie-react", "left-pad", "jquery", "无"],
+            answer: 0,
+            explain: "官方封装。",
           },
           {
-            id: "re2",
-            question: "大 JSON 推荐？",
-            options: ["全打进主包", "按需 fetch / 路由级拆分", "Base64 进 CSS", "改 GIF"],
+            id: "ri2",
+            question: "Next SSR？",
+            options: ["任意 window 顶层 new", "客户端挂载", "必须 PHP", "禁止"],
             answer: 1,
-            explain: "控制首包。",
+            explain: "避免服务端 DOM。",
           },
         ],
       },
@@ -1104,37 +980,43 @@ useEffect(() => {
   },
   {
     slug: "workflow",
-    title: "设计到工程工作流",
-    summary: "AE → Bodymovin → 评审 → 接入 → 回归。",
-    level: "进阶",
+    title: "设计协作流",
+    summary: "AE → 插件 → 评审 → 接入 → 回归。",
+    level: "实战",
     track: "工程",
-    minutes: 8,
+    minutes: 9,
     blocks: [
       {
         type: "text",
-        title: "协作约定",
-        body: "1. 设计给帧标记与状态说明\n2. 导出命名：icon-like-v3.json\n3. 工程师在 Playground 验收速度/循环/末帧\n4. 写入 Story 或本课 Demo\n5. 线上监控体积与主线程长任务",
+        title: "流水线",
+        body: "1. AE / Creator 出稿\n2. LottieFiles for AE（基于 Bodymovin）或 Creator 导出\n3. Previewer 验状态机/主题\n4. Optimizer / 转 .lottie\n5. 工程接入 + Feature Support\n6. 真机与 reduced-motion 回归",
+      },
+      {
+        type: "demo",
+        kind: "tool-chain",
+        title: "动手：工具链地图",
+        hint: "点选各阶段官方工具。",
       },
       {
         type: "tip",
-        body: "不支持的特性（部分效果、表达式、字体）要在导出阶段发现，而不是上线后。",
+        body: "Bodymovin 是导出技术底层；LottieFiles for AE 是官方插件（预览/分享/分析更完整）。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "w1",
-            question: "版本文件名建议？",
-            options: ["final-final.json", "带语义版本/用途", "1.json", "新建文件夹 (1)"],
-            answer: 1,
-            explain: "可追溯。",
+            id: "wf1",
+            question: "AE 官方导出插件？",
+            options: ["LottieFiles for After Effects", "Photoshop only", "Excel", "无"],
+            answer: 0,
+            explain: "官方 AE 插件。",
           },
           {
-            id: "w2",
-            question: "不支持的 AE 特性应？",
-            options: ["上线碰运气", "导出阶段验证", "忽略设计师", "只靠 CSS 覆盖"],
+            id: "wf2",
+            question: "接入前建议？",
+            options: ["跳过测试", "Previewer + 特性检查", "只看文件名", "随机"],
             answer: 1,
-            explain: "在工具链早期暴露问题。",
+            explain: "减少线上翻车。",
           },
         ],
       },
@@ -1142,39 +1024,39 @@ useEffect(() => {
   },
   {
     slug: "loading-ux",
-    title: "实战：加载体验",
-    summary: "骨架 + Lottie loading · 超时 · 取消。",
+    title: "加载 UX",
+    summary: "骨架 · 超时 · 失败态。",
     level: "实战",
     track: "实战",
-    minutes: 10,
+    minutes: 8,
     blocks: [
       {
         type: "text",
-        title: "体验原则",
-        body: "短请求（<300ms）可不闪 loading。中等请求显示 Lottie。长请求提供取消与文案。成功切换到 success 段或静态勾。",
+        title: "体验",
+        body: "首屏：小 loading Lottie 或骨架。\n超时：切 error + 重试。\nloadError 事件要接。",
       },
       {
         type: "demo",
         kind: "loading-ux",
-        title: "动手：模拟加载",
-        hint: "点「发起请求」，观察 loading → 结果。",
+        title: "动手：加载体验",
+        hint: "模拟慢网与失败。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "lx1",
-            question: "极短请求立刻上 loading？",
-            options: ["总是好", "可能闪烁，可延迟显示", "必须 GIF", "禁止动画"],
+            id: "lu1",
+            question: "动画 404 时？",
+            options: ["白屏无提示", "loadError + 降级 UI", "死循环请求", "忽略"],
             answer: 1,
-            explain: "延迟显示避免闪。",
+            explain: "优雅降级。",
           },
           {
-            id: "lx2",
-            question: "加载失败应？",
-            options: ["继续 loop loading", "错误态 + 可重试", "白屏", "关闭网页"],
+            id: "lu2",
+            question: "首屏大 Lottie？",
+            options: ["永远内联 5MB", "懒加载 / 压缩 / 延后", "禁止 pause", "必须 60 个"],
             answer: 1,
-            explain: "明确错误与行动点。",
+            explain: "性能预算。",
           },
         ],
       },
@@ -1182,39 +1064,39 @@ useEffect(() => {
   },
   {
     slug: "micro-interactions",
-    title: "实战：微交互",
-    summary: "点赞、开关、成功反馈的节奏。",
+    title: "微交互",
+    summary: "按钮 · 点赞 · 轻反馈时长。",
     level: "实战",
     track: "实战",
-    minutes: 9,
+    minutes: 8,
     blocks: [
       {
         type: "text",
-        title: "节奏",
-        body: "微交互要快（通常 200–500ms 体感），可打断，状态以数据为准。庆祝类（彩带）少而精，避免每次点击都放烟花。",
+        title: "原则",
+        body: "短（200–600ms 体感）、可打断、不挡主路径、可 reduced-motion 关闭。",
       },
       {
         type: "demo",
         kind: "micro",
-        title: "动手：微交互组合",
-        hint: "点赞与提交成功反馈。",
+        title: "动手：微交互",
+        hint: "快速点按反馈。",
       },
       {
         type: "quiz",
         questions: [
           {
             id: "mi1",
-            question: "微交互时长体感？",
-            options: ["尽量 5 秒+", "短而清晰", "必须 loop", "无限制"],
+            question: "微交互时长？",
+            options: ["越长越好", "短而清晰", "必须 30s", "禁止"],
             answer: 1,
-            explain: "短反馈不挡操作。",
+            explain: "不拖沓。",
           },
           {
             id: "mi2",
-            question: "每次表单输入都放彩带？",
-            options: ["很好", "过度，应克制", "必须", "无障碍要求"],
+            question: "连点？",
+            options: ["队列播 20 次", "可打断/合并", "崩溃", "忽略全部"],
             answer: 1,
-            explain: "庆祝留给关键成功点。",
+            explain: "防堆积。",
           },
         ],
       },
@@ -1223,38 +1105,38 @@ useEffect(() => {
   {
     slug: "pitfalls",
     title: "常见坑",
-    summary: "透明 · 字体 · 表达式 · 内存 · 缓存。",
+    summary: "字体 · 蒙版 · destroy · CORS · 表达式。",
     level: "实战",
     track: "实战",
-    minutes: 8,
+    minutes: 10,
     blocks: [
       {
         type: "text",
-        title: "高频问题",
-        body: "· 字体未嵌入导致错位\n· 蒙版/效果导出丢失\n· 大图 assets 暴体积\n· 组件卸载未 destroy\n· CDN 缓存旧 JSON\n· 在低端机主线程掉帧",
+        title: "坑列表",
+        body: "· 字体未嵌入 → 错位/方框\n· 蒙版/效果导出丢失\n· 大图 assets\n· 未 destroy 泄漏\n· CDN 缓存旧 JSON\n· CORS 拦跨域\n· 表达式部分运行时不支持\n· 主线程掉帧",
       },
       {
         type: "demo",
         kind: "challenge",
-        title: "动手：找问题",
-        hint: "对照清单自检一段动画接入。",
+        title: "动手：排错清单",
+        hint: "当作发布门禁。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "pi1",
-            question: "卸载组件时？",
-            options: ["可不管", "销毁/停动画，防泄漏", "复制实例", "setSpeed(0) 即可永久"],
-            answer: 1,
-            explain: "清理 rAF 与监听。",
+            id: "pt1",
+            question: "跨域 JSON 失败先查？",
+            options: ["CORS / 路径", "改 React 版本", "关 HTTPS", "删 markers"],
+            answer: 0,
+            explain: "网络与权限。",
           },
           {
-            id: "pi2",
-            question: "JSON 更新用户仍看旧版？",
-            options: ["正常永久", "缓存/哈希文件名问题", "Lottie bug only", "必须清 cookies"],
-            answer: 1,
-            explain: "用内容哈希或版本 query。",
+            id: "pt2",
+            question: "组件卸载？",
+            options: ["destroy", "不管", "double play", "setSpeed(99)"],
+            answer: 0,
+            explain: "防泄漏。",
           },
         ],
       },
@@ -1262,37 +1144,39 @@ useEffect(() => {
   },
   {
     slug: "checklist",
-    title: "上线检查清单",
-    summary: "验收表 · 从设计到生产。",
+    title: "上线清单",
+    summary: "发布前 12 项自检。",
     level: "实战",
     track: "实战",
-    minutes: 7,
+    minutes: 8,
     blocks: [
       {
         type: "text",
-        title: "上线前",
-        body: "□ 循环策略正确\n□ 完成回调会推进业务状态\n□ reduced-motion 有兜底\n□ 体积可接受（单文件建议 < 150–300KB，视场景）\n□ 深浅色对比度\n□ 移动端触控目标 ≥ 44px\n□ 失败态与慢网\n□ 卸载无泄漏",
+        title: "清单",
+        body: "1 体积预算\n2 真机抽检\n3 reduced-motion\n4 失败降级\n5 destroy\n6 离屏 pause\n7 哈希缓存\n8 Feature Support\n9 深色主题\n10 触屏路径\n11 许可合规\n12 无障碍文案",
       },
       {
-        type: "tip",
-        body: "完成全部课程后，去「动画工坊」做闯关，并在「结业证明」查看进度。",
+        type: "demo",
+        kind: "challenge",
+        title: "动手：勾选门禁",
+        hint: "全部过再合并。",
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ch1",
-            question: "上线检查最不该漏？",
-            options: ["只看桌面 Chrome", "reduced-motion 与移动端", "只看设计稿颜色", "忽略 complete"],
+            id: "cl1",
+            question: "上线前许可？",
+            options: ["可忽略", "核对 Lottie Simple / 套餐商用", "必须开源全部", "无"],
             answer: 1,
-            explain: "真实用户环境多样。",
+            explain: "商用合规。",
           },
           {
-            id: "ch2",
-            question: "业务状态推进应挂钩？",
-            options: ["随机 setTimeout", "动画 complete / 明确超时", "仅 hover", "仅 CSS"],
-            answer: 1,
-            explain: "用完成事件或可靠超时，别写死魔法延迟。",
+            id: "cl2",
+            question: "特性矩阵？",
+            options: ["Feature Support Checker", "抛硬币", "只看颜色", "忽略 iOS"],
+            answer: 0,
+            explain: "官方检查器。",
           },
         ],
       },
@@ -1301,51 +1185,38 @@ useEffect(() => {
   {
     slug: "recolor-runtime",
     title: "运行时改色",
-    summary: "遍历 fill/stroke · 主题色 · 深浅适配思路。",
+    summary: "遍历 fill/stroke · 工程 recolor。",
     level: "进阶",
     track: "进阶",
     minutes: 10,
     blocks: [
       {
         type: "text",
-        title: "何时运行时改色",
-        body: "图标类几何动画、品牌色多主题、不想导出 N 份 JSON 时。复杂插画/渐变/图片层请回 AE 或双资源。",
+        title: "适用",
+        body: "几何图标、单色品牌。深度遍历 layers 改 fc/sc。渐变/复杂插图优先官方 theming。",
       },
       {
         type: "demo",
         kind: "recolor",
-        title: "动手：真改 JSON 色",
-        hint: "切换色板，fills/strokes 会被 recolorLottieHex 重写。",
-      },
-      {
-        type: "code",
-        title: "本站工具",
-        lang: "ts",
-        code: `import { recolorLottieHex } from "@/lib/lottie-recolor";
-
-const themed = recolorLottieHex(raw, "#6366f1");
-// <LottiePlayer animationData={themed} />`,
-      },
-      {
-        type: "tip",
-        body: "改色前 structuredClone；缓存「原 JSON + hex → 结果」避免每帧深拷贝。",
+        title: "动手：改色预览",
+        hint: "换 hex 看实时结果。",
       },
       {
         type: "quiz",
         questions: [
           {
             id: "rc1",
-            question: "recolor 主要改？",
-            options: ["fr 帧率", "fl/st 的颜色通道", "文件名", "basepath"],
-            answer: 1,
-            explain: "遍历形状填充/描边颜色。",
+            question: "recolor 改的是？",
+            options: ["运行时 JSON 颜色", "服务器 OS", "DNS", "TLS"],
+            answer: 0,
+            explain: "内存中的动画数据。",
           },
           {
             id: "rc2",
-            question: "复杂插画更推荐？",
-            options: ["暴力改所有层", "设计约定或双资源", "必须 canvas", "忽略对比度"],
+            question: "复杂品牌主题更推荐？",
+            options: ["只手写 filter", "官方 slots/theming", "禁止", "十份 GIF"],
             answer: 1,
-            explain: "运行时改色适合可控几何图标。",
+            explain: "设计系统级。",
           },
         ],
       },
@@ -1354,46 +1225,38 @@ const themed = recolorLottieHex(raw, "#6366f1");
   {
     slug: "kit-like",
     title: "组件：点赞开关",
-    summary: "状态在 React · Lottie 只表现 · 可复用。",
+    summary: "可复用 LikeToggle。",
     level: "实战",
     track: "组件",
     minutes: 8,
     blocks: [
       {
         type: "text",
-        title: "封装原则",
-        body: "对外暴露 liked / onChange；内部决定何时 play 心形。业务只关心布尔状态。",
+        title: "封装点",
+        body: "状态、动画、无障碍标签、onChange 回调一次封装。",
       },
       {
         type: "demo",
         kind: "kit-like",
-        title: "动手：LottieLikeToggle",
-        hint: "这是 kit 里的即用组件。",
-      },
-      {
-        type: "code",
-        title: "使用",
-        lang: "tsx",
-        code: `import { LottieLikeToggle } from "@/components/kit/LottieLikeToggle";
-
-<LottieLikeToggle onChange={(liked) => save(liked)} />`,
+        title: "动手：点赞组件",
+        hint: "来自 /kit。",
       },
       {
         type: "quiz",
         questions: [
           {
             id: "kl1",
-            question: "liked 真相应存在？",
-            options: ["只在 Lottie 内部", "应用 state", "JSON markers", "CSS only"],
+            question: "组件库价值？",
+            options: ["重复造轮子", "统一交互与 a11y", "更大包必然坏", "无"],
             answer: 1,
-            explain: "动画是表现层。",
+            explain: "一致性。",
           },
           {
             id: "kl2",
-            question: "封装组件的好处？",
-            options: ["无法测试", "多页面复用同一交互", "必须 SSR 失败", "体积必然翻倍"],
-            answer: 1,
-            explain: "交互一致性与复用。",
+            question: "业务回调？",
+            options: ["onChange", "eval", "document.write", "alert only"],
+            answer: 0,
+            explain: "标准受控/非受控扩展。",
           },
         ],
       },
@@ -1402,46 +1265,38 @@ const themed = recolorLottieHex(raw, "#6366f1");
   {
     slug: "kit-async",
     title: "组件：异步四态槽",
-    summary: "idle/loading/success/error 模板组件。",
+    summary: "AsyncSlot · 请求态映射。",
     level: "实战",
     track: "组件",
     minutes: 9,
     blocks: [
       {
         type: "text",
-        title: "异步反馈模板",
-        body: "表单提交、支付、保存都可套四态槽。切换时用 key 换实例，避免 loop loading 残留。",
+        title: "映射",
+        body: "idle→loading→success|error。超时与重试是产品逻辑，动画只是皮肤。",
       },
       {
         type: "demo",
         kind: "kit-async",
-        title: "动手：LottieAsyncSlot",
-        hint: "跑通成功 / 失败路径。",
-      },
-      {
-        type: "code",
-        title: "使用",
-        lang: "tsx",
-        code: `import { LottieAsyncSlot } from "@/components/kit/LottieAsyncSlot";
-
-<LottieAsyncSlot delayMs={1200} />`,
+        title: "动手：异步槽",
+        hint: "模拟请求。",
       },
       {
         type: "quiz",
         questions: [
           {
             id: "ka1",
-            question: "状态切换时？",
-            options: ["叠加多个 loading", "替换并停掉上一实例", "忽略 error", "强制 10x"],
-            answer: 1,
-            explain: "单槽位切换。",
+            question: "四态最少包括？",
+            options: ["idle/load/ok/err", "只有 play", "只有 pause", "只有 fr"],
+            answer: 0,
+            explain: "完整异步体验。",
           },
           {
             id: "ka2",
-            question: "成功态通常？",
-            options: ["永久 loop", "播一次 + complete 回调", "必须 hover", "不能有文案"],
+            question: "超时？",
+            options: ["永远 loading", "切 error 可重试", "崩溃", "忽略"],
             answer: 1,
-            explain: "一次性反馈。",
+            explain: "可恢复。",
           },
         ],
       },
@@ -1449,48 +1304,936 @@ const themed = recolorLottieHex(raw, "#6366f1");
   },
   {
     slug: "interview-lottie",
-    title: "面试串讲",
-    summary: "原理 · 取舍 · 性能 · 落地经验。",
+    title: "面试要点",
+    summary: "原理 · 取舍 · 性能 · 生态。",
     level: "实战",
     track: "实战",
-    minutes: 12,
+    minutes: 10,
     blocks: [
       {
         type: "text",
-        title: "一分钟版",
-        body: "Lottie = AE 时间轴导出的 JSON + 运行时矢量绘制。比 GIF 可控、比纯手写 SVG 动画更适合复杂时间轴。代价是包体、主线程与设计/工程协作成本。",
-      },
-      {
-        type: "text",
-        title: "常被追问",
-        body: "· SVG vs Canvas 怎么选？\n· 如何做 reduced-motion？\n· 如何避免离屏耗电？\n· 主题色如何适配？\n· 和 Rive / CSS 如何取舍？\n· 如何做缓存与版本更新？",
-      },
-      {
-        type: "tip",
-        body: "用本站工坊与图鉴举 1 个真实场景（四态请求 / 点赞）比背 API 更有说服力。",
+        title: "高频",
+        body: "JSON 矢量时间轴 vs GIF/视频；播放控制；段落/markers；a11y；性能 destroy/离屏；dotLottie 主题与状态机；特性支持差异。",
       },
       {
         type: "demo",
         kind: "challenge",
-        title: "动手：面试前自检",
-        hint: "把清单当成面试检查表过一遍。",
+        title: "动手：自检题",
+        hint: "能否讲清取舍。",
       },
       {
         type: "quiz",
         questions: [
           {
             id: "iv1",
-            question: "Lottie 相对 GIF 的核心优势？",
-            options: ["不能交互", "可控制进度/事件 + 矢量缩放", "必须更大", "只能 Android"],
+            question: "Lottie 本质？",
+            options: ["视频编解码", "矢量动画 JSON + 运行时", "仅 CSS", "仅 GIF"],
             answer: 1,
-            explain: "可控与清晰度。",
+            explain: "描述 + 原生绘制。",
           },
           {
             id: "iv2",
-            question: "性能答法应提到？",
-            options: ["只谈设计美观", "离屏 pause、实例数、体积、renderer", "永远 canvas", "禁止 JSON"],
+            question: "dotLottie 相对 JSON？",
+            options: ["不能压缩", "可打包多动画/主题/SM", "只能 Android", "禁止 Web"],
             answer: 1,
-            explain: "工程向的完整答案。",
+            explain: "生产格式。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "layer-types",
+    title: "图层类型深潜",
+    summary: "ty 0–5 · 预合成 / 形状 / 图片 / 文本 · schema。",
+    level: "进阶",
+    track: "进阶",
+    minutes: 12,
+    blocks: [
+      {
+        type: "text",
+        title: "ty 枚举",
+        body: "顶层 Animation：v/fr/ip/op/w/h/assets/layers/markers/slots…\nty：0 预合成 · 1 纯色 · 2 图片 · 3 空 · 4 形状 · 5 文本 · 6 音频 · 13 相机…\n详见 LottieDocs Schema。",
+      },
+      {
+        type: "demo",
+        kind: "layer-map",
+        title: "动手：读 layers",
+        hint: "切换动画看 ty。",
+      },
+      {
+        type: "tip",
+        body: "人类可读：lottiefiles.github.io/lottie-docs/（贝塞尔、预合成、渲染提示）。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ly1",
+            question: "ty=4 通常是？",
+            options: ["形状层", "音频", "相机", "字体文件"],
+            answer: 0,
+            explain: "shape layer。",
+          },
+          {
+            id: "ly2",
+            question: "预合成 ty？",
+            options: ["0", "99", "7", "-1"],
+            answer: 0,
+            explain: "precomp。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "lottie-vs-dotlottie",
+    title: "JSON vs dotLottie",
+    summary: "单文件 JSON 与 .lottie 压缩包 · 何时升级。",
+    level: "入门",
+    track: "生态",
+    minutes: 9,
+    blocks: [
+      {
+        type: "text",
+        title: "对照",
+        body: "JSON：明文、易 diff、单动画为主。\n.lottie：ZIP+Deflate，可多动画、主题、状态机、资源内嵌；官方首选生产格式。\n玩家均可播两者。",
+      },
+      {
+        type: "demo",
+        kind: "dotlottie",
+        title: "动手：双运行时",
+        hint: "同一 JSON 用两条管线。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "vd1",
+            question: ".lottie 实质？",
+            options: ["MP4", "压缩归档", "EXE", "CSV"],
+            answer: 1,
+            explain: "ZIP 系归档。",
+          },
+          {
+            id: "vd2",
+            question: "需要主题+SM 时？",
+            options: ["坚持裸 JSON 复制 N 份", "升级 .lottie", "改 GIF", "关动画"],
+            answer: 1,
+            explain: "生产能力。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "dotlottie-intro",
+    title: "dotLottie 导读",
+    summary: "多动画 · 主题 · 状态机 · 生产格式。",
+    level: "进阶",
+    track: "生态",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "核心能力",
+        body: "1）Multi-animations：一个文件多个动画，按需解压。\n2）Theming：slots/主题切换颜色与属性。\n3）State Machines：无代码/低代码交互图。\n规范：dotlottie.io/spec/2.0/（推荐 v2）。",
+      },
+      {
+        type: "demo",
+        kind: "dotlottie",
+        title: "动手：DotLottie canvas",
+        hint: "本站用官方包渲染。",
+      },
+      {
+        type: "tip",
+        body: "设计侧 Creator 做 SM 与主题；工程侧 setTheme / loadStateMachine / loadAnimation。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "di1",
+            question: "状态机主要解决？",
+            options: ["压缩算法", "交互状态与过渡", "只改 fr", "替换 React"],
+            answer: 1,
+            explain: "交互状态图。",
+          },
+          {
+            id: "di2",
+            question: "主题切换更推荐？",
+            options: ["复制 10 份 JSON 手改", "dotLottie theming / slots", "每次重导 GIF", "忽略深色模式"],
+            answer: 1,
+            explain: "单文件多主题。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "dotlottie-player",
+    title: "官方 Web 播放器",
+    summary: "DotLottie API · 事件 · layout · Worker。",
+    level: "实战",
+    track: "工程",
+    minutes: 12,
+    blocks: [
+      {
+        type: "text",
+        title: "安装与核心",
+        body: "npm i @lottiefiles/dotlottie-web\nnew DotLottie({ canvas, src|data, loop, autoplay, mode, themeId, layout, renderConfig })\n方法：play/pause/stop/setSpeed/setLoop/setMode/setFrame/setSegment/setTheme/loadAnimation…\n事件：load/play/complete/loop/frame/loadError/stateEntered…\n卸载：destroy()。",
+      },
+      {
+        type: "demo",
+        kind: "dotlottie",
+        title: "动手：官方玩家",
+        hint: "对比 LottiePlayer 与 DotLottiePlayer。",
+      },
+      {
+        type: "code",
+        title: "最小示例",
+        lang: "ts",
+        code: `import { DotLottie } from "@lottiefiles/dotlottie-web";
+
+const dotLottie = new DotLottie({
+  canvas: document.querySelector("#c")!,
+  src: "/anim.json", // or .lottie
+  autoplay: true,
+  loop: true,
+  layout: { fit: "contain", align: [0.5, 0.5] },
+});
+dotLottie.addEventListener("loadError", (e) => console.error(e));
+// unmount: dotLottie.destroy()`,
+      },
+      {
+        type: "tip",
+        body: "框架封装自动 destroy；手动实例必须自己清。CDN：jsDelivr ESM 亦可。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "dp1",
+            question: "卸载时必须？",
+            options: ["忽略", "destroy()", "只 hide canvas", "location.reload"],
+            answer: 1,
+            explain: "释放 canvas 与循环。",
+          },
+          {
+            id: "dp2",
+            question: "play 应在？",
+            options: ["任意时刻乱调", "load 之后", "仅 SSR", "仅 Node"],
+            answer: 1,
+            explain: "资源就绪后。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "layout-fit",
+    title: "Layout 与适配",
+    summary: "fit · align · backgroundColor · 画布。",
+    level: "进阶",
+    track: "工程",
+    minutes: 9,
+    blocks: [
+      {
+        type: "text",
+        title: "layout",
+        body: "fit：contain（默认）| cover | fill | fit-width | fit-height | none\nalign：[x,y]，[0,0] 左上，[0.5,0.5] 居中\nbackgroundColor：画布底色\nCSS 负责外框尺寸，layout 负责动画如何落入 canvas。",
+      },
+      {
+        type: "demo",
+        kind: "layout-fit",
+        title: "动手：fit 模式对照",
+        hint: "切换 contain/cover/fill 理解裁切。",
+      },
+      {
+        type: "code",
+        title: "配置",
+        lang: "ts",
+        code: `new DotLottie({
+  canvas, src,
+  layout: { fit: "cover", align: [0.5, 1] },
+  backgroundColor: "#0b0b0f",
+});`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "lf1",
+            question: "完整显示不裁切优先？",
+            options: ["contain", "cover 必裁", "fill 必变形", "none 拉伸随意"],
+            answer: 0,
+            explain: "letterbox。",
+          },
+          {
+            id: "lf2",
+            question: "align [0.5,0.5]？",
+            options: ["居中", "左上", "右下", "无效"],
+            answer: 0,
+            explain: "中心对齐。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "multi-animation",
+    title: "多动画清单",
+    summary: "manifest.animations · loadAnimation。",
+    level: "进阶",
+    track: "生态",
+    minutes: 9,
+    blocks: [
+      {
+        type: "text",
+        title: "能力",
+        body: "一个 .lottie 可含多个动画 id。load 后读 manifest.animations，用 loadAnimation(id) 切换，按需解压省 CPU。",
+      },
+      {
+        type: "demo",
+        kind: "multi-anim",
+        title: "动手：多动画概念台",
+        hint: "模拟清单切换（教学用本地多 JSON 类比）。",
+      },
+      {
+        type: "code",
+        title: "切换",
+        lang: "ts",
+        code: `dotLottie.addEventListener("load", () => {
+  const list = dotLottie.manifest?.animations ?? [];
+  if (list[0]) dotLottie.loadAnimation(list[0].id);
+});`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ma1",
+            question: "切换包内动画 API？",
+            options: ["loadAnimation(id)", "alert", "eval", "setTimeout only"],
+            answer: 0,
+            explain: "官方 API。",
+          },
+          {
+            id: "ma2",
+            question: "为何打包多动画？",
+            options: ["故意更大", "一次分发/按需解压", "禁止主题", "只 GIF"],
+            answer: 1,
+            explain: "交付与性能。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "theming-slots",
+    title: "官方主题与 slots",
+    summary: "token 主题 · setTheme · 对比 recolor。",
+    level: "进阶",
+    track: "生态",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "两条路",
+        body: "A. 工程 recolor：遍历 fill/stroke。\nB. 官方 Theming：设计时 slots/主题，运行时 setTheme('dark') / themeId，支持更多属性，打进 .lottie。",
+      },
+      {
+        type: "demo",
+        kind: "recolor",
+        title: "动手：工程改色（本站）",
+        hint: "官方主题需内置 themes 的 .lottie；此处建立直觉。",
+      },
+      {
+        type: "code",
+        title: "官方 API",
+        lang: "ts",
+        code: `new DotLottie({ canvas, src: "brand.lottie", themeId: "dark" });
+dotLottie.setTheme("light");
+dotLottie.resetTheme();`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "th1",
+            question: "设计系统多主题优先？",
+            options: ["每次导出 N 份无关联 JSON", "dotLottie theming / slots", "只用 CSS filter", "禁止动画"],
+            answer: 1,
+            explain: "官方主题链路。",
+          },
+          {
+            id: "th2",
+            question: "简单单色图标？",
+            options: ["只能 Creator", "运行时 recolor 也可", "必须状态机", "必须 Worker"],
+            answer: 1,
+            explain: "小场景够用。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "state-machines",
+    title: "状态机概念",
+    summary: "states · transitions · inputs · 与手写对照。",
+    level: "进阶",
+    track: "交互",
+    minutes: 11,
+    blocks: [
+      {
+        type: "text",
+        title: "官方模型",
+        body: "State Machines：状态、迁移、触发（click/hover/数据）。\n玩家：loadStateMachine(id) → startStateMachine() → postEvent(...)。\n事件：stateEntered / transition。\nCreator 可视化编辑，跨端同一逻辑。",
+      },
+      {
+        type: "demo",
+        kind: "state-machine",
+        title: "动手：概念对照",
+        hint: "左侧手写 React 状态；右侧官方 SM 职责。",
+      },
+      {
+        type: "code",
+        title: "玩家侧",
+        lang: "ts",
+        code: `dotLottie.addEventListener("load", () => {
+  if (dotLottie.loadStateMachine("my-fsm")) {
+    dotLottie.startStateMachine();
+  }
+});
+dotLottie.postEvent("String: click");`,
+      },
+      {
+        type: "tip",
+        body: "无 .lottie SM 时，React 状态 + playSegments 仍是正确工程实践。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "sm1",
+            question: "postEvent 用于？",
+            options: ["压缩 JSON", "驱动状态机迁移", "改 basepath", "生成 GIF"],
+            answer: 1,
+            explain: "向 SM 投递输入/事件。",
+          },
+          {
+            id: "sm2",
+            question: "无官方 SM 文件时？",
+            options: ["无法做交互", "应用层状态机 + 段落/多源仍可", "必须原生 App", "只能 hover"],
+            answer: 1,
+            explain: "本站多课即此模式。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "dotlottie-js",
+    title: "dotLottie-JS 打包",
+    summary: "程序化创建 .lottie · 主题 · 状态机。",
+    level: "实战",
+    track: "工程",
+    minutes: 12,
+    blocks: [
+      {
+        type: "text",
+        title: "定位",
+        body: "@dotlottie/dotlottie-js：在 Node/浏览器创建与修改 .lottie（v2）。\naddAnimation / addTheme / addStateMachine → build() → toBlob/download。\nCI 可把多 JSON 打成生产包。",
+      },
+      {
+        type: "demo",
+        kind: "dotlottie-js",
+        title: "动手：打包流水线示意",
+        hint: "步骤卡：加动画 → 主题 → SM → build。",
+      },
+      {
+        type: "code",
+        title: "创建包",
+        lang: "ts",
+        code: `import { DotLottie } from "@dotlottie/dotlottie-js";
+
+const dl = new DotLottie();
+dl.addAnimation({ id: "main", data: lottieJson, loop: true });
+dl.addTheme({ id: "dark", data: themeDark });
+dl.addStateMachine({ id: "btn", data: smJson });
+await dl.build();
+const blob = await dl.toBlob();`,
+      },
+      {
+        type: "tip",
+        body: "fromURL / fromArrayBuffer 可加载既有包；merge 合并多实例（id 冲突会抛错）。V1 类无主题/SM。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "dj1",
+            question: "导出前必须？",
+            options: ["build()", "只 console.log", "删 animations", "关网络"],
+            answer: 0,
+            explain: "finalize 归档。",
+          },
+          {
+            id: "dj2",
+            question: "包内加主题？",
+            options: ["addTheme", "setInterval", "alert", "CSS only 永久"],
+            answer: 0,
+            explain: "程序化主题。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "relottie",
+    title: "reLottie 与 LAST",
+    summary: "AST 管线 · 元数据 · 安全表达式标记。",
+    level: "实战",
+    track: "工程",
+    minutes: 12,
+    blocks: [
+      {
+        type: "text",
+        title: "是什么",
+        body: "reLottie 基于 unified：parse → transform → stringify。\nLAST = Lottie AST（unist）。\n插件：metadata、extract-features、自定义改 fr/颜色。\nRoot.hasExpressions 提示表达式安全风险。",
+      },
+      {
+        type: "demo",
+        kind: "relottie-pipe",
+        title: "动手：管线示意",
+        hint: "parse → plugin → stringify。",
+      },
+      {
+        type: "code",
+        title: "元数据",
+        lang: "ts",
+        code: `import { relottie } from "@lottiefiles/relottie";
+import relottieMetadata from "@lottiefiles/relottie-metadata";
+
+const file = await relottie()
+  .use(relottieMetadata)
+  .process(lottieJsonString);
+console.log(file.data.metadata);`,
+      },
+      {
+        type: "tip",
+        body: "CLI：@lottiefiles/relottie-cli。表达式不会被 reLottie 执行，但播放器若执行则危险——用 hasExpressions 门禁。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "rl1",
+            question: "LAST 是？",
+            options: ["视频格式", "Lottie 抽象语法树", "仅 CSS", "DNS 记录"],
+            answer: 1,
+            explain: "AST。",
+          },
+          {
+            id: "rl2",
+            question: "hasExpressions 用途？",
+            options: ["加速 GIF", "安全/兼容门禁", "改域名", "无"],
+            answer: 1,
+            explain: "识别表达式风险。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "expressions-security",
+    title: "表达式与安全",
+    summary: "expressions · 兼容 · 不可信资源。",
+    level: "实战",
+    track: "工程",
+    minutes: 9,
+    blocks: [
+      {
+        type: "text",
+        title: "风险",
+        body: "AE 表达式导出后，部分运行时不支持或性能差。\n若运行时执行表达式，不可信 Lottie 可能带来安全问题。\n策略：设计侧 bake；CI 用 reLottie 检测；Feature Support 核对。",
+      },
+      {
+        type: "demo",
+        kind: "expr-security",
+        title: "动手：风险清单",
+        hint: "发布前勾选。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ex1",
+            question: "不可信动画来源？",
+            options: ["盲目执行一切", "检测表达式 + 沙箱/拒绝", "eval 包一层", "关 HTTPS"],
+            answer: 1,
+            explain: "纵深防御。",
+          },
+          {
+            id: "ex2",
+            question: "兼容优先？",
+            options: ["全依赖表达式", "bake 关键动画", "只 iOS 表达式", "忽略矩阵"],
+            answer: 1,
+            explain: "跨端稳定。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "platform-map",
+    title: "跨端玩家地图",
+    summary: "Web / iOS / Android / RN · 选型。",
+    level: "实战",
+    track: "生态",
+    minutes: 9,
+    blocks: [
+      {
+        type: "text",
+        title: "官方矩阵",
+        body: "Web: dotlottie-web / react / vue / svelte / wc\nMobile: dotlottie-ios / android / react-native\n历史：lottie-ios / lottie-android / lottie-web 仍广泛\nFlutter 等见 Developer Portal。\nRN 需 metro 识别 .lottie；iOS 用 SPM；Android JitPack。",
+      },
+      {
+        type: "demo",
+        kind: "platform-matrix",
+        title: "动手：选型表",
+        hint: "按平台点选推荐包名。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "pm1",
+            question: "React Web 官方新玩家？",
+            options: ["@lottiefiles/dotlottie-react", "left-pad", "只允许 CDN jQuery", "无"],
+            answer: 0,
+            explain: "官方 React 封装。",
+          },
+          {
+            id: "pm2",
+            question: "特性是否各端一致？",
+            options: ["永远 100% 一致", "要用 Feature Support 核对", "只有 GIF 一致", "iOS 不支持 Lottie"],
+            answer: 1,
+            explain: "表达式/效果等有差异。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "framework-players",
+    title: "框架封装与 CDN",
+    summary: "React/Vue/Svelte/WC · 属性对照。",
+    level: "实战",
+    track: "工程",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "共性 props",
+        body: "src / data / autoplay / loop / speed / mode / segment / backgroundColor / themeId / useFrameInterpolation / renderConfig\nReact：dotLottieRefCallback\nVue：getDotLottieInstance()\nSvelte：dotLottieRefCallback\nWC：<dotlottie-player> + el.dotLottie",
+      },
+      {
+        type: "demo",
+        kind: "framework-wc",
+        title: "动手：封装对照",
+        hint: "选框架看接入片段。",
+      },
+      {
+        type: "code",
+        title: "Web Component",
+        lang: "html",
+        code: `<script type="module"
+  src="https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-web@latest/dist/dotlottie-web.js">
+</script>
+<dotlottie-player src="a.lottie" autoplay loop
+  style="width:200px;height:200px"></dotlottie-player>`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "fw1",
+            question: "无框架页面可用？",
+            options: ["dotlottie-wc / CDN", "必须 React", "必须 Swift", "必须 Excel"],
+            answer: 0,
+            explain: "Web Component。",
+          },
+          {
+            id: "fw2",
+            question: "封装卸载？",
+            options: ["框架自动 destroy", "永不清理", "必须手动 eval", "无 API"],
+            answer: 0,
+            explain: "官方封装处理。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "feature-support",
+    title: "特性支持与取舍",
+    summary: "表达式 · 遮罩 · 字体 · 兼容性检查。",
+    level: "实战",
+    track: "工程",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "工程清单",
+        body: "导出前：避免不支持效果；字体嵌入或降级；位图压缩。\n接入前：Feature Support Checker + 真机。\n运行时：reduced-motion、离屏 pause、失败态。\nLAC Spec = 跨实现最小兼容集；完整能力看 LottieDocs schema。",
+      },
+      {
+        type: "demo",
+        kind: "challenge",
+        title: "动手：兼容自检",
+        hint: "当发布门禁。",
+      },
+      {
+        type: "tip",
+        body: "help.lottiefiles.com · Feature Support Checker。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "fs1",
+            question: "复杂表达式风险？",
+            options: ["无风险", "部分运行时不支持或性能差", "自动变 GIF", "只影响文件名"],
+            answer: 1,
+            explain: "需核对支持矩阵。",
+          },
+          {
+            id: "fs2",
+            question: "字体问题表现？",
+            options: ["更清晰", "错位/方框/回退字体", "自动加 markers", "强制 canvas"],
+            answer: 1,
+            explain: "需嵌入或改设计。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "tools-converters",
+    title: "官方工具与转换",
+    summary: "Creator · Editor · Optimizer · 转换器。",
+    level: "入门",
+    track: "生态",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "工具箱",
+        body: "Creator：时间轴 + AI Motion Copilot + 可视化 SM/主题\nEditor：在线改色/优化\nPreviewer：状态机与主题预览\n转换：SVG→Lottie · Lottie→dotLottie · Optimizer · Lottie→GIF\nAI：Prompt→Vector、栅格转矢量",
+      },
+      {
+        type: "demo",
+        kind: "tool-chain",
+        title: "动手：工具链导航",
+        hint: "每个节点对应官网能力。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "tc1",
+            question: "JSON 瘦身官方工具？",
+            options: ["Lottie Optimizer", "删掉 play", "关 WiFi", "改扩展名 .mp4"],
+            answer: 0,
+            explain: "官方优化器。",
+          },
+          {
+            id: "tc2",
+            question: "要 .lottie 生产包？",
+            options: ["Lottie to dotLottie 转换 / JS 打包", "只能手写 ZIP 魔改", "禁止", "改 MIME 即可"],
+            answer: 0,
+            explain: "官方转换或 dotlottie-js。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "integrations",
+    title: "集成与插件",
+    summary: "Figma · Webflow · Framer · Canva · AE。",
+    level: "入门",
+    track: "生态",
+    minutes: 8,
+    blocks: [
+      {
+        type: "text",
+        title: "插件目录",
+        body: "Figma：设计稿内导入导出管理\nWebflow / Framer：站点无代码嵌入\nCanva：平面设计使用\nAE：导出主路径\n完整目录：lottiefiles.com/integrations",
+      },
+      {
+        type: "demo",
+        kind: "integrations",
+        title: "动手：集成地图",
+        hint: "按角色选工具。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ig1",
+            question: "设计师在 Figma？",
+            options: ["LottieFiles Figma 插件", "必须写 C++", "禁止", "只用 Excel"],
+            answer: 0,
+            explain: "官方 Figma 插件。",
+          },
+          {
+            id: "ig2",
+            question: "无代码建站？",
+            options: ["Webflow/Framer 插件", "必须汇编", "只能邮件", "无"],
+            answer: 0,
+            explain: "官方集成。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "mcp-ai",
+    title: "MCP 与 AI 代理",
+    summary: "LottieFiles MCP · Creator MCP · llms.txt。",
+    level: "实战",
+    track: "生态",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "官方 AI 入口",
+        body: "1）站点 llms.txt：给 LLM 的结构化索引（平台 / 开发者 / players / js / relottie）\n2）远程 MCP：https://mcp.lottiefiles.com/mcp · OAuth 2.1+PKCE · 工具 operations_list / schema_search / schema_details / graphql_execute\n3）Creator MCP：本地创作层（图层/关键帧）\n4）本站 llms.txt：课程索引，规范仍以官方为准",
+      },
+      {
+        type: "demo",
+        kind: "mcp-tools",
+        title: "动手：MCP 工具卡",
+        hint: "理解四个远程工具职责。",
+      },
+      {
+        type: "code",
+        title: "官方 llms 入口",
+        lang: "txt",
+        code: `https://lottiefiles.com/llms.txt
+https://developers.lottiefiles.com/llms.txt
+https://developers.lottiefiles.com/dotlottie-players-web-llms.txt
+https://developers.lottiefiles.com/dotlottie-players-mobile-llms.txt
+https://developers.lottiefiles.com/dotlottiejs-llms.txt
+https://developers.lottiefiles.com/relottie-llms.txt
+https://docs.lottiefiles.com/en/platform/mcp`,
+      },
+      {
+        type: "tip",
+        body: "爬取动画做竞品库被 ToS / Simple License 禁止。尊重 rate limit。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "mc1",
+            question: "远程 MCP 作用？",
+            options: ["让 AI 用自然语言查工作区/GraphQL", "替代 HTTPS", "压缩视频", "屏蔽一切爬虫"],
+            answer: 0,
+            explain: "官方 MCP 服务器。",
+          },
+          {
+            id: "mc2",
+            question: "llms.txt？",
+            options: ["给 LLM 的站点索引", "TLS 证书", "仅人类 PDF", "病毒"],
+            answer: 0,
+            explain: "llmstxt.org 约定。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "licensing",
+    title: "许可与商用",
+    summary: "Lottie Simple License · 套餐 · 合规。",
+    level: "实战",
+    track: "实战",
+    minutes: 8,
+    blocks: [
+      {
+        type: "text",
+        title: "要点",
+        body: "Lottie Simple License：免费动画通常可商用、修改、分发，无需署名；不可用于打造竞争动画库/同类服务。\nMarketplace / 套餐：Team/Org/Enterprise 含完整商用授权；Individual 偏个人/非商用——以官网定价页为准。\n上线前记录资源来源与许可。",
+      },
+      {
+        type: "demo",
+        kind: "license-card",
+        title: "动手：许可检查卡",
+        hint: "发布前自问三件事。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "lc1",
+            question: "Simple License 禁止？",
+            options: ["合理商用 UI", "做竞争动画库服务", "修改颜色", "内部分发"],
+            answer: 1,
+            explain: "竞品库/同类服务受限。",
+          },
+          {
+            id: "lc2",
+            question: "商用套餐以？",
+            options: ["聊天记录", "官网 Pricing / 资产许可页", "猜", "忽略"],
+            answer: 1,
+            explain: "官方条款为准。",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "ecosystem",
+    title: "官方生态与 llms.txt",
+    summary: "六份官方 llms · 本站索引 · 不落后官网。",
+    level: "入门",
+    track: "生态",
+    minutes: 10,
+    blocks: [
+      {
+        type: "text",
+        title: "发现官方知识",
+        body: "LottieFiles 平台 llms.txt：产品/格式/状态机/主题/玩家/MCP/集成/许可\nDeveloper Portal llms.txt：格式 · reLottie · players · dotlottie-js\n拆分 llms：web players / mobile players / dotlottiejs / relottie\n格式：LottieDocs + LAC Spec + JSON Schema + dotLottie v2\n本站：/learning-Lottie/llms.txt",
+      },
+      {
+        type: "demo",
+        kind: "official-map",
+        title: "动手：官方索引地图",
+        hint: "点开各类权威源。",
+      },
+      {
+        type: "tip",
+        body: "学习站覆盖「概念 + 可交互 + 工程决策」；规范细节永远链官方 schema/spec。冲突时以官方为准。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ec1",
+            question: "llms.txt 作用？",
+            options: ["屏蔽爬虫", "给 LLM 结构化站点索引", "替代 HTTPS", "压缩视频"],
+            answer: 1,
+            explain: "AI 友好站点地图。",
+          },
+          {
+            id: "ec2",
+            question: "格式细节冲突时？",
+            options: ["以博客为准", "以官方 schema/spec 为准", "以聊天记录为准", "随机"],
+            answer: 1,
+            explain: "权威源优先。",
           },
         ],
       },
@@ -1498,8 +2241,7 @@ const themed = recolorLottieHex(raw, "#6366f1");
   },
 ];
 
-export const TRACKS = ["基础", "进阶", "交互", "工程", "实战", "组件"] as const;
-
+export const TRACKS = ["基础", "进阶", "交互", "工程", "实战", "组件", "生态"] as const;
 
 export function getLesson(slug: string): Lesson | undefined {
   return LESSONS.find((l) => l.slug === slug);

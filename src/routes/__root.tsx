@@ -20,6 +20,7 @@ import {
   Clapperboard,
   Images,
   Boxes,
+  Globe2,
 } from "lucide-react";
 
 
@@ -35,12 +36,12 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
-        title: "Lottie 实战学习 v3 · 代码即组件 / Kit",
+        title: "Lottie 实战学习 v5 · 对齐官方六份 llms.txt",
       },
       {
         name: "description",
         content:
-          "Lottie 中文交互式教程 v3：Demo 源码对照、运行时改色、可复用组件库 Kit。",
+          "Lottie 中文交互式教程 v5：对齐官方六份 llms.txt——dotLottie、状态机、主题、MCP、reLottie、许可与全工具链。",
       },
 
 
@@ -85,6 +86,7 @@ const NAV_EXTRA = [
   { to: "/studio" as const, label: "动画工坊", icon: Clapperboard },
   { to: "/gallery" as const, label: "模式图鉴", icon: Images },
   { to: "/kit" as const, label: "组件库", icon: Boxes },
+  { to: "/ecosystem" as const, label: "官方生态", icon: Globe2 },
   { to: "/cheatsheet" as const, label: "速查表", icon: BookMarked },
   { to: "/hub" as const, label: "学习中心", icon: LayoutDashboard },
   { to: "/lab" as const, label: "练习场", icon: FlaskConical },
@@ -130,7 +132,7 @@ function AppShell({ children }: { children: ReactNode }) {
               Lottie 实战学习
             </span>
             <span className="hidden rounded-full bg-surface-3 px-1.5 py-0.5 font-mono text-[10px] text-primary sm:inline">
-              v3
+              v5
 
 
 

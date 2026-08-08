@@ -105,7 +105,7 @@ function CertificatePage() {
               Lottie 实战学习
             </h2>
             <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
-              兹证明持有人已完成本站全部课程：基础、进阶、交互、工程、实战与组件路径，并掌握 Lottie
+              兹证明持有人已完成本站全部课程：基础、进阶、交互、工程、实战、组件与生态路径，并掌握 Lottie
               播放控制、状态机与上线清单。
             </p>
             <dl className="mx-auto mt-6 grid max-w-sm grid-cols-2 gap-3 text-sm">

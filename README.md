@@ -1,108 +1,80 @@
 # Lottie 实战学习
 
-交互式中文 Lottie 教程：课程 + 测验 + Playground + 工坊 + 图鉴 + 组件库。
+交互式中文 Lottie / **dotLottie** 教程：课程 + 测验 + Playground + 工坊 + 图鉴 + 组件库 + **官方生态地图**。
 
-**在线访问：** [https://xiaoqianran.github.io/learning-Lottie/](https://xiaoqianran.github.io/learning-Lottie/)  
-**仓库：** [https://github.com/xiaoqianran/learning-Lottie](https://github.com/xiaoqianran/learning-Lottie)  
-结构与体验参考 [learning-vue3](https://github.com/xiaoqianran/learning-vue3)。
+**在线：** [https://xiaoqianran.github.io/learning-Lottie/](https://xiaoqianran.github.io/learning-Lottie/)  
+**AI 索引：** [llms.txt](https://xiaoqianran.github.io/learning-Lottie/llms.txt) · [llms-full.txt](https://xiaoqianran.github.io/learning-Lottie/llms-full.txt)  
+**仓库：** [xiaoqianran/learning-Lottie](https://github.com/xiaoqianran/learning-Lottie)
 
----
+对标官方六份 llms：
 
-## 这是什么
+| 源 | URL |
+|----|-----|
+| 平台 | [lottiefiles.com/llms.txt](https://lottiefiles.com/llms.txt) |
+| 开发者 | [developers…/llms.txt](https://developers.lottiefiles.com/llms.txt) |
+| Web 玩家 | [dotlottie-players-web-llms.txt](https://developers.lottiefiles.com/dotlottie-players-web-llms.txt) |
+| Mobile 玩家 | [dotlottie-players-mobile-llms.txt](https://developers.lottiefiles.com/dotlottie-players-mobile-llms.txt) |
+| dotLottie-JS | [dotlottiejs-llms.txt](https://developers.lottiefiles.com/dotlottiejs-llms.txt) |
+| reLottie | [relottie-llms.txt](https://developers.lottiefiles.com/relottie-llms.txt) |
 
-面向想系统掌握 **Lottie**（JSON 矢量动画）接入 Web 的同学。以「读一点、动手一点、测一点」组织：
-
-- **29 节课程**（讲解 + 代码 + 交互 Demo + 测验）
-- **Demo · 代码即组件**：每个 live Demo 可展开对应源码（对齐 learning-vue3）
-- **Playground**：预设 / 本地 JSON / URL、速度、方向、段落、renderer、scrub、markers
-- **动画工坊**：八项闯关
-- **模式图鉴** + **组件库 Kit**（点赞、四态、运行时改色）
-- **学习中心 / 练习场 / 错题本 / 结业证明**
-
----
-
-## 功能一览
-
-| 模块 | 路径 | 说明 |
-|------|------|------|
-| 课程 | `/lesson/:slug` | 正文、Live Demo + 对应源码、测验、笔记 |
-| 首页 | `/` | 搜索、路径筛选、进度 |
-| Playground | `/playground` | 播放实验台 |
-| 动画工坊 | `/studio` | 八项闯关 |
-| 模式图鉴 | `/gallery` | 产品模式速览 |
-| 组件库 | `/kit` | 可复制组件 |
-| 速查表 | `/cheatsheet` | API 一页纸 |
-| 学习中心 | `/hub` | 打卡、收藏 |
-| 练习场 | `/lab` | 综合抽题 |
-| 错题本 | `/mistakes` | 错题回顾 |
-| 结业 | `/certificate` | 全部完成后解锁 |
+另： [Lottie Docs](https://lottiefiles.github.io/lottie-docs/) · [dotLottie](https://dotlottie.io/) · [MCP](https://docs.lottiefiles.com/en/platform/mcp)
 
 ---
 
-## 学习路径
+## 覆盖面（对标官网）
 
-| 路径 | 内容 |
+| 维度 | 本站 |
 |------|------|
-| **基础** | 是什么、JSON、播放、速度、段落、事件 |
-| **进阶** | 主题、markers、倒放、串联、运行时改色 |
-| **交互** | hover、点击、scrub、多状态、滚动 |
-| **工程** | a11y、性能、React、工作流、renderer、优化 |
-| **实战** | 加载 UX、微交互、坑、清单、面试串讲 |
-| **组件** | 点赞开关、异步四态槽 |
+| 格式 | JSON 字段、图层 ty、markers、slots、LAC vs 全 schema |
+| 运行时 | `lottie-web` + `@lottiefiles/dotlottie-web` · layout · mode · Worker |
+| 交互 | 手写状态 + 官方 State Machine |
+| 主题 | 工程 recolor + 官方 theming/slots |
+| 工具链 | Creator/Editor/Optimizer/转换器/插件 |
+| 工程库 | dotLottie-JS 打包 · reLottie LAST |
+| 跨端 | Web/iOS/Android/RN + 框架封装/CDN |
+| AI | 官方 MCP · 六份 llms · 本站 llms |
+| 合规 | Simple License · 商用检查清单 |
 
 ---
 
-## 版本演进
+## 功能
+
+| 模块 | 路径 |
+|------|------|
+| 课程 | `/lesson/:slug`（50 课级 · Demo · 代码即组件） |
+| Playground | `/playground` |
+| 工坊 | `/studio` |
+| 图鉴 | `/gallery` |
+| 组件库 | `/kit` |
+| **官方生态** | `/ecosystem` |
+| 速查 / 中心 / 练习 / 错题 / 结业 | `/cheatsheet` 等 |
+
+---
+
+## 版本
 
 | 版本 | 内容 |
 |------|------|
-| v1 | 19 课 + Demo + Playground + 工坊 + Pages |
-| v2 | +6 课；Playground 2.0；7 关工坊；图鉴 |
-| **v3** | Demo 源码对照；运行时改色；Kit 组件库；+4 课；8 关工坊 |
+| v1 | 基础课 + Pages |
+| v2 | markers / Playground 2 / 图鉴 |
+| v3 | 代码即组件 / recolor / Kit |
+| v4 | 官方 llms 对齐 · dotLottie 玩家 · 状态机/主题/跨端 |
+| **v5** | 六份官方 llms 全覆盖 · MCP · reLottie · dotLottie-JS · 许可/工具/集成 |
 
-分支：`v1` / `v2` / `v3` 冻结；`main` 继续开发。标签：`v1.0.0` `v2.0.0` `v3.0.0`。
+分支 `v1`–`v5` 冻结；`main` 继续迭代。
 
 ---
 
-## 本地运行
+## 本地
 
 ```bash
-git clone https://github.com/xiaoqianran/learning-Lottie.git
-cd learning-Lottie
 npm install
 npm run dev
-```
-
-```bash
-npm run build:pages  # GitHub Pages（base=/learning-Lottie/）
-npm run typecheck
+npm run build:pages
 ```
 
 ---
 
-## 技术栈
+## 声明
 
-React 19 · TanStack Start · Tailwind v4 · Zustand · lottie-web · GitHub Actions Pages
-
----
-
-## 部署
-
-推送 `main` → Actions **Deploy to GitHub Pages** →  
-https://xiaoqianran.github.io/learning-Lottie/
-
-Pages 源：**GitHub Actions**。
-
----
-
-## 进度与隐私
-
-进度在浏览器 localStorage，不上传服务器。结业证明非正式证书。
-
----
-
-## 相关链接
-
-- [learning-Lottie](https://xiaoqianran.github.io/learning-Lottie/)
-- [learning-vue3](https://xiaoqianran.github.io/learning-vue3/)
-- [Lottie](https://airbnb.io/lottie/)
+教学站，非 LottieFiles 官方产品。规范与 API 以官方文档为准。

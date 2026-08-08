@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CertificateRouteImport } from './routes/certificate'
 import { Route as CheatsheetRouteImport } from './routes/cheatsheet'
+import { Route as EcosystemRouteImport } from './routes/ecosystem'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as HubRouteImport } from './routes/hub'
 import { Route as KitRouteImport } from './routes/kit'
@@ -34,6 +35,11 @@ const CertificateRoute = CertificateRouteImport.update({
 const CheatsheetRoute = CheatsheetRouteImport.update({
   id: '/cheatsheet',
   path: '/cheatsheet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EcosystemRoute = EcosystemRouteImport.update({
+  id: '/ecosystem',
+  path: '/ecosystem',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/certificate': typeof CertificateRoute
   '/cheatsheet': typeof CheatsheetRoute
+  '/ecosystem': typeof EcosystemRoute
   '/gallery': typeof GalleryRoute
   '/hub': typeof HubRoute
   '/kit': typeof KitRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/certificate': typeof CertificateRoute
   '/cheatsheet': typeof CheatsheetRoute
+  '/ecosystem': typeof EcosystemRoute
   '/gallery': typeof GalleryRoute
   '/hub': typeof HubRoute
   '/kit': typeof KitRoute
@@ -108,6 +116,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/certificate': typeof CertificateRoute
   '/cheatsheet': typeof CheatsheetRoute
+  '/ecosystem': typeof EcosystemRoute
   '/gallery': typeof GalleryRoute
   '/hub': typeof HubRoute
   '/kit': typeof KitRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/'
     | '/certificate'
     | '/cheatsheet'
+    | '/ecosystem'
     | '/gallery'
     | '/hub'
     | '/kit'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/'
     | '/certificate'
     | '/cheatsheet'
+    | '/ecosystem'
     | '/gallery'
     | '/hub'
     | '/kit'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/'
     | '/certificate'
     | '/cheatsheet'
+    | '/ecosystem'
     | '/gallery'
     | '/hub'
     | '/kit'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CertificateRoute: typeof CertificateRoute
   CheatsheetRoute: typeof CheatsheetRoute
+  EcosystemRoute: typeof EcosystemRoute
   GalleryRoute: typeof GalleryRoute
   HubRoute: typeof HubRoute
   KitRoute: typeof KitRoute
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/cheatsheet'
       fullPath: '/cheatsheet'
       preLoaderRoute: typeof CheatsheetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ecosystem': {
+      id: '/ecosystem'
+      path: '/ecosystem'
+      fullPath: '/ecosystem'
+      preLoaderRoute: typeof EcosystemRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gallery': {
@@ -259,6 +279,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CertificateRoute: CertificateRoute,
   CheatsheetRoute: CheatsheetRoute,
+  EcosystemRoute: EcosystemRoute,
   GalleryRoute: GalleryRoute,
   HubRoute: HubRoute,
   KitRoute: KitRoute,
