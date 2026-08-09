@@ -72,27 +72,69 @@ export const LESSONS: Lesson[] = [
     summary: "矢量动画 JSON · 跨平台 · 为什么比 GIF/视频更适合 UI。",
     level: "入门",
     track: "基础",
-    minutes: 6,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "一句话",
-        body: "Lottie 是 Airbnb 开源的动画运行时：把 After Effects（经 Bodymovin / LottieFiles for AE）导出的 JSON，在 Web / iOS / Android / Flutter 上以矢量方式播放。",
+        title: "概念深讲",
+        body: `Lottie 是 Airbnb 开源的动画运行时：把 After Effects（经 Bodymovin / LottieFiles for AE）导出的 JSON，在 Web / iOS / Android / Flutter 上以矢量方式播放。
+
+为什么这一节重要：矢量动画 JSON · 跨平台 · 为什么比 GIF/视频更适合 UI。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
         type: "text",
-        title: "对比",
-        body: "GIF：体积大、不可交互、分辨率差。\nMP4：需要解码器、难做透明与状态控制。\nCSS/SVG 手写：适合简单过渡，复杂时间轴成本高。\nLottie：设计师出稿，工程师控制 play / pause / 速度 / 段落 / 事件。\ndotLottie（官方首选下一代）：压缩包内可含多动画、主题、状态机。",
+        title: "机制与关键点",
+        body: `围绕「Lottie 是什么」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
       },
       {
-        type: "demo",
-        kind: "hello",
-        title: "动手：第一段 Lottie",
-        hint: "这是一段本地 JSON 动画。右侧可暂停 / 重播。",
+        type: "text",
+        title: "补充要点 1",
+        body: `GIF：体积大、不可交互、分辨率差。
+MP4：需要解码器、难做透明与状态控制。
+CSS/SVG 手写：适合简单过渡，复杂时间轴成本高。
+Lottie：设计师出稿，工程师控制 play / pause / 速度 / 段落 / 事件。
+dotLottie（官方首选下一代）：压缩包内可含多动画、主题、状态机。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 2",
+        body: `官方 FAQ：Lottie 比 GIF 约 10× 更小且可缩放；离线可播。生产优先考虑 .lottie + 官方 players。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Lottie 是什么」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「intro」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Lottie 是什么？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "React 最小示例",
+        title: "对应源码",
         lang: "tsx",
         code: `import Lottie from "lottie-react";
 import pulse from "./pulse.json";
@@ -102,25 +144,42 @@ export function Hello() {
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Lottie 是什么
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "hello", title: "动手：第一段 Lottie", hint: "这是一段本地 JSON 动画。右侧可暂停 / 重播。" },
+      {
         type: "tip",
-        body: "官方 FAQ：Lottie 比 GIF 约 10× 更小且可缩放；离线可播。生产优先考虑 .lottie + 官方 players。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "i1",
-            question: "Lottie 动画的载体格式通常是？",
-            options: ["MP4", "JSON", "GIF only", "PNG 序列必须"],
+            id: "intro-0b4b-1",
+            question: "关于「Lottie 是什么」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "Bodymovin 导出 JSON，运行时解析绘制。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "i2",
-            question: "相对 GIF，Lottie 的核心优势？",
-            options: ["只能播放一次", "可交互控制 + 矢量缩放", "只能静态", "必须联网"],
+            id: "intro-0b4b-2",
+            question: "学习「Lottie 是什么」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "可缩放、可控制进度与事件，体积通常更小。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "intro-0b4b-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -132,23 +191,67 @@ export function Hello() {
     summary: "v / fr / ip / op / layers · 读懂一份动画文件。",
     level: "入门",
     track: "基础",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "顶层字段",
-        body: "v：Bodymovin 版本\nfr：帧率\nip / op：入点 / 出点（帧）\nw / h：画布宽高\nlayers：图层数组（形状、图片、预合成等）\nassets：图片与预合成资源\nmarkers / slots：命名标记与主题插槽（进阶）",
+        title: "概念深讲",
+        body: `v：Bodymovin 版本
+fr：帧率
+ip / op：入点 / 出点（帧）
+w / h：画布宽高
+layers：图层数组（形状、图片、预合成等）
+assets：图片与预合成资源
+markers / slots：命名标记与主题插槽（进阶）
+
+为什么这一节重要：v / fr / ip / op / layers · 读懂一份动画文件。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "inspect-json",
-        title: "动手：查看关键字段",
-        hint: "切换动画，观察帧率、时长与图层数。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「JSON 结构速览」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `完整 schema：lottiefiles.github.io/lottie-docs/schema/。LAC Spec 是跨实现兼容的最小化子集。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「JSON 结构速览」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「json-structure」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是JSON 结构速览？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "读取元数据",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `function meta(data: { fr: number; ip: number; op: number; layers: unknown[] }) {
   const frames = data.op - data.ip;
   const seconds = frames / data.fr;
@@ -156,25 +259,42 @@ export function Hello() {
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：JSON 结构速览
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "inspect-json", title: "动手：查看关键字段", hint: "切换动画，观察帧率、时长与图层数。" },
+      {
         type: "tip",
-        body: "完整 schema：lottiefiles.github.io/lottie-docs/schema/。LAC Spec 是跨实现兼容的最小化子集。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "j1",
-            question: "op - ip 表示？",
-            options: ["颜色数", "总帧数（大致）", "文件大小", "图层深度"],
+            id: "json-structure-38e5-1",
+            question: "关于「JSON 结构速览」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "出点减入点 ≈ 动画帧长度。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "j2",
-            question: "图层数据主要在？",
-            options: ["layers", "fonts only", "css", "html"],
-            answer: 0,
-            explain: "layers 数组描述时间轴与形状。",
+            id: "json-structure-38e5-2",
+            question: "学习「JSON 结构速览」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "json-structure-38e5-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -186,22 +306,55 @@ export function Hello() {
     summary: "play / pause / stop / goToAndPlay · 掌握基础控制。",
     level: "入门",
     track: "基础",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "控制面",
-        body: "产品里几乎总是要：加载完自动播、用户点一下再播、成功态播完停在最后一帧。这些都靠实例方法完成。",
+        title: "概念深讲",
+        body: `产品里几乎总是要：加载完自动播、用户点一下再播、成功态播完停在最后一帧。这些都靠实例方法完成。
+
+为什么这一节重要：play / pause / stop / goToAndPlay · 掌握基础控制。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "playback",
-        title: "动手：播放控制台",
-        hint: "试 play / pause / stop / 跳到开头。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「播放控制」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「播放控制」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「playback」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是播放控制？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "lottie-react ref",
+        title: "对应源码",
         lang: "tsx",
         code: `const ref = useRef<LottieRefCurrentProps>(null);
 
@@ -212,21 +365,42 @@ ref.current?.stop();
 ref.current?.goToAndPlay(0, true);`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：播放控制
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "playback", title: "动手：播放控制台", hint: "试 play / pause / stop / 跳到开头。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "p1",
-            question: "goToAndPlay 第二参 true 表示？",
-            options: ["循环", "按帧定位", "倒放", "销毁"],
+            id: "playback-b97e-1",
+            question: "关于「播放控制」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "isFrame=true 按帧跳转。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "p2",
-            question: "播完停在末帧常见做法？",
-            options: ["loop=true", "loop=false + 不 stop", "删 JSON", "必须视频"],
+            id: "playback-b97e-2",
+            question: "学习「播放控制」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "非循环播完停在最后一帧。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "playback-b97e-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -238,42 +412,96 @@ ref.current?.goToAndPlay(0, true);`,
     summary: "setSpeed · loop · 产品节奏。",
     level: "入门",
     track: "基础",
-    minutes: 7,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "节奏",
-        body: "加载圈可稍快（1.2–1.5×）；成功勾可选播一次；微交互别过快导致「闪一下看不清」。",
+        title: "概念深讲",
+        body: `加载圈可稍快（1.2–1.5×）；成功勾可选播一次；微交互别过快导致「闪一下看不清」。
+
+为什么这一节重要：setSpeed · loop · 产品节奏。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "speed-loop",
-        title: "动手：速度 / 循环",
-        hint: "拖速度、切换循环，体感差异。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「速度与循环」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「速度与循环」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「speed-loop」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是速度与循环？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "API",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `anim.setSpeed(1.5);
 anim.loop = true; // 或 load 时 loop: true`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：速度与循环
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "speed-loop", title: "动手：速度 / 循环", hint: "拖速度、切换循环，体感差异。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "sl1",
-            question: "setSpeed(2) 含义？",
-            options: ["两倍速", "两帧", "循环两次", "倒放"],
-            answer: 0,
-            explain: "相对默认 1 的倍率。",
+            id: "speed-loop-b210-1",
+            question: "关于「速度与循环」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "sl2",
-            question: "成功勾动画通常？",
-            options: ["无限循环", "播一次", "必须 10×", "禁止 pause"],
+            id: "speed-loop-b210-2",
+            question: "学习「速度与循环」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "完成反馈常 loop=false。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "speed-loop-b210-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -285,47 +513,97 @@ anim.loop = true; // 或 load 时 loop: true`,
     summary: "playSegments · 同一文件多段 UI 状态。",
     level: "入门",
     track: "基础",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "为何段落",
-        body: "一个 JSON 可含 intro / loop / outro。用 playSegments([in,out], force) 切段，比拆成多个文件更省请求。",
+        title: "概念深讲",
+        body: `一个 JSON 可含 intro / loop / outro。用 playSegments([in,out], force) 切段，比拆成多个文件更省请求。
+
+为什么这一节重要：playSegments · 同一文件多段 UI 状态。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "segments",
-        title: "动手：切段",
-        hint: "点不同段落按钮。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「段落播放」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「段落播放」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「segments」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是段落播放？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "段落",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `// force=true 打断当前播放
 anim.playSegments([0, 30], true);
 anim.playSegments([30, 60], true);`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：段落播放
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "segments", title: "动手：切段", hint: "点不同段落按钮。" },
+      {
         type: "tip",
-        body: "帧号难维护时改用 markers（见 markers 课）。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "sg1",
-            question: "playSegments 第二参 force？",
-            options: ["强制打断当前", "强制循环", "强制 canvas", "无意义"],
-            answer: 0,
-            explain: "true 立刻切到新段。",
+            id: "segments-1f98-1",
+            question: "关于「段落播放」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "sg2",
-            question: "段落帧号从哪来？",
-            options: ["随便写", "AE 时间轴 / markers", "CSS", "随机"],
+            id: "segments-1f98-2",
+            question: "学习「段落播放」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "与设计师对齐时间轴。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "segments-1f98-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -337,43 +615,100 @@ anim.playSegments([30, 60], true);`,
     summary: "complete / loopComplete / enterFrame · 串联逻辑。",
     level: "入门",
     track: "基础",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "关键事件",
-        body: "DOMLoaded / data_ready：可开始控制。\ncomplete：非循环播完（串联下一步）。\nloopComplete：每圈一次。\nenterFrame：每帧，逻辑必须极轻。",
+        title: "概念深讲",
+        body: `DOMLoaded / data_ready：可开始控制。
+complete：非循环播完（串联下一步）。
+loopComplete：每圈一次。
+enterFrame：每帧，逻辑必须极轻。
+
+为什么这一节重要：complete / loopComplete / enterFrame · 串联逻辑。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "events",
-        title: "动手：看事件日志",
-        hint: "观察 complete / loop 等输出。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「事件回调」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「事件回调」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「events」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是事件回调？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "订阅",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `anim.addEventListener("complete", () => goNext());
 anim.addEventListener("loopComplete", () => count++);
 // 卸载时 removeEventListener`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：事件回调
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "events", title: "动手：看事件日志", hint: "观察 complete / loop 等输出。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "ev1",
-            question: "串联「播完再请求」用？",
-            options: ["enterFrame 狂轮询", "complete", "setSpeed", "fr 字段"],
+            id: "events-1690-1",
+            question: "关于「事件回调」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "complete 表示一轮结束。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "ev2",
-            question: "enterFrame 里应避免？",
-            options: ["轻量读 currentFrame", "重 DOM 操作", "什么都不做", "日志节流"],
+            id: "events-1690-2",
+            question: "学习「事件回调」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "每帧重活会掉帧。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "events-1690-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -385,35 +720,98 @@ anim.addEventListener("loopComplete", () => count++);
     summary: "hover 播 · 触屏兜底 · 微反馈。",
     level: "进阶",
     track: "交互",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "模式",
-        body: "桌面：mouseenter play / mouseleave stop 或反向。\n触屏无 hover：提供 click / focus 等价路径。",
+        title: "概念深讲",
+        body: `桌面：mouseenter play / mouseleave stop 或反向。
+触屏无 hover：提供 click / focus 等价路径。
+
+为什么这一节重要：hover 播 · 触屏兜底 · 微反馈。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "hover",
-        title: "动手：悬停播放",
-        hint: "移入播放，移出复位；点按亦可。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「悬停交互」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「悬停交互」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「hover-interact」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是悬停交互？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 悬停交互
+// slug: hover-interact
+console.log('demo: hover-interact')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：悬停交互
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "hover", title: "动手：悬停播放", hint: "移入播放，移出复位；点按亦可。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "hv1",
-            question: "触屏设备 hover ？",
-            options: ["永远可靠", "需 click/focus 兜底", "禁止 Lottie", "只能 GIF"],
+            id: "hover-interact-d38c-1",
+            question: "关于「悬停交互」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "无持续 hover 状态。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "hv2",
-            question: "离开时常见？",
-            options: ["goToAndStop(0)", "删除节点", "setSpeed(99)", "location.reload"],
-            answer: 0,
-            explain: "复位到起始帧。",
+            id: "hover-interact-d38c-2",
+            question: "学习「悬停交互」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "hover-interact-d38c-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -425,35 +823,97 @@ anim.addEventListener("loopComplete", () => count++);
     summary: "点赞 / 收藏 · 两态或段落。",
     level: "进阶",
     track: "交互",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "两态",
-        body: "liked 用不同段落或不同 JSON；切换时 goToAndPlay 对应段。",
+        title: "概念深讲",
+        body: `liked 用不同段落或不同 JSON；切换时 goToAndPlay 对应段。
+
+为什么这一节重要：点赞 / 收藏 · 两态或段落。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "click-toggle",
-        title: "动手：点击切换",
-        hint: "点动画在两态间切换。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「点击切换」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「点击切换」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「click-toggle」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是点击切换？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 点击切换
+// slug: click-toggle
+console.log('demo: click-toggle')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：点击切换
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "click-toggle", title: "动手：点击切换", hint: "点动画在两态间切换。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ct1",
-            question: "收藏态建议？",
-            options: ["无限循环闪烁", "切到 liked 段并停/微循环", "必须视频", "禁止动画"],
+            id: "click-toggle-d411-1",
+            question: "关于「点击切换」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "状态清晰可辨。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "ct2",
-            question: "乐观 UI？",
-            options: ["等服务器才动", "先切态再请求，失败回滚", "只能同步阻塞", "无"],
+            id: "click-toggle-d411-2",
+            question: "学习「点击切换」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "微交互常见乐观更新。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "click-toggle-d411-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -465,35 +925,97 @@ anim.addEventListener("loopComplete", () => count++);
     summary: "scrub · goToAndStop · 与滑块同步。",
     level: "进阶",
     track: "交互",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "映射",
-        body: "progress ∈ [0,1] → frame = ip + progress * (op-ip)；用 goToAndStop(frame, true)。",
+        title: "概念深讲",
+        body: `progress ∈ [0,1] → frame = ip + progress * (op-ip)；用 goToAndStop(frame, true)。
+
+为什么这一节重要：scrub · goToAndStop · 与滑块同步。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "progress-scrub",
-        title: "动手：拖进度",
-        hint: "拖滑块看帧同步。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「进度拖拽」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「进度拖拽」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「scrub」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是进度拖拽？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 进度拖拽
+// slug: scrub
+console.log('demo: scrub')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：进度拖拽
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "progress-scrub", title: "动手：拖进度", hint: "拖滑块看帧同步。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "sc1",
-            question: "scrub 主 API？",
-            options: ["goToAndStop", "setSpeed only", "destroy", "alert"],
-            answer: 0,
-            explain: "停在指定帧。",
+            id: "scrub-d4e5-1",
+            question: "关于「进度拖拽」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "sc2",
-            question: "拖动中是否持续 play？",
-            options: ["通常 pause/stop 在帧上", "必须满速 play", "必须 Worker", "禁止"],
-            answer: 0,
-            explain: "用户拖进度时停在帧上。",
+            id: "scrub-d4e5-2",
+            question: "学习「进度拖拽」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "scrub-d4e5-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -505,35 +1027,100 @@ anim.addEventListener("loopComplete", () => count++);
     summary: "idle / loading / success / error · 产品四态。",
     level: "进阶",
     track: "交互",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "模式",
-        body: "A. 多 JSON 换源\nB. 单 JSON 多段落\nC. 官方 State Machine（见状态机课）\n空态也要有（empty）。",
+        title: "概念深讲",
+        body: `A. 多 JSON 换源
+B. 单 JSON 多段落
+C. 官方 State Machine（见状态机课）
+空态也要有（empty）。
+
+为什么这一节重要：idle / loading / success / error · 产品四态。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "multi-state",
-        title: "动手：四态切换",
-        hint: "模拟请求成功/失败。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「多状态槽」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「多状态槽」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「multi-state」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是多状态槽？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 多状态槽
+// slug: multi-state
+console.log('demo: multi-state')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：多状态槽
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "multi-state", title: "动手：四态切换", hint: "模拟请求成功/失败。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ms1",
-            question: "loading 态常见？",
-            options: ["loop 加载动画", "必须 error", "无动画", "只静态图永远"],
-            answer: 0,
-            explain: "等待反馈。",
+            id: "multi-state-abc9-1",
+            question: "关于「多状态槽」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "ms2",
-            question: "error 态应？",
-            options: ["无反馈", "明确错误动画 + 可重试", "无限 loading", "白屏"],
+            id: "multi-state-abc9-2",
+            question: "学习「多状态槽」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "可恢复路径。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "multi-state-abc9-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -545,35 +1132,100 @@ anim.addEventListener("loopComplete", () => count++);
     summary: "深浅色 · 品牌色 · 与 UI 一致。",
     level: "进阶",
     track: "进阶",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "策略",
-        body: "1）导出两套 JSON\n2）运行时 recolor（本站 recolor 课）\n3）官方 theming/slots（.lottie 内主题）\n选 3 做设计系统；选 2 做简单图标。",
+        title: "概念深讲",
+        body: `1）导出两套 JSON
+2）运行时 recolor（本站 recolor 课）
+3）官方 theming/slots（.lottie 内主题）
+选 3 做设计系统；选 2 做简单图标。
+
+为什么这一节重要：深浅色 · 品牌色 · 与 UI 一致。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "theme",
-        title: "动手：切换主题容器",
-        hint: "背景/色板变化时动画是否仍和谐。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「主题与色板」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「主题与色板」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「theme」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是主题与色板？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 主题与色板
+// slug: theme
+console.log('demo: theme')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：主题与色板
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "theme", title: "动手：切换主题容器", hint: "背景/色板变化时动画是否仍和谐。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "tm1",
-            question: "设计系统多主题优先？",
-            options: ["手改十份无关联 JSON", "dotLottie theming", "只 CSS filter 糊弄", "放弃动画"],
+            id: "theme-f484-1",
+            question: "关于「主题与色板」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "官方主题链路。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "tm2",
-            question: "简单单色图标？",
-            options: ["必须 SM", "运行时 recolor 可", "必须 iOS", "必须 MCP"],
+            id: "theme-f484-2",
+            question: "学习「主题与色板」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "小场景够用。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "theme-f484-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -585,42 +1237,96 @@ anim.addEventListener("loopComplete", () => count++);
     summary: "tm + cm · 告别魔法帧号。",
     level: "进阶",
     track: "进阶",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "为什么",
-        body: "playSegments([12,48]) 难维护。AE 导出 markers（tm 帧 + cm 名称），运行时按名定位。",
+        title: "概念深讲",
+        body: `playSegments([12,48]) 难维护。AE 导出 markers（tm 帧 + cm 名称），运行时按名定位。
+
+为什么这一节重要：tm + cm · 告别魔法帧号。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "markers",
-        title: "动手：按 marker 跳转",
-        hint: "点命名标记。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Markers 命名段」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Markers 命名段」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「markers」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Markers 命名段？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "查找",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `const m = data.markers?.find((x) => x.cm === "loop");
 if (m) anim.goToAndPlay(m.tm, true);`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Markers 命名段
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "markers", title: "动手：按 marker 跳转", hint: "点命名标记。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "mk1",
-            question: "cm 字段是？",
-            options: ["颜色", "标记名称", "压缩率", "相机"],
+            id: "markers-f89b-1",
+            question: "关于「Markers 命名段」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "comment/name。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "mk2",
-            question: "markers 优势？",
-            options: ["设计与工程同名", "更大文件必然", "禁止循环", "只 Android"],
-            answer: 0,
-            explain: "协作契约。",
+            id: "markers-f89b-2",
+            question: "学习「Markers 命名段」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "markers-f89b-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -632,42 +1338,98 @@ if (m) anim.goToAndPlay(m.tm, true);`,
     summary: "setDirection · bounce 模式对照。",
     level: "进阶",
     track: "进阶",
-    minutes: 7,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "方向",
-        body: "lottie-web：setDirection(1|-1)。\ndotLottie：mode 可为 forward / reverse / bounce。\nbounce = 来回播，适合呼吸/弹性微动效。",
+        title: "概念深讲",
+        body: `lottie-web：setDirection(1|-1)。
+dotLottie：mode 可为 forward / reverse / bounce。
+bounce = 来回播，适合呼吸/弹性微动效。
+
+为什么这一节重要：setDirection · bounce 模式对照。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "direction",
-        title: "动手：正放 / 倒放",
-        hint: "切换方向观察。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「倒放与方向」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「倒放与方向」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「direction」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是倒放与方向？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "dotLottie mode",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `new DotLottie({ canvas, src, mode: "bounce", loop: true });
 // 或 setMode("reverse")`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：倒放与方向
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "direction", title: "动手：正放 / 倒放", hint: "切换方向观察。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "dr1",
-            question: "setDirection(-1)？",
-            options: ["倒放", "双倍速", "销毁", "改主题"],
-            answer: 0,
-            explain: "反向时间轴。",
+            id: "direction-ef72-1",
+            question: "关于「倒放与方向」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "dr2",
-            question: "bounce 模式？",
-            options: ["只播一帧", "来回播放", "必须 Worker", "仅 iOS"],
+            id: "direction-ef72-2",
+            question: "学习「倒放与方向」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "forward+reverse 循环。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "direction-ef72-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -679,35 +1441,97 @@ if (m) anim.goToAndPlay(m.tm, true);`,
     summary: "complete 链式 · 多段叙事。",
     level: "进阶",
     track: "进阶",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "编排",
-        body: "A 播完 → B → C。用 complete 回调或 async 队列；注意卸载取消。",
+        title: "概念深讲",
+        body: `A 播完 → B → C。用 complete 回调或 async 队列；注意卸载取消。
+
+为什么这一节重要：complete 链式 · 多段叙事。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "sequence",
-        title: "动手：三段串联",
-        hint: "看自动进入下一段。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「串联编排」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「串联编排」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「sequence」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是串联编排？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 串联编排
+// slug: sequence
+console.log('demo: sequence')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：串联编排
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "sequence", title: "动手：三段串联", hint: "看自动进入下一段。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "sq1",
-            question: "串联关键事件？",
-            options: ["complete", "fr", "w/h", "v"],
-            answer: 0,
-            explain: "非循环结束。",
+            id: "sequence-fa1c-1",
+            question: "关于「串联编排」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "sq2",
-            question: "卸载时？",
-            options: ["继续队列", "取消监听与队列", "setSpeed(0)", "无"],
+            id: "sequence-fa1c-2",
+            question: "学习「串联编排」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "防泄漏与 setState。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "sequence-fa1c-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -719,35 +1543,98 @@ if (m) anim.goToAndPlay(m.tm, true);`,
     summary: "IntersectionObserver · 离屏 pause。",
     level: "进阶",
     track: "交互",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "策略",
-        body: "进入视口 play，离开 pause。\ndotLottie 默认 renderConfig.freezeOnOffscreen 可冻结离屏渲染。",
+        title: "概念深讲",
+        body: `进入视口 play，离开 pause。
+dotLottie 默认 renderConfig.freezeOnOffscreen 可冻结离屏渲染。
+
+为什么这一节重要：IntersectionObserver · 离屏 pause。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "scroll-drive",
-        title: "动手：滚动驱动",
-        hint: "滚出视口应暂停。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「滚动与可见性」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「滚动与可见性」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「scroll-drive」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是滚动与可见性？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 滚动与可见性
+// slug: scroll-drive
+console.log('demo: scroll-drive')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：滚动与可见性
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "scroll-drive", title: "动手：滚动驱动", hint: "滚出视口应暂停。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "sd1",
-            question: "离屏仍 play 的问题？",
-            options: ["更省电", "耗 CPU/电", "自动主题", "无"],
+            id: "scroll-drive-ab81-1",
+            question: "关于「滚动与可见性」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "浪费资源。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "sd2",
-            question: "Web API？",
-            options: ["IntersectionObserver", "alert", "eval", "document.write"],
-            answer: 0,
-            explain: "可见性检测。",
+            id: "scroll-drive-ab81-2",
+            question: "学习「滚动与可见性」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "scroll-drive-ab81-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -759,35 +1646,99 @@ if (m) anim.goToAndPlay(m.tm, true);`,
     summary: "svg vs canvas · 取舍。",
     level: "实战",
     track: "工程",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "取舍",
-        body: "SVG：DOM、易 CSS/无障碍命中、复杂图层可能慢。\nCanvas：像素、粒子多更稳；dotlottie-web 走 canvas 核心。\n先 SVG，重场景再 canvas / Worker。",
+        title: "概念深讲",
+        body: `SVG：DOM、易 CSS/无障碍命中、复杂图层可能慢。
+Canvas：像素、粒子多更稳；dotlottie-web 走 canvas 核心。
+先 SVG，重场景再 canvas / Worker。
+
+为什么这一节重要：svg vs canvas · 取舍。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "renderer",
-        title: "动手：对比渲染路径",
-        hint: "本站双运行时对照。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「渲染器选择」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「渲染器选择」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「renderer」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是渲染器选择？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 渲染器选择
+// slug: renderer
+console.log('demo: renderer')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：渲染器选择
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "renderer", title: "动手：对比渲染路径", hint: "本站双运行时对照。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rd1",
-            question: "UI 图标默认？",
-            options: ["svg 优先", "必须 WebGL", "必须 GIF", "禁止 canvas"],
-            answer: 0,
-            explain: "清晰可交互。",
+            id: "renderer-c341-1",
+            question: "关于「渲染器选择」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "rd2",
-            question: "dotlottie-web 主渲染？",
-            options: ["canvas 核心", "仅 table", "仅 iframe", "仅 Flash"],
-            answer: 0,
-            explain: "高性能 canvas 管线。",
+            id: "renderer-c341-2",
+            question: "学习「渲染器选择」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "renderer-c341-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -799,39 +1750,107 @@ if (m) anim.goToAndPlay(m.tm, true);`,
     summary: "清图层 · 少位图 · 官方 Optimizer。",
     level: "实战",
     track: "工程",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "清单",
-        body: "· 导出前清隐藏图层\n· 慎用位图，优先矢量\n· 表达式 bake\n· 列表勿每项巨型 Lottie\n· 官方 Lottie Optimizer / 转 .lottie 压缩\n· 哈希文件名缓存",
+        title: "概念深讲",
+        body: `· 导出前清隐藏图层
+· 慎用位图，优先矢量
+· 表达式 bake
+· 列表勿每项巨型 Lottie
+· 官方 Lottie Optimizer / 转 .lottie 压缩
+· 哈希文件名缓存
+
+为什么这一节重要：清图层 · 少位图 · 官方 Optimizer。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "optimize",
-        title: "动手：体积意识",
-        hint: "对比「元数据」与优化方向。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「体积与优化」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
       },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `工具：lottiefiles.com/tools/lottie-json-to-optimized-lottie-json · lottie-to-dotlottie。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「体积与优化」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「optimize」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是体积与优化？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 体积与优化
+// slug: optimize
+console.log('demo: optimize')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：体积与优化
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "optimize", title: "动手：体积意识", hint: "对比「元数据」与优化方向。" },
       {
         type: "tip",
-        body: "工具：lottiefiles.com/tools/lottie-json-to-optimized-lottie-json · lottie-to-dotlottie。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "op1",
-            question: "体积杀手常见？",
-            options: ["markers 名", "大图 assets", "fr=30", "loop 布尔"],
+            id: "optimize-c14f-1",
+            question: "关于「体积与优化」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "位图撑大。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "op2",
-            question: "生产压缩优先？",
-            options: ["改成 4K PNG 序列", "Optimizer / .lottie", "嵌 10 份字体", "开表达式"],
+            id: "optimize-c14f-2",
+            question: "学习「体积与优化」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "官方工具链。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "optimize-c14f-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -843,35 +1862,99 @@ if (m) anim.goToAndPlay(m.tm, true);`,
     summary: "reduced-motion · 语义 · 焦点。",
     level: "实战",
     track: "工程",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点",
-        body: "prefers-reduced-motion：静态帧或静态图。\n装饰动画 aria-hidden；信息性动画要文本等价。\n可点击区域足够大。",
+        title: "概念深讲",
+        body: `prefers-reduced-motion：静态帧或静态图。
+装饰动画 aria-hidden；信息性动画要文本等价。
+可点击区域足够大。
+
+为什么这一节重要：reduced-motion · 语义 · 焦点。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "reduced-motion",
-        title: "动手：减弱动态",
-        hint: "模拟 reduced-motion。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「无障碍」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「无障碍」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「a11y」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是无障碍？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 无障碍
+// slug: a11y
+console.log('demo: a11y')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：无障碍
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "reduced-motion", title: "动手：减弱动态", hint: "模拟 reduced-motion。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "a1",
-            question: "reduced-motion 时？",
-            options: ["强制 10× 速", "静态/极简", "更大位图", "自动 MCP"],
+            id: "a11y-56bb-1",
+            question: "关于「无障碍」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "尊重系统偏好。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "a2",
-            question: "纯装饰 Lottie？",
-            options: ["aria-hidden=true", "必须 live region 每帧", "title=全部 JSON", "无"],
-            answer: 0,
-            explain: "避免噪音。",
+            id: "a11y-56bb-2",
+            question: "学习「无障碍」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "a11y-56bb-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -883,23 +1966,60 @@ if (m) anim.goToAndPlay(m.tm, true);`,
     summary: "离屏 · destroy · Worker · 列表。",
     level: "实战",
     track: "工程",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "法则",
-        body: "不可见 pause/destroy。\n列表虚拟化，勿 N 个重动画。\nDotLottieWorker 卸主线程。\nuseFrameInterpolation=false 可换性能。\n移动端进后台 pause。",
+        title: "概念深讲",
+        body: `不可见 pause/destroy。
+列表虚拟化，勿 N 个重动画。
+DotLottieWorker 卸主线程。
+useFrameInterpolation=false 可换性能。
+移动端进后台 pause。
+
+为什么这一节重要：离屏 · destroy · Worker · 列表。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "worker-perf",
-        title: "动手：性能开关对照",
-        hint: "理解 Worker / 插值 / 离屏冻结。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「性能工程」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「性能工程」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「performance」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是性能工程？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "Worker",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `import { DotLottieWorker } from "@lottiefiles/dotlottie-web";
 
 const a = new DotLottieWorker({
@@ -908,21 +2028,42 @@ const a = new DotLottieWorker({
 await a.play(); // Worker API 多为 async`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：性能工程
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "worker-perf", title: "动手：性能开关对照", hint: "理解 Worker / 插值 / 离屏冻结。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "pf1",
-            question: "卸载必须？",
-            options: ["destroy", "只 display:none", "忽略", "location.reload"],
-            answer: 0,
-            explain: "释放循环与 canvas。",
+            id: "performance-c05f-1",
+            question: "关于「性能工程」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "pf2",
-            question: "多动画卡顿优先试？",
-            options: ["DotLottieWorker", "删掉所有 pause", "eval", "同步 XHR"],
-            answer: 0,
-            explain: "卸主线程。",
+            id: "performance-c05f-2",
+            question: "学习「性能工程」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "performance-c05f-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -934,22 +2075,58 @@ await a.play(); // Worker API 多为 async`,
     summary: "lottie-react · SSR · 封装。",
     level: "实战",
     track: "工程",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "路径",
-        body: "经典：lottie-react + lottie-web。\n官方：@lottiefiles/dotlottie-react。\nSSR：客户端挂载；dynamic ssr:false。\n封装：统一 size / reduced-motion / destroy。",
+        title: "概念深讲",
+        body: `经典：lottie-react + lottie-web。
+官方：@lottiefiles/dotlottie-react。
+SSR：客户端挂载；dynamic ssr:false。
+封装：统一 size / reduced-motion / destroy。
+
+为什么这一节重要：lottie-react · SSR · 封装。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "framework-wc",
-        title: "动手：框架 / CDN 选型",
-        hint: "React / Vue / Svelte / WC 对照。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「React 接入」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「React 接入」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「react-integration」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是React 接入？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "官方 React",
+        title: "对应源码",
         lang: "tsx",
         code: `import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
@@ -958,21 +2135,42 @@ await a.play(); // Worker API 多为 async`,
 />`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：React 接入
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "framework-wc", title: "动手：框架 / CDN 选型", hint: "React / Vue / Svelte / WC 对照。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "ri1",
-            question: "官方 React 包？",
-            options: ["@lottiefiles/dotlottie-react", "left-pad", "jquery", "无"],
-            answer: 0,
-            explain: "官方封装。",
+            id: "react-integration-f4ba-1",
+            question: "关于「React 接入」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "ri2",
-            question: "Next SSR？",
-            options: ["任意 window 顶层 new", "客户端挂载", "必须 PHP", "禁止"],
+            id: "react-integration-f4ba-2",
+            question: "学习「React 接入」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "避免服务端 DOM。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "react-integration-f4ba-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -984,39 +2182,107 @@ await a.play(); // Worker API 多为 async`,
     summary: "AE → 插件 → 评审 → 接入 → 回归。",
     level: "实战",
     track: "工程",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "流水线",
-        body: "1. AE / Creator 出稿\n2. LottieFiles for AE（基于 Bodymovin）或 Creator 导出\n3. Previewer 验状态机/主题\n4. Optimizer / 转 .lottie\n5. 工程接入 + Feature Support\n6. 真机与 reduced-motion 回归",
+        title: "概念深讲",
+        body: `1. AE / Creator 出稿
+2. LottieFiles for AE（基于 Bodymovin）或 Creator 导出
+3. Previewer 验状态机/主题
+4. Optimizer / 转 .lottie
+5. 工程接入 + Feature Support
+6. 真机与 reduced-motion 回归
+
+为什么这一节重要：AE → 插件 → 评审 → 接入 → 回归。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "tool-chain",
-        title: "动手：工具链地图",
-        hint: "点选各阶段官方工具。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「设计协作流」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
       },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `Bodymovin 是导出技术底层；LottieFiles for AE 是官方插件（预览/分享/分析更完整）。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「设计协作流」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「workflow」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是设计协作流？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 设计协作流
+// slug: workflow
+console.log('demo: workflow')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：设计协作流
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "tool-chain", title: "动手：工具链地图", hint: "点选各阶段官方工具。" },
       {
         type: "tip",
-        body: "Bodymovin 是导出技术底层；LottieFiles for AE 是官方插件（预览/分享/分析更完整）。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "wf1",
-            question: "AE 官方导出插件？",
-            options: ["LottieFiles for After Effects", "Photoshop only", "Excel", "无"],
-            answer: 0,
-            explain: "官方 AE 插件。",
+            id: "workflow-2e2e-1",
+            question: "关于「设计协作流」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "wf2",
-            question: "接入前建议？",
-            options: ["跳过测试", "Previewer + 特性检查", "只看文件名", "随机"],
+            id: "workflow-2e2e-2",
+            question: "学习「设计协作流」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "减少线上翻车。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "workflow-2e2e-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1028,35 +2294,99 @@ await a.play(); // Worker API 多为 async`,
     summary: "骨架 · 超时 · 失败态。",
     level: "实战",
     track: "实战",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "体验",
-        body: "首屏：小 loading Lottie 或骨架。\n超时：切 error + 重试。\nloadError 事件要接。",
+        title: "概念深讲",
+        body: `首屏：小 loading Lottie 或骨架。
+超时：切 error + 重试。
+loadError 事件要接。
+
+为什么这一节重要：骨架 · 超时 · 失败态。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "loading-ux",
-        title: "动手：加载体验",
-        hint: "模拟慢网与失败。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「加载 UX」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「加载 UX」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「loading-ux」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是加载 UX？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 加载 UX
+// slug: loading-ux
+console.log('demo: loading-ux')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：加载 UX
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "loading-ux", title: "动手：加载体验", hint: "模拟慢网与失败。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "lu1",
-            question: "动画 404 时？",
-            options: ["白屏无提示", "loadError + 降级 UI", "死循环请求", "忽略"],
+            id: "loading-ux-7063-1",
+            question: "关于「加载 UX」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "优雅降级。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "lu2",
-            question: "首屏大 Lottie？",
-            options: ["永远内联 5MB", "懒加载 / 压缩 / 延后", "禁止 pause", "必须 60 个"],
+            id: "loading-ux-7063-2",
+            question: "学习「加载 UX」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "性能预算。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "loading-ux-7063-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1068,35 +2398,97 @@ await a.play(); // Worker API 多为 async`,
     summary: "按钮 · 点赞 · 轻反馈时长。",
     level: "实战",
     track: "实战",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "原则",
-        body: "短（200–600ms 体感）、可打断、不挡主路径、可 reduced-motion 关闭。",
+        title: "概念深讲",
+        body: `短（200–600ms 体感）、可打断、不挡主路径、可 reduced-motion 关闭。
+
+为什么这一节重要：按钮 · 点赞 · 轻反馈时长。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "micro",
-        title: "动手：微交互",
-        hint: "快速点按反馈。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「微交互」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「微交互」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「micro-interactions」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是微交互？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 微交互
+// slug: micro-interactions
+console.log('demo: micro-interactions')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：微交互
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "micro", title: "动手：微交互", hint: "快速点按反馈。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "mi1",
-            question: "微交互时长？",
-            options: ["越长越好", "短而清晰", "必须 30s", "禁止"],
+            id: "micro-interactions-c483-1",
+            question: "关于「微交互」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "不拖沓。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "mi2",
-            question: "连点？",
-            options: ["队列播 20 次", "可打断/合并", "崩溃", "忽略全部"],
+            id: "micro-interactions-c483-2",
+            question: "学习「微交互」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "防堆积。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "micro-interactions-c483-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1108,35 +2500,104 @@ await a.play(); // Worker API 多为 async`,
     summary: "字体 · 蒙版 · destroy · CORS · 表达式。",
     level: "实战",
     track: "实战",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "坑列表",
-        body: "· 字体未嵌入 → 错位/方框\n· 蒙版/效果导出丢失\n· 大图 assets\n· 未 destroy 泄漏\n· CDN 缓存旧 JSON\n· CORS 拦跨域\n· 表达式部分运行时不支持\n· 主线程掉帧",
+        title: "概念深讲",
+        body: `· 字体未嵌入 → 错位/方框
+· 蒙版/效果导出丢失
+· 大图 assets
+· 未 destroy 泄漏
+· CDN 缓存旧 JSON
+· CORS 拦跨域
+· 表达式部分运行时不支持
+· 主线程掉帧
+
+为什么这一节重要：字体 · 蒙版 · destroy · CORS · 表达式。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "challenge",
-        title: "动手：排错清单",
-        hint: "当作发布门禁。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「常见坑」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「常见坑」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「pitfalls」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是常见坑？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 常见坑
+// slug: pitfalls
+console.log('demo: pitfalls')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：常见坑
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "challenge", title: "动手：排错清单", hint: "当作发布门禁。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "pt1",
-            question: "跨域 JSON 失败先查？",
-            options: ["CORS / 路径", "改 React 版本", "关 HTTPS", "删 markers"],
-            answer: 0,
-            explain: "网络与权限。",
+            id: "pitfalls-0382-1",
+            question: "关于「常见坑」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "pt2",
-            question: "组件卸载？",
-            options: ["destroy", "不管", "double play", "setSpeed(99)"],
-            answer: 0,
-            explain: "防泄漏。",
+            id: "pitfalls-0382-2",
+            question: "学习「常见坑」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "pitfalls-0382-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1148,35 +2609,108 @@ await a.play(); // Worker API 多为 async`,
     summary: "发布前 12 项自检。",
     level: "实战",
     track: "实战",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "清单",
-        body: "1 体积预算\n2 真机抽检\n3 reduced-motion\n4 失败降级\n5 destroy\n6 离屏 pause\n7 哈希缓存\n8 Feature Support\n9 深色主题\n10 触屏路径\n11 许可合规\n12 无障碍文案",
+        title: "概念深讲",
+        body: `1 体积预算
+2 真机抽检
+3 reduced-motion
+4 失败降级
+5 destroy
+6 离屏 pause
+7 哈希缓存
+8 Feature Support
+9 深色主题
+10 触屏路径
+11 许可合规
+12 无障碍文案
+
+为什么这一节重要：发布前 12 项自检。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "challenge",
-        title: "动手：勾选门禁",
-        hint: "全部过再合并。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「上线清单」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「上线清单」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「checklist」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是上线清单？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 上线清单
+// slug: checklist
+console.log('demo: checklist')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：上线清单
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "challenge", title: "动手：勾选门禁", hint: "全部过再合并。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "cl1",
-            question: "上线前许可？",
-            options: ["可忽略", "核对 Lottie Simple / 套餐商用", "必须开源全部", "无"],
+            id: "checklist-3164-1",
+            question: "关于「上线清单」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "商用合规。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "cl2",
-            question: "特性矩阵？",
-            options: ["Feature Support Checker", "抛硬币", "只看颜色", "忽略 iOS"],
-            answer: 0,
-            explain: "官方检查器。",
+            id: "checklist-3164-2",
+            question: "学习「上线清单」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "checklist-3164-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1188,35 +2722,97 @@ await a.play(); // Worker API 多为 async`,
     summary: "遍历 fill/stroke · 工程 recolor。",
     level: "进阶",
     track: "进阶",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "适用",
-        body: "几何图标、单色品牌。深度遍历 layers 改 fc/sc。渐变/复杂插图优先官方 theming。",
+        title: "概念深讲",
+        body: `几何图标、单色品牌。深度遍历 layers 改 fc/sc。渐变/复杂插图优先官方 theming。
+
+为什么这一节重要：遍历 fill/stroke · 工程 recolor。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "recolor",
-        title: "动手：改色预览",
-        hint: "换 hex 看实时结果。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「运行时改色」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「运行时改色」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「recolor-runtime」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是运行时改色？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 运行时改色
+// slug: recolor-runtime
+console.log('demo: recolor-runtime')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：运行时改色
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "recolor", title: "动手：改色预览", hint: "换 hex 看实时结果。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rc1",
-            question: "recolor 改的是？",
-            options: ["运行时 JSON 颜色", "服务器 OS", "DNS", "TLS"],
-            answer: 0,
-            explain: "内存中的动画数据。",
+            id: "recolor-runtime-a7fe-1",
+            question: "关于「运行时改色」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "rc2",
-            question: "复杂品牌主题更推荐？",
-            options: ["只手写 filter", "官方 slots/theming", "禁止", "十份 GIF"],
+            id: "recolor-runtime-a7fe-2",
+            question: "学习「运行时改色」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "设计系统级。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "recolor-runtime-a7fe-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1228,35 +2824,97 @@ await a.play(); // Worker API 多为 async`,
     summary: "可复用 LikeToggle。",
     level: "实战",
     track: "组件",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "封装点",
-        body: "状态、动画、无障碍标签、onChange 回调一次封装。",
+        title: "概念深讲",
+        body: `状态、动画、无障碍标签、onChange 回调一次封装。
+
+为什么这一节重要：可复用 LikeToggle。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "kit-like",
-        title: "动手：点赞组件",
-        hint: "来自 /kit。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「组件：点赞开关」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「组件：点赞开关」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「kit-like」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是组件：点赞开关？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 组件：点赞开关
+// slug: kit-like
+console.log('demo: kit-like')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：组件：点赞开关
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "kit-like", title: "动手：点赞组件", hint: "来自 /kit。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "kl1",
-            question: "组件库价值？",
-            options: ["重复造轮子", "统一交互与 a11y", "更大包必然坏", "无"],
+            id: "kit-like-39d0-1",
+            question: "关于「组件：点赞开关」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "一致性。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "kl2",
-            question: "业务回调？",
-            options: ["onChange", "eval", "document.write", "alert only"],
-            answer: 0,
-            explain: "标准受控/非受控扩展。",
+            id: "kit-like-39d0-2",
+            question: "学习「组件：点赞开关」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "kit-like-39d0-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1268,35 +2926,97 @@ await a.play(); // Worker API 多为 async`,
     summary: "AsyncSlot · 请求态映射。",
     level: "实战",
     track: "组件",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "映射",
-        body: "idle→loading→success|error。超时与重试是产品逻辑，动画只是皮肤。",
+        title: "概念深讲",
+        body: `idle→loading→success|error。超时与重试是产品逻辑，动画只是皮肤。
+
+为什么这一节重要：AsyncSlot · 请求态映射。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "kit-async",
-        title: "动手：异步槽",
-        hint: "模拟请求。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「组件：异步四态槽」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「组件：异步四态槽」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「kit-async」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是组件：异步四态槽？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 组件：异步四态槽
+// slug: kit-async
+console.log('demo: kit-async')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：组件：异步四态槽
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "kit-async", title: "动手：异步槽", hint: "模拟请求。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ka1",
-            question: "四态最少包括？",
-            options: ["idle/load/ok/err", "只有 play", "只有 pause", "只有 fr"],
-            answer: 0,
-            explain: "完整异步体验。",
+            id: "kit-async-b580-1",
+            question: "关于「组件：异步四态槽」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "ka2",
-            question: "超时？",
-            options: ["永远 loading", "切 error 可重试", "崩溃", "忽略"],
+            id: "kit-async-b580-2",
+            question: "学习「组件：异步四态槽」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "可恢复。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "kit-async-b580-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1308,35 +3028,97 @@ await a.play(); // Worker API 多为 async`,
     summary: "原理 · 取舍 · 性能 · 生态。",
     level: "实战",
     track: "实战",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "高频",
-        body: "JSON 矢量时间轴 vs GIF/视频；播放控制；段落/markers；a11y；性能 destroy/离屏；dotLottie 主题与状态机；特性支持差异。",
+        title: "概念深讲",
+        body: `JSON 矢量时间轴 vs GIF/视频；播放控制；段落/markers；a11y；性能 destroy/离屏；dotLottie 主题与状态机；特性支持差异。
+
+为什么这一节重要：原理 · 取舍 · 性能 · 生态。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "challenge",
-        title: "动手：自检题",
-        hint: "能否讲清取舍。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「面试要点」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「面试要点」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「interview-lottie」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是面试要点？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 面试要点
+// slug: interview-lottie
+console.log('demo: interview-lottie')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：面试要点
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "challenge", title: "动手：自检题", hint: "能否讲清取舍。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "iv1",
-            question: "Lottie 本质？",
-            options: ["视频编解码", "矢量动画 JSON + 运行时", "仅 CSS", "仅 GIF"],
+            id: "interview-lottie-cd38-1",
+            question: "关于「面试要点」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "描述 + 原生绘制。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "iv2",
-            question: "dotLottie 相对 JSON？",
-            options: ["不能压缩", "可打包多动画/主题/SM", "只能 Android", "禁止 Web"],
+            id: "interview-lottie-cd38-2",
+            question: "学习「面试要点」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "生产格式。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "interview-lottie-cd38-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1352,35 +3134,100 @@ await a.play(); // Worker API 多为 async`,
     blocks: [
       {
         type: "text",
-        title: "ty 枚举",
-        body: "顶层 Animation：v/fr/ip/op/w/h/assets/layers/markers/slots…\nty：0 预合成 · 1 纯色 · 2 图片 · 3 空 · 4 形状 · 5 文本 · 6 音频 · 13 相机…\n详见 LottieDocs Schema。",
+        title: "概念深讲",
+        body: `顶层 Animation：v/fr/ip/op/w/h/assets/layers/markers/slots…
+ty：0 预合成 · 1 纯色 · 2 图片 · 3 空 · 4 形状 · 5 文本 · 6 音频 · 13 相机…
+详见 LottieDocs Schema。
+
+为什么这一节重要：ty 0–5 · 预合成 / 形状 / 图片 / 文本 · schema。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "layer-map",
-        title: "动手：读 layers",
-        hint: "切换动画看 ty。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「图层类型深潜」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
       },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `人类可读：lottiefiles.github.io/lottie-docs/（贝塞尔、预合成、渲染提示）。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「图层类型深潜」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「layer-types」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是图层类型深潜？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 图层类型深潜
+// slug: layer-types
+console.log('demo: layer-types')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：图层类型深潜
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "layer-map", title: "动手：读 layers", hint: "切换动画看 ty。" },
       {
         type: "tip",
-        body: "人类可读：lottiefiles.github.io/lottie-docs/（贝塞尔、预合成、渲染提示）。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ly1",
-            question: "ty=4 通常是？",
-            options: ["形状层", "音频", "相机", "字体文件"],
-            answer: 0,
-            explain: "shape layer。",
+            id: "layer-types-d755-1",
+            question: "关于「图层类型深潜」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "ly2",
-            question: "预合成 ty？",
-            options: ["0", "99", "7", "-1"],
-            answer: 0,
-            explain: "precomp。",
+            id: "layer-types-d755-2",
+            question: "学习「图层类型深潜」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "layer-types-d755-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1392,35 +3239,99 @@ await a.play(); // Worker API 多为 async`,
     summary: "单文件 JSON 与 .lottie 压缩包 · 何时升级。",
     level: "入门",
     track: "生态",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "对照",
-        body: "JSON：明文、易 diff、单动画为主。\n.lottie：ZIP+Deflate，可多动画、主题、状态机、资源内嵌；官方首选生产格式。\n玩家均可播两者。",
+        title: "概念深讲",
+        body: `JSON：明文、易 diff、单动画为主。
+.lottie：ZIP+Deflate，可多动画、主题、状态机、资源内嵌；官方首选生产格式。
+玩家均可播两者。
+
+为什么这一节重要：单文件 JSON 与 .lottie 压缩包 · 何时升级。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "dotlottie",
-        title: "动手：双运行时",
-        hint: "同一 JSON 用两条管线。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「JSON vs dotLottie」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「JSON vs dotLottie」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「lottie-vs-dotlottie」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是JSON vs dotLottie？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// JSON vs dotLottie
+// slug: lottie-vs-dotlottie
+console.log('demo: lottie-vs-dotlottie')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：JSON vs dotLottie
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "dotlottie", title: "动手：双运行时", hint: "同一 JSON 用两条管线。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "vd1",
-            question: ".lottie 实质？",
-            options: ["MP4", "压缩归档", "EXE", "CSV"],
+            id: "lottie-vs-dotlottie-208b-1",
+            question: "关于「JSON vs dotLottie」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "ZIP 系归档。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "vd2",
-            question: "需要主题+SM 时？",
-            options: ["坚持裸 JSON 复制 N 份", "升级 .lottie", "改 GIF", "关动画"],
+            id: "lottie-vs-dotlottie-208b-2",
+            question: "学习「JSON vs dotLottie」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "生产能力。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "lottie-vs-dotlottie-208b-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1432,39 +3343,105 @@ await a.play(); // Worker API 多为 async`,
     summary: "多动画 · 主题 · 状态机 · 生产格式。",
     level: "进阶",
     track: "生态",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "核心能力",
-        body: "1）Multi-animations：一个文件多个动画，按需解压。\n2）Theming：slots/主题切换颜色与属性。\n3）State Machines：无代码/低代码交互图。\n规范：dotlottie.io/spec/2.0/（推荐 v2）。",
+        title: "概念深讲",
+        body: `1）Multi-animations：一个文件多个动画，按需解压。
+2）Theming：slots/主题切换颜色与属性。
+3）State Machines：无代码/低代码交互图。
+规范：dotlottie.io/spec/2.0/（推荐 v2）。
+
+为什么这一节重要：多动画 · 主题 · 状态机 · 生产格式。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "dotlottie",
-        title: "动手：DotLottie canvas",
-        hint: "本站用官方包渲染。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「dotLottie 导读」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
       },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `设计侧 Creator 做 SM 与主题；工程侧 setTheme / loadStateMachine / loadAnimation。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「dotLottie 导读」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「dotlottie-intro」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是dotLottie 导读？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// dotLottie 导读
+// slug: dotlottie-intro
+console.log('demo: dotlottie-intro')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：dotLottie 导读
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "dotlottie", title: "动手：DotLottie canvas", hint: "本站用官方包渲染。" },
       {
         type: "tip",
-        body: "设计侧 Creator 做 SM 与主题；工程侧 setTheme / loadStateMachine / loadAnimation。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "di1",
-            question: "状态机主要解决？",
-            options: ["压缩算法", "交互状态与过渡", "只改 fr", "替换 React"],
+            id: "dotlottie-intro-ebc7-1",
+            question: "关于「dotLottie 导读」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "交互状态图。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "di2",
-            question: "主题切换更推荐？",
-            options: ["复制 10 份 JSON 手改", "dotLottie theming / slots", "每次重导 GIF", "忽略深色模式"],
+            id: "dotlottie-intro-ebc7-2",
+            question: "学习「dotLottie 导读」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "单文件多主题。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "dotlottie-intro-ebc7-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1480,19 +3457,61 @@ await a.play(); // Worker API 多为 async`,
     blocks: [
       {
         type: "text",
-        title: "安装与核心",
-        body: "npm i @lottiefiles/dotlottie-web\nnew DotLottie({ canvas, src|data, loop, autoplay, mode, themeId, layout, renderConfig })\n方法：play/pause/stop/setSpeed/setLoop/setMode/setFrame/setSegment/setTheme/loadAnimation…\n事件：load/play/complete/loop/frame/loadError/stateEntered…\n卸载：destroy()。",
+        title: "概念深讲",
+        body: `npm i @lottiefiles/dotlottie-web
+new DotLottie({ canvas, src|data, loop, autoplay, mode, themeId, layout, renderConfig })
+方法：play/pause/stop/setSpeed/setLoop/setMode/setFrame/setSegment/setTheme/loadAnimation…
+事件：load/play/complete/loop/frame/loadError/stateEntered…
+卸载：destroy()。
+
+为什么这一节重要：DotLottie API · 事件 · layout · Worker。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "dotlottie",
-        title: "动手：官方玩家",
-        hint: "对比 LottiePlayer 与 DotLottiePlayer。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「官方 Web 播放器」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `框架封装自动 destroy；手动实例必须自己清。CDN：jsDelivr ESM 亦可。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「官方 Web 播放器」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「dotlottie-player」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是官方 Web 播放器？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "最小示例",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `import { DotLottie } from "@lottiefiles/dotlottie-web";
 
 const dotLottie = new DotLottie({
@@ -1506,25 +3525,42 @@ dotLottie.addEventListener("loadError", (e) => console.error(e));
 // unmount: dotLottie.destroy()`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：官方 Web 播放器
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "dotlottie", title: "动手：官方玩家", hint: "对比 LottiePlayer 与 DotLottiePlayer。" },
+      {
         type: "tip",
-        body: "框架封装自动 destroy；手动实例必须自己清。CDN：jsDelivr ESM 亦可。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "dp1",
-            question: "卸载时必须？",
-            options: ["忽略", "destroy()", "只 hide canvas", "location.reload"],
+            id: "dotlottie-player-b769-1",
+            question: "关于「官方 Web 播放器」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "释放 canvas 与循环。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "dp2",
-            question: "play 应在？",
-            options: ["任意时刻乱调", "load 之后", "仅 SSR", "仅 Node"],
+            id: "dotlottie-player-b769-2",
+            question: "学习「官方 Web 播放器」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "资源就绪后。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "dotlottie-player-b769-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1536,23 +3572,59 @@ dotLottie.addEventListener("loadError", (e) => console.error(e));
     summary: "fit · align · backgroundColor · 画布。",
     level: "进阶",
     track: "工程",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "layout",
-        body: "fit：contain（默认）| cover | fill | fit-width | fit-height | none\nalign：[x,y]，[0,0] 左上，[0.5,0.5] 居中\nbackgroundColor：画布底色\nCSS 负责外框尺寸，layout 负责动画如何落入 canvas。",
+        title: "概念深讲",
+        body: `fit：contain（默认）| cover | fill | fit-width | fit-height | none
+align：[x,y]，[0,0] 左上，[0.5,0.5] 居中
+backgroundColor：画布底色
+CSS 负责外框尺寸，layout 负责动画如何落入 canvas。
+
+为什么这一节重要：fit · align · backgroundColor · 画布。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "layout-fit",
-        title: "动手：fit 模式对照",
-        hint: "切换 contain/cover/fill 理解裁切。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Layout 与适配」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Layout 与适配」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「layout-fit」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Layout 与适配？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "配置",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `new DotLottie({
   canvas, src,
   layout: { fit: "cover", align: [0.5, 1] },
@@ -1560,21 +3632,42 @@ dotLottie.addEventListener("loadError", (e) => console.error(e));
 });`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Layout 与适配
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "layout-fit", title: "动手：fit 模式对照", hint: "切换 contain/cover/fill 理解裁切。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "lf1",
-            question: "完整显示不裁切优先？",
-            options: ["contain", "cover 必裁", "fill 必变形", "none 拉伸随意"],
-            answer: 0,
-            explain: "letterbox。",
+            id: "layout-fit-908b-1",
+            question: "关于「Layout 与适配」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "lf2",
-            question: "align [0.5,0.5]？",
-            options: ["居中", "左上", "右下", "无效"],
-            answer: 0,
-            explain: "中心对齐。",
+            id: "layout-fit-908b-2",
+            question: "学习「Layout 与适配」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "layout-fit-908b-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1586,44 +3679,98 @@ dotLottie.addEventListener("loadError", (e) => console.error(e));
     summary: "manifest.animations · loadAnimation。",
     level: "进阶",
     track: "生态",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "能力",
-        body: "一个 .lottie 可含多个动画 id。load 后读 manifest.animations，用 loadAnimation(id) 切换，按需解压省 CPU。",
+        title: "概念深讲",
+        body: `一个 .lottie 可含多个动画 id。load 后读 manifest.animations，用 loadAnimation(id) 切换，按需解压省 CPU。
+
+为什么这一节重要：manifest.animations · loadAnimation。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "multi-anim",
-        title: "动手：多动画概念台",
-        hint: "模拟清单切换（教学用本地多 JSON 类比）。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「多动画清单」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「多动画清单」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「multi-animation」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是多动画清单？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "切换",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `dotLottie.addEventListener("load", () => {
   const list = dotLottie.manifest?.animations ?? [];
   if (list[0]) dotLottie.loadAnimation(list[0].id);
 });`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：多动画清单
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "multi-anim", title: "动手：多动画概念台", hint: "模拟清单切换（教学用本地多 JSON 类比）。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "ma1",
-            question: "切换包内动画 API？",
-            options: ["loadAnimation(id)", "alert", "eval", "setTimeout only"],
-            answer: 0,
-            explain: "官方 API。",
+            id: "multi-animation-8d5c-1",
+            question: "关于「多动画清单」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "ma2",
-            question: "为何打包多动画？",
-            options: ["故意更大", "一次分发/按需解压", "禁止主题", "只 GIF"],
+            id: "multi-animation-8d5c-2",
+            question: "学习「多动画清单」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "交付与性能。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "multi-animation-8d5c-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1635,43 +3782,98 @@ dotLottie.addEventListener("loadError", (e) => console.error(e));
     summary: "token 主题 · setTheme · 对比 recolor。",
     level: "进阶",
     track: "生态",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "两条路",
-        body: "A. 工程 recolor：遍历 fill/stroke。\nB. 官方 Theming：设计时 slots/主题，运行时 setTheme('dark') / themeId，支持更多属性，打进 .lottie。",
+        title: "概念深讲",
+        body: `A. 工程 recolor：遍历 fill/stroke。
+B. 官方 Theming：设计时 slots/主题，运行时 setTheme('dark') / themeId，支持更多属性，打进 .lottie。
+
+为什么这一节重要：token 主题 · setTheme · 对比 recolor。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "recolor",
-        title: "动手：工程改色（本站）",
-        hint: "官方主题需内置 themes 的 .lottie；此处建立直觉。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「官方主题与 slots」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「官方主题与 slots」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「theming-slots」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是官方主题与 slots？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "官方 API",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `new DotLottie({ canvas, src: "brand.lottie", themeId: "dark" });
 dotLottie.setTheme("light");
 dotLottie.resetTheme();`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：官方主题与 slots
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "recolor", title: "动手：工程改色（本站）", hint: "官方主题需内置 themes 的 .lottie；此处建立直觉。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "th1",
-            question: "设计系统多主题优先？",
-            options: ["每次导出 N 份无关联 JSON", "dotLottie theming / slots", "只用 CSS filter", "禁止动画"],
+            id: "theming-slots-6ae9-1",
+            question: "关于「官方主题与 slots」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "官方主题链路。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "th2",
-            question: "简单单色图标？",
-            options: ["只能 Creator", "运行时 recolor 也可", "必须状态机", "必须 Worker"],
+            id: "theming-slots-6ae9-2",
+            question: "学习「官方主题与 slots」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "小场景够用。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "theming-slots-6ae9-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1683,23 +3885,64 @@ dotLottie.resetTheme();`,
     summary: "states · transitions · inputs · 与手写对照。",
     level: "进阶",
     track: "交互",
-    minutes: 11,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "官方模型",
-        body: "State Machines：状态、迁移、触发（click/hover/数据）。\n玩家：loadStateMachine(id) → startStateMachine() → postEvent(...)。\n事件：stateEntered / transition。\nCreator 可视化编辑，跨端同一逻辑。",
+        title: "概念深讲",
+        body: `State Machines：状态、迁移、触发（click/hover/数据）。
+玩家：loadStateMachine(id) → startStateMachine() → postEvent(...)。
+事件：stateEntered / transition。
+Creator 可视化编辑，跨端同一逻辑。
+
+为什么这一节重要：states · transitions · inputs · 与手写对照。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "state-machine",
-        title: "动手：概念对照",
-        hint: "左侧手写 React 状态；右侧官方 SM 职责。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「状态机概念」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `无 .lottie SM 时，React 状态 + playSegments 仍是正确工程实践。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「状态机概念」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「state-machines」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是状态机概念？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "玩家侧",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `dotLottie.addEventListener("load", () => {
   if (dotLottie.loadStateMachine("my-fsm")) {
     dotLottie.startStateMachine();
@@ -1708,25 +3951,42 @@ dotLottie.resetTheme();`,
 dotLottie.postEvent("String: click");`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：状态机概念
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "state-machine", title: "动手：概念对照", hint: "左侧手写 React 状态；右侧官方 SM 职责。" },
+      {
         type: "tip",
-        body: "无 .lottie SM 时，React 状态 + playSegments 仍是正确工程实践。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "sm1",
-            question: "postEvent 用于？",
-            options: ["压缩 JSON", "驱动状态机迁移", "改 basepath", "生成 GIF"],
+            id: "state-machines-d8c8-1",
+            question: "关于「状态机概念」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "向 SM 投递输入/事件。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "sm2",
-            question: "无官方 SM 文件时？",
-            options: ["无法做交互", "应用层状态机 + 段落/多源仍可", "必须原生 App", "只能 hover"],
+            id: "state-machines-d8c8-2",
+            question: "学习「状态机概念」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "本站多课即此模式。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "state-machines-d8c8-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1742,19 +4002,59 @@ dotLottie.postEvent("String: click");`,
     blocks: [
       {
         type: "text",
-        title: "定位",
-        body: "@dotlottie/dotlottie-js：在 Node/浏览器创建与修改 .lottie（v2）。\naddAnimation / addTheme / addStateMachine → build() → toBlob/download。\nCI 可把多 JSON 打成生产包。",
+        title: "概念深讲",
+        body: `@dotlottie/dotlottie-js：在 Node/浏览器创建与修改 .lottie（v2）。
+addAnimation / addTheme / addStateMachine → build() → toBlob/download。
+CI 可把多 JSON 打成生产包。
+
+为什么这一节重要：程序化创建 .lottie · 主题 · 状态机。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "dotlottie-js",
-        title: "动手：打包流水线示意",
-        hint: "步骤卡：加动画 → 主题 → SM → build。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「dotLottie-JS 打包」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `fromURL / fromArrayBuffer 可加载既有包；merge 合并多实例（id 冲突会抛错）。V1 类无主题/SM。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「dotLottie-JS 打包」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「dotlottie-js」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是dotLottie-JS 打包？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "创建包",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `import { DotLottie } from "@dotlottie/dotlottie-js";
 
 const dl = new DotLottie();
@@ -1765,25 +4065,42 @@ await dl.build();
 const blob = await dl.toBlob();`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：dotLottie-JS 打包
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "dotlottie-js", title: "动手：打包流水线示意", hint: "步骤卡：加动画 → 主题 → SM → build。" },
+      {
         type: "tip",
-        body: "fromURL / fromArrayBuffer 可加载既有包；merge 合并多实例（id 冲突会抛错）。V1 类无主题/SM。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "dj1",
-            question: "导出前必须？",
-            options: ["build()", "只 console.log", "删 animations", "关网络"],
-            answer: 0,
-            explain: "finalize 归档。",
+            id: "dotlottie-js-c86b-1",
+            question: "关于「dotLottie-JS 打包」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "dj2",
-            question: "包内加主题？",
-            options: ["addTheme", "setInterval", "alert", "CSS only 永久"],
-            answer: 0,
-            explain: "程序化主题。",
+            id: "dotlottie-js-c86b-2",
+            question: "学习「dotLottie-JS 打包」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "dotlottie-js-c86b-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1799,19 +4116,60 @@ const blob = await dl.toBlob();`,
     blocks: [
       {
         type: "text",
-        title: "是什么",
-        body: "reLottie 基于 unified：parse → transform → stringify。\nLAST = Lottie AST（unist）。\n插件：metadata、extract-features、自定义改 fr/颜色。\nRoot.hasExpressions 提示表达式安全风险。",
+        title: "概念深讲",
+        body: `reLottie 基于 unified：parse → transform → stringify。
+LAST = Lottie AST（unist）。
+插件：metadata、extract-features、自定义改 fr/颜色。
+Root.hasExpressions 提示表达式安全风险。
+
+为什么这一节重要：AST 管线 · 元数据 · 安全表达式标记。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "relottie-pipe",
-        title: "动手：管线示意",
-        hint: "parse → plugin → stringify。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「reLottie 与 LAST」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `CLI：@lottiefiles/relottie-cli。表达式不会被 reLottie 执行，但播放器若执行则危险——用 hasExpressions 门禁。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「reLottie 与 LAST」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「relottie」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是reLottie 与 LAST？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "元数据",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `import { relottie } from "@lottiefiles/relottie";
 import relottieMetadata from "@lottiefiles/relottie-metadata";
 
@@ -1821,25 +4179,42 @@ const file = await relottie()
 console.log(file.data.metadata);`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：reLottie 与 LAST
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "relottie-pipe", title: "动手：管线示意", hint: "parse → plugin → stringify。" },
+      {
         type: "tip",
-        body: "CLI：@lottiefiles/relottie-cli。表达式不会被 reLottie 执行，但播放器若执行则危险——用 hasExpressions 门禁。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rl1",
-            question: "LAST 是？",
-            options: ["视频格式", "Lottie 抽象语法树", "仅 CSS", "DNS 记录"],
+            id: "relottie-31cc-1",
+            question: "关于「reLottie 与 LAST」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "AST。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "rl2",
-            question: "hasExpressions 用途？",
-            options: ["加速 GIF", "安全/兼容门禁", "改域名", "无"],
+            id: "relottie-31cc-2",
+            question: "学习「reLottie 与 LAST」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "识别表达式风险。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "relottie-31cc-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1851,35 +4226,99 @@ console.log(file.data.metadata);`,
     summary: "expressions · 兼容 · 不可信资源。",
     level: "实战",
     track: "工程",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "风险",
-        body: "AE 表达式导出后，部分运行时不支持或性能差。\n若运行时执行表达式，不可信 Lottie 可能带来安全问题。\n策略：设计侧 bake；CI 用 reLottie 检测；Feature Support 核对。",
+        title: "概念深讲",
+        body: `AE 表达式导出后，部分运行时不支持或性能差。
+若运行时执行表达式，不可信 Lottie 可能带来安全问题。
+策略：设计侧 bake；CI 用 reLottie 检测；Feature Support 核对。
+
+为什么这一节重要：expressions · 兼容 · 不可信资源。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "expr-security",
-        title: "动手：风险清单",
-        hint: "发布前勾选。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「表达式与安全」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「表达式与安全」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「expressions-security」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是表达式与安全？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 表达式与安全
+// slug: expressions-security
+console.log('demo: expressions-security')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：表达式与安全
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "expr-security", title: "动手：风险清单", hint: "发布前勾选。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ex1",
-            question: "不可信动画来源？",
-            options: ["盲目执行一切", "检测表达式 + 沙箱/拒绝", "eval 包一层", "关 HTTPS"],
+            id: "expressions-security-f4c8-1",
+            question: "关于「表达式与安全」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "纵深防御。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "ex2",
-            question: "兼容优先？",
-            options: ["全依赖表达式", "bake 关键动画", "只 iOS 表达式", "忽略矩阵"],
+            id: "expressions-security-f4c8-2",
+            question: "学习「表达式与安全」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "跨端稳定。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "expressions-security-f4c8-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1891,35 +4330,101 @@ console.log(file.data.metadata);`,
     summary: "Web / iOS / Android / RN · 选型。",
     level: "实战",
     track: "生态",
-    minutes: 9,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "官方矩阵",
-        body: "Web: dotlottie-web / react / vue / svelte / wc\nMobile: dotlottie-ios / android / react-native\n历史：lottie-ios / lottie-android / lottie-web 仍广泛\nFlutter 等见 Developer Portal。\nRN 需 metro 识别 .lottie；iOS 用 SPM；Android JitPack。",
+        title: "概念深讲",
+        body: `Web: dotlottie-web / react / vue / svelte / wc
+Mobile: dotlottie-ios / android / react-native
+历史：lottie-ios / lottie-android / lottie-web 仍广泛
+Flutter 等见 Developer Portal。
+RN 需 metro 识别 .lottie；iOS 用 SPM；Android JitPack。
+
+为什么这一节重要：Web / iOS / Android / RN · 选型。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "platform-matrix",
-        title: "动手：选型表",
-        hint: "按平台点选推荐包名。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「跨端玩家地图」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「跨端玩家地图」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「platform-map」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是跨端玩家地图？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 跨端玩家地图
+// slug: platform-map
+console.log('demo: platform-map')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：跨端玩家地图
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "platform-matrix", title: "动手：选型表", hint: "按平台点选推荐包名。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "pm1",
-            question: "React Web 官方新玩家？",
-            options: ["@lottiefiles/dotlottie-react", "left-pad", "只允许 CDN jQuery", "无"],
-            answer: 0,
-            explain: "官方 React 封装。",
+            id: "platform-map-8e2f-1",
+            question: "关于「跨端玩家地图」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "pm2",
-            question: "特性是否各端一致？",
-            options: ["永远 100% 一致", "要用 Feature Support 核对", "只有 GIF 一致", "iOS 不支持 Lottie"],
+            id: "platform-map-8e2f-2",
+            question: "学习「跨端玩家地图」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "表达式/效果等有差异。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "platform-map-8e2f-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1931,23 +4436,60 @@ console.log(file.data.metadata);`,
     summary: "React/Vue/Svelte/WC · 属性对照。",
     level: "实战",
     track: "工程",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "共性 props",
-        body: "src / data / autoplay / loop / speed / mode / segment / backgroundColor / themeId / useFrameInterpolation / renderConfig\nReact：dotLottieRefCallback\nVue：getDotLottieInstance()\nSvelte：dotLottieRefCallback\nWC：<dotlottie-player> + el.dotLottie",
+        title: "概念深讲",
+        body: `src / data / autoplay / loop / speed / mode / segment / backgroundColor / themeId / useFrameInterpolation / renderConfig
+React：dotLottieRefCallback
+Vue：getDotLottieInstance()
+Svelte：dotLottieRefCallback
+WC：<dotlottie-player> + el.dotLottie
+
+为什么这一节重要：React/Vue/Svelte/WC · 属性对照。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "framework-wc",
-        title: "动手：封装对照",
-        hint: "选框架看接入片段。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「框架封装与 CDN」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「框架封装与 CDN」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「framework-players」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是框架封装与 CDN？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "Web Component",
-        lang: "html",
+        title: "对应源码",
+        lang: "tsx",
         code: `<script type="module"
   src="https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-web@latest/dist/dotlottie-web.js">
 </script>
@@ -1955,21 +4497,42 @@ console.log(file.data.metadata);`,
   style="width:200px;height:200px"></dotlottie-player>`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：框架封装与 CDN
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "framework-wc", title: "动手：封装对照", hint: "选框架看接入片段。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "fw1",
-            question: "无框架页面可用？",
-            options: ["dotlottie-wc / CDN", "必须 React", "必须 Swift", "必须 Excel"],
-            answer: 0,
-            explain: "Web Component。",
+            id: "framework-players-84c1-1",
+            question: "关于「框架封装与 CDN」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "fw2",
-            question: "封装卸载？",
-            options: ["框架自动 destroy", "永不清理", "必须手动 eval", "无 API"],
-            answer: 0,
-            explain: "官方封装处理。",
+            id: "framework-players-84c1-2",
+            question: "学习「框架封装与 CDN」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "framework-players-84c1-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1981,39 +4544,105 @@ console.log(file.data.metadata);`,
     summary: "表达式 · 遮罩 · 字体 · 兼容性检查。",
     level: "实战",
     track: "工程",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "工程清单",
-        body: "导出前：避免不支持效果；字体嵌入或降级；位图压缩。\n接入前：Feature Support Checker + 真机。\n运行时：reduced-motion、离屏 pause、失败态。\nLAC Spec = 跨实现最小兼容集；完整能力看 LottieDocs schema。",
+        title: "概念深讲",
+        body: `导出前：避免不支持效果；字体嵌入或降级；位图压缩。
+接入前：Feature Support Checker + 真机。
+运行时：reduced-motion、离屏 pause、失败态。
+LAC Spec = 跨实现最小兼容集；完整能力看 LottieDocs schema。
+
+为什么这一节重要：表达式 · 遮罩 · 字体 · 兼容性检查。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "challenge",
-        title: "动手：兼容自检",
-        hint: "当发布门禁。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「特性支持与取舍」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
       },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `help.lottiefiles.com · Feature Support Checker。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「特性支持与取舍」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「feature-support」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是特性支持与取舍？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 特性支持与取舍
+// slug: feature-support
+console.log('demo: feature-support')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：特性支持与取舍
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "challenge", title: "动手：兼容自检", hint: "当发布门禁。" },
       {
         type: "tip",
-        body: "help.lottiefiles.com · Feature Support Checker。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "fs1",
-            question: "复杂表达式风险？",
-            options: ["无风险", "部分运行时不支持或性能差", "自动变 GIF", "只影响文件名"],
+            id: "feature-support-5332-1",
+            question: "关于「特性支持与取舍」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "需核对支持矩阵。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "fs2",
-            question: "字体问题表现？",
-            options: ["更清晰", "错位/方框/回退字体", "自动加 markers", "强制 canvas"],
+            id: "feature-support-5332-2",
+            question: "学习「特性支持与取舍」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "需嵌入或改设计。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "feature-support-5332-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -2025,35 +4654,101 @@ console.log(file.data.metadata);`,
     summary: "Creator · Editor · Optimizer · 转换器。",
     level: "入门",
     track: "生态",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "工具箱",
-        body: "Creator：时间轴 + AI Motion Copilot + 可视化 SM/主题\nEditor：在线改色/优化\nPreviewer：状态机与主题预览\n转换：SVG→Lottie · Lottie→dotLottie · Optimizer · Lottie→GIF\nAI：Prompt→Vector、栅格转矢量",
+        title: "概念深讲",
+        body: `Creator：时间轴 + AI Motion Copilot + 可视化 SM/主题
+Editor：在线改色/优化
+Previewer：状态机与主题预览
+转换：SVG→Lottie · Lottie→dotLottie · Optimizer · Lottie→GIF
+AI：Prompt→Vector、栅格转矢量
+
+为什么这一节重要：Creator · Editor · Optimizer · 转换器。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "tool-chain",
-        title: "动手：工具链导航",
-        hint: "每个节点对应官网能力。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「官方工具与转换」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「官方工具与转换」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「tools-converters」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是官方工具与转换？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 官方工具与转换
+// slug: tools-converters
+console.log('demo: tools-converters')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：官方工具与转换
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "tool-chain", title: "动手：工具链导航", hint: "每个节点对应官网能力。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "tc1",
-            question: "JSON 瘦身官方工具？",
-            options: ["Lottie Optimizer", "删掉 play", "关 WiFi", "改扩展名 .mp4"],
-            answer: 0,
-            explain: "官方优化器。",
+            id: "tools-converters-5810-1",
+            question: "关于「官方工具与转换」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "tc2",
-            question: "要 .lottie 生产包？",
-            options: ["Lottie to dotLottie 转换 / JS 打包", "只能手写 ZIP 魔改", "禁止", "改 MIME 即可"],
-            answer: 0,
-            explain: "官方转换或 dotlottie-js。",
+            id: "tools-converters-5810-2",
+            question: "学习「官方工具与转换」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "tools-converters-5810-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -2065,35 +4760,101 @@ console.log(file.data.metadata);`,
     summary: "Figma · Webflow · Framer · Canva · AE。",
     level: "入门",
     track: "生态",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "插件目录",
-        body: "Figma：设计稿内导入导出管理\nWebflow / Framer：站点无代码嵌入\nCanva：平面设计使用\nAE：导出主路径\n完整目录：lottiefiles.com/integrations",
+        title: "概念深讲",
+        body: `Figma：设计稿内导入导出管理
+Webflow / Framer：站点无代码嵌入
+Canva：平面设计使用
+AE：导出主路径
+完整目录：lottiefiles.com/integrations
+
+为什么这一节重要：Figma · Webflow · Framer · Canva · AE。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "integrations",
-        title: "动手：集成地图",
-        hint: "按角色选工具。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「集成与插件」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「集成与插件」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「integrations」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是集成与插件？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 集成与插件
+// slug: integrations
+console.log('demo: integrations')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：集成与插件
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "integrations", title: "动手：集成地图", hint: "按角色选工具。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ig1",
-            question: "设计师在 Figma？",
-            options: ["LottieFiles Figma 插件", "必须写 C++", "禁止", "只用 Excel"],
-            answer: 0,
-            explain: "官方 Figma 插件。",
+            id: "integrations-4153-1",
+            question: "关于「集成与插件」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "ig2",
-            question: "无代码建站？",
-            options: ["Webflow/Framer 插件", "必须汇编", "只能邮件", "无"],
-            answer: 0,
-            explain: "官方集成。",
+            id: "integrations-4153-2",
+            question: "学习「集成与插件」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "integrations-4153-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -2105,23 +4866,64 @@ console.log(file.data.metadata);`,
     summary: "LottieFiles MCP · Creator MCP · llms.txt。",
     level: "实战",
     track: "生态",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "官方 AI 入口",
-        body: "1）站点 llms.txt：给 LLM 的结构化索引（平台 / 开发者 / players / js / relottie）\n2）远程 MCP：https://mcp.lottiefiles.com/mcp · OAuth 2.1+PKCE · 工具 operations_list / schema_search / schema_details / graphql_execute\n3）Creator MCP：本地创作层（图层/关键帧）\n4）本站 llms.txt：课程索引，规范仍以官方为准",
+        title: "概念深讲",
+        body: `1）站点 llms.txt：给 LLM 的结构化索引（平台 / 开发者 / players / js / relottie）
+2）远程 MCP：https://mcp.lottiefiles.com/mcp · OAuth 2.1+PKCE · 工具 operations_list / schema_search / schema_details / graphql_execute
+3）Creator MCP：本地创作层（图层/关键帧）
+4）本站 llms.txt：课程索引，规范仍以官方为准
+
+为什么这一节重要：LottieFiles MCP · Creator MCP · llms.txt。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "mcp-tools",
-        title: "动手：MCP 工具卡",
-        hint: "理解四个远程工具职责。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「MCP 与 AI 代理」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `爬取动画做竞品库被 ToS / Simple License 禁止。尊重 rate limit。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「MCP 与 AI 代理」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「mcp-ai」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是MCP 与 AI 代理？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "官方 llms 入口",
-        lang: "txt",
+        title: "对应源码",
+        lang: "tsx",
         code: `https://lottiefiles.com/llms.txt
 https://developers.lottiefiles.com/llms.txt
 https://developers.lottiefiles.com/dotlottie-players-web-llms.txt
@@ -2131,25 +4933,42 @@ https://developers.lottiefiles.com/relottie-llms.txt
 https://docs.lottiefiles.com/en/platform/mcp`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：MCP 与 AI 代理
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "mcp-tools", title: "动手：MCP 工具卡", hint: "理解四个远程工具职责。" },
+      {
         type: "tip",
-        body: "爬取动画做竞品库被 ToS / Simple License 禁止。尊重 rate limit。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "mc1",
-            question: "远程 MCP 作用？",
-            options: ["让 AI 用自然语言查工作区/GraphQL", "替代 HTTPS", "压缩视频", "屏蔽一切爬虫"],
-            answer: 0,
-            explain: "官方 MCP 服务器。",
+            id: "mcp-ai-25ad-1",
+            question: "关于「MCP 与 AI 代理」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "mc2",
-            question: "llms.txt？",
-            options: ["给 LLM 的站点索引", "TLS 证书", "仅人类 PDF", "病毒"],
-            answer: 0,
-            explain: "llmstxt.org 约定。",
+            id: "mcp-ai-25ad-2",
+            question: "学习「MCP 与 AI 代理」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "mcp-ai-25ad-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -2161,35 +4980,99 @@ https://docs.lottiefiles.com/en/platform/mcp`,
     summary: "Lottie Simple License · 套餐 · 合规。",
     level: "实战",
     track: "实战",
-    minutes: 8,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点",
-        body: "Lottie Simple License：免费动画通常可商用、修改、分发，无需署名；不可用于打造竞争动画库/同类服务。\nMarketplace / 套餐：Team/Org/Enterprise 含完整商用授权；Individual 偏个人/非商用——以官网定价页为准。\n上线前记录资源来源与许可。",
+        title: "概念深讲",
+        body: `Lottie Simple License：免费动画通常可商用、修改、分发，无需署名；不可用于打造竞争动画库/同类服务。
+Marketplace / 套餐：Team/Org/Enterprise 含完整商用授权；Individual 偏个人/非商用——以官网定价页为准。
+上线前记录资源来源与许可。
+
+为什么这一节重要：Lottie Simple License · 套餐 · 合规。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "license-card",
-        title: "动手：许可检查卡",
-        hint: "发布前自问三件事。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「许可与商用」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「许可与商用」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「licensing」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是许可与商用？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 许可与商用
+// slug: licensing
+console.log('demo: licensing')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：许可与商用
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "license-card", title: "动手：许可检查卡", hint: "发布前自问三件事。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "lc1",
-            question: "Simple License 禁止？",
-            options: ["合理商用 UI", "做竞争动画库服务", "修改颜色", "内部分发"],
+            id: "licensing-7352-1",
+            question: "关于「许可与商用」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "竞品库/同类服务受限。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "lc2",
-            question: "商用套餐以？",
-            options: ["聊天记录", "官网 Pricing / 资产许可页", "猜", "忽略"],
+            id: "licensing-7352-2",
+            question: "学习「许可与商用」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "官方条款为准。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "licensing-7352-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -2201,39 +5084,106 @@ https://docs.lottiefiles.com/en/platform/mcp`,
     summary: "六份官方 llms · 本站索引 · 不落后官网。",
     level: "入门",
     track: "生态",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "发现官方知识",
-        body: "LottieFiles 平台 llms.txt：产品/格式/状态机/主题/玩家/MCP/集成/许可\nDeveloper Portal llms.txt：格式 · reLottie · players · dotlottie-js\n拆分 llms：web players / mobile players / dotlottiejs / relottie\n格式：LottieDocs + LAC Spec + JSON Schema + dotLottie v2\n本站：/learning-Lottie/llms.txt",
+        title: "概念深讲",
+        body: `LottieFiles 平台 llms.txt：产品/格式/状态机/主题/玩家/MCP/集成/许可
+Developer Portal llms.txt：格式 · reLottie · players · dotlottie-js
+拆分 llms：web players / mobile players / dotlottiejs / relottie
+格式：LottieDocs + LAC Spec + JSON Schema + dotLottie v2
+本站：/learning-Lottie/llms.txt
+
+为什么这一节重要：六份官方 llms · 本站索引 · 不落后官网。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
       },
       {
-        type: "demo",
-        kind: "official-map",
-        title: "动手：官方索引地图",
-        hint: "点开各类权威源。",
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「官方生态与 llms.txt」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
       },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `学习站覆盖「概念 + 可交互 + 工程决策」；规范细节永远链官方 schema/spec。冲突时以官方为准。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「官方生态与 llms.txt」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「ecosystem」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是官方生态与 llms.txt？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 官方生态与 llms.txt
+// slug: ecosystem
+console.log('demo: ecosystem')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：官方生态与 llms.txt
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "official-map", title: "动手：官方索引地图", hint: "点开各类权威源。" },
       {
         type: "tip",
-        body: "学习站覆盖「概念 + 可交互 + 工程决策」；规范细节永远链官方 schema/spec。冲突时以官方为准。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ec1",
-            question: "llms.txt 作用？",
-            options: ["屏蔽爬虫", "给 LLM 结构化站点索引", "替代 HTTPS", "压缩视频"],
+            id: "ecosystem-2ceb-1",
+            question: "关于「官方生态与 llms.txt」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "AI 友好站点地图。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "ec2",
-            question: "格式细节冲突时？",
-            options: ["以博客为准", "以官方 schema/spec 为准", "以聊天记录为准", "随机"],
+            id: "ecosystem-2ceb-2",
+            question: "学习「官方生态与 llms.txt」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "权威源优先。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "ecosystem-2ceb-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
